@@ -5,7 +5,8 @@
 }
 
 body {
-    background-color: #253f6b;
+    background-image: url('.//bground.jpg');
+    background-size: cover;
 }
 
 .box {
