@@ -2,13 +2,13 @@ DROP DATABASE IF EXISTS Web
 
 CREATE TABLE Users
 (
-  usernameΗash VARCHAR(512) NOT NULL,
-  passwordΗash VARCHAR(512) NOT NULL,
+  usernameHash VARCHAR(512) NOT NULL,
+  passwordHash VARCHAR(512) NOT NULL,
   email VARCHAR(256) NOT NULL,
   firstΝame VARCHAR(256) NOT NULL,
   lastΝame VARCHAR(256) NOT NULL,
-  PRIMARY KEY (usernameΗash),
-  UNIQUE (passwordΗash)
+  PRIMARY KEY (usernameHash),
+  UNIQUE (passwordHash)
 );
 
 CREATE TABLE HAR_File
