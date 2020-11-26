@@ -100,12 +100,12 @@
 
 	function createUser($conn,$Name,$LName,$Uname,$Email,$pwd)
 	{
-		$sql = "INSERT INTO Users (name,lastname,username,email,pwd) VALUES (?,?,?,?,?);";
+		$sql = "INSERT INTO Users (firstName,lastName,usernameHash,email,passwordHash) VALUES (?,?,?,?,?);";
 		
 		$stmt = mysqli_stmt_init($conn);
 		
 		if (!mysqli_stmt_prepare($stmt,$sql)) {
-			header("location: ../signup.php?error=sqlfail");
+			header("location: ../signup.php?error=createusersqlfail");
 			exit();
 		}
 		$hashedPassword = password_hash($pwd, PASSWORD_DEFAULT);
