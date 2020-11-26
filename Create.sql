@@ -3,13 +3,12 @@ CREATE DATABASE Web
 
 CREATE TABLE Users
 (
+  userId INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   usernameHash VARCHAR(512) NOT NULL,
   passwordHash VARCHAR(512) NOT NULL,
   email VARCHAR(256) NOT NULL,
   firstName VARCHAR(256) NOT NULL,
   lastName VARCHAR(256) NOT NULL,
-  PRIMARY KEY (usernameHash),
-  UNIQUE (passwordHash)
 );
 
 CREATE TABLE Admins
