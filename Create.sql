@@ -15,20 +15,21 @@ CREATE TABLE HAR_File
 (
   fileName VARCHAR(256) NOT NULL,
   directory VARCHAR(512) NOT NULL,
-  usernameΗash VARCHAR(512),
+  usernameHash VARCHAR(512),
   PRIMARY KEY (fileName),
-  FOREIGN KEY (usernameΗash) REFERENCES Users(usernameΗash)
+  FOREIGN KEY (usernameHash) REFERENCES Users(usernameHash)
 );
 
-CREATE TABLE Εntry
+CREATE TABLE Entry
 (
-  startedDateTime VARCHAR(128) NOT NULL,
-  serverIPAddress 128 NOT NULL,
-  timingsWait INT NOT NULL,
-  fileName VARCHAR(256) NOT NULL,
-  PRIMARY KEY (startedDateTime),
-  FOREIGN KEY (fileName) REFERENCES HAR_File(fileName)
+	startedDateTime VARCHAR(128) NOT NULL,
+	serverIPAddress VARCHAR(128) not null,
+	timingsWait INT NOT NULL,
+	fileName VARCHAR(256) NOT NULL,
+	PRIMARY KEY (startedDateTime),
+	FOREIGN KEY (fileName) REFERENCES HAR_file(fileName)
 );
+
 
 CREATE TABLE Response
 (
@@ -48,18 +49,17 @@ CREATE TABLE Request
   FOREIGN KEY (startedDateTime) REFERENCES Εntry(startedDateTime)
 );
 
-CREATE TABLE Ηeaders
+CREATE TABLE Headers
 (
-  content_type VARCHAR(128) NOT NULL,
-  cache_control VARCHAR(128) NOT NULL,
-  pragma VARCHAR(128) NOT NULL,
-  expires INT NOT NULL,
-  size INT NOT NULL,
-  age INT NOT NULL,
-  last_modified VARCHAR(128) NOT NULL,
-  host VARCHAR(128) NOT NULL,
-  startedDateTime VARCHAR(128) NOT NULL,
-  PRIMARY KEY (startedDateTime),
-  FOREIGN KEY (startedDateTime) REFERENCES Request(startedDateTime)
+	content_type VARCHAR(128) NOT NULL,
+	cache_control VARCHAR(128) NOT NULL,
+	pragma VARCHAR(128) NOT NULL,
+	expires INT NOT NULL,
+	size INT NOT NULL,
+	age INT NOT NULL,
+	last_modified VARCHAR(128) NOT NULL,
+	host VARCHAR(128) NOT NULL,
+	startedDateTime VARCHAR(128) NOT NULL,
+  	PRIMARY KEY (startedDateTime),
+  	FOREIGN KEY (startedDateTime) REFERENCES Entry(startedDateTime)
 );
-
