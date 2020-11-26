@@ -60,7 +60,7 @@
 
 	function UserExists($conn,$Uname,$Email)
 	{
-		$sql = "SELECT * FROM Users WHERE username = ? OR email = ? ;";
+		$sql = "SELECT * FROM Users WHERE usernameHash = ? OR email = ? ;";
 		$stmt = mysqli_stmt_init($conn);
 		if (!mysqli_stmt_prepare($stmt,$sql))
 		{
@@ -142,7 +142,7 @@
 			exit();
 		}
 
-		$pwdhashed = $uidexists["pwd"];
+		$pwdhashed = $uidexists["passwordHash"];
 		$checkpass = password_verify($pwd, $pwdhashed);
 
 		if ($checkpass===false) {
@@ -151,7 +151,7 @@
 		}
 		elseif ($checkpass===true) {
 			session_start();
-			$_SESSION["user"] = $uidexists["username"];
+			$_SESSION["user"] = $uidexists["usernameHash"];
 			header("location: ../index.php");
 			#exit();
 		}
