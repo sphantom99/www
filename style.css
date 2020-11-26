@@ -1,0 +1,189 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+body {
+    background-image: url('.//bground.jpg');
+    background-size: cover;
+}
+
+.box {
+    margin: auto;
+    width: 300px;
+    padding: 30px;
+    transform: translateY(20%);
+    text-align: center;
+    background-color: #172845;
+    border-radius: 30px;
+}
+
+.box input[type="text"], .box input[type="password"] {
+    border: 0;
+    background: none;
+    margin: 30px auto;
+    text-align: center;
+    display: block;
+    border: 2px solid #253f6b;
+    border-radius: 30px;
+    padding: 10px 0px 10px 0px;
+    font-size: 13pt;
+    color: white;
+    transition: width .15s ease-in .15s;
+    transition: border-color .2s ease-in .2s;
+}
+
+.box h1 {
+    font-size: 20pt;
+    background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+}
+
+.box input[type="text"]:focus, .box input[type="password"]:focus {
+    width: 300px;
+    border-color: #3f7eeb;
+
+}
+
+.box input[type="submit"], .box input[type="file"] {
+    background: none;
+    border: none;
+    padding: 5px 5px 5px 5px;
+    color: #3f7eeb;
+    font-family: comic-sans;
+    font-size: 15pt;
+    transition: background-color .2s ease-in .2s;
+    
+}
+
+
+.box input[type="submit"]:hover, .box input[type="file"]:hover {
+    border: 2px solid #6ea3ff;
+    border-radius: 30px;
+    background-color: #253f6b;
+}
+
+.box input[type="submit"]:active:after, .box input[type="file"]:active:after{
+    background-color: #6ea3ff;
+}
+
+.section {
+    margin: auto;
+    width: 300px;
+    padding: 30px;
+    transform: translateY(40%);
+    text-align: center;
+    background-color: #172845;
+    border-radius: 30px;
+}
+
+.section h1 {
+    font-size: 20pt;
+    background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section input[type="text"]:focus{
+    width: 300px;
+    border-color: #3f7eeb;
+
+}
+
+.section input[type="submit"]{
+    background: none;
+    border: none;
+    padding: 5px 5px 5px 5px;
+    color: #3f7eeb;
+    font-family: comic-sans;
+    font-size: 15pt;
+    transition: background-color .2s ease-in .2s;
+    
+}
+
+
+.section input[type="submit"]:hover{
+    border: 2px solid #6ea3ff;
+    border-radius: 30px;
+    background-color: #253f6b;
+}
+
+.section input[type="submit"]:active:after{
+    background-color: #6ea3ff;
+}
+
+nav{
+    width: 100%;
+    height: 84px;
+    background-color: #172845;
+
+}
+nav p {
+    font-family: arial;
+    background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+    font-size: 25px;
+    line-height: 55px;
+    float: left;
+    padding: 10px 20px;
+}
+
+nav ul{
+    float: center;
+    line-height: 55px;
+    font-size: 24;
+}
+
+nav ul li {
+    float: left;
+    list-style: none;
+    position: relative;
+    font-family: arial;
+    font-size: 14px;
+}
+
+nav ul li a{
+    display: block;
+    font-family: arial;
+    color: #6ea3ff;
+    font-size: 20px;
+    padding: 14px 14px;  
+    text-decoration: none;
+}
+
+nav ul li ul{
+    display: none;
+    position: absolute;
+    background-color: #092854;
+    padding: 5px;
+    z-index: 1;
+    border-radius: 0px 0px 4px 4px; 
+}
+
+nav ul li:hover ul{
+    display: block;
+}
+
+nav ul li ul li{
+    width: 160px;
+    border-radius: 4px; 
+}
+
+
+nav ul li ul li a{
+    padding: 8px 14px;
+    font-size: 13px;
+    color: #6ea3ff;
+    text-decoration: none;
+}
+
+nav ul li ul li a:hover{
+    background-color: #3A619B;
+
+
+
+}
+    
