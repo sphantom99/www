@@ -9,7 +9,7 @@ CREATE TABLE Users
   passwordHash VARCHAR(512) NOT NULL,
   email VARCHAR(256) NOT NULL,
   firstName VARCHAR(256) NOT NULL,
-  lastName VARCHAR(256) NOT NULL,
+  lastName VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE Admins
@@ -46,7 +46,7 @@ CREATE TABLE Response
   statusText INT NOT NULL,
   startedDateTime VARCHAR(128) NOT NULL,
   PRIMARY KEY (startedDateTime),
-  FOREIGN KEY (startedDateTime) REFERENCES Εntry(startedDateTime)
+  FOREIGN KEY (startedDateTime) REFERENCES Entry(startedDateTime)
 );
 
 CREATE TABLE Request
