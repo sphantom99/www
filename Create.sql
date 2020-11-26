@@ -5,8 +5,8 @@ CREATE TABLE Users
   usernameHash VARCHAR(512) NOT NULL,
   passwordHash VARCHAR(512) NOT NULL,
   email VARCHAR(256) NOT NULL,
-  firstΝame VARCHAR(256) NOT NULL,
-  lastΝame VARCHAR(256) NOT NULL,
+  firstName VARCHAR(256) NOT NULL,
+  lastName VARCHAR(256) NOT NULL,
   PRIMARY KEY (usernameHash),
   UNIQUE (passwordHash)
 );
