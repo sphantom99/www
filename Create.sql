@@ -1,4 +1,4 @@
-Generate SQL
+DROP DATABASE IF EXISTS Web
 
 CREATE TABLE Users
 (
