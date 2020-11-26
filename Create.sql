@@ -12,6 +12,14 @@ CREATE TABLE Users
   UNIQUE (passwordHash)
 );
 
+CREATE TABLE Admins
+(
+	usernameHash VARCHAR(512) NOT NULL,
+	FOREIGN KEY (usernameHash) REFERENCES Users(usernameHash)	
+);
+
+
+
 CREATE TABLE HAR_File
 (
   fileName VARCHAR(256) NOT NULL,
