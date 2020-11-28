@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS Web
-CREATE DATABASE Web
-use DATABASE Web
+DROP DATABASE IF EXISTS Web;
+CREATE DATABASE Web;
+use Web;
 
 CREATE TABLE Users
 (
@@ -14,19 +14,17 @@ CREATE TABLE Users
 
 CREATE TABLE Admins
 (
-	usernameHash VARCHAR(512) NOT NULL,
-	FOREIGN KEY (usernameHash) REFERENCES Users(usernameHash)	
+	userId INT(11) NOT NULL,
+	FOREIGN KEY (userId) REFERENCES Users(userId)	
 );
-
-
 
 CREATE TABLE HAR_File
 (
   fileName VARCHAR(256) NOT NULL,
   directory VARCHAR(512) NOT NULL,
-  usernameHash VARCHAR(512),
+  userId INT(11),
   PRIMARY KEY (fileName),
-  FOREIGN KEY (usernameHash) REFERENCES Users(usernameHash)
+  FOREIGN KEY (userId) REFERENCES Users(userId)
 );
 
 CREATE TABLE Entry
@@ -69,6 +67,6 @@ CREATE TABLE Headers
 	last_modified VARCHAR(128) NOT NULL,
 	host VARCHAR(128) NOT NULL,
 	startedDateTime VARCHAR(128) NOT NULL,
-  	PRIMARY KEY (startedDateTime),
-  	FOREIGN KEY (startedDateTime) REFERENCES Entry(startedDateTime)
+  PRIMARY KEY (startedDateTime),
+  FOREIGN KEY (startedDateTime) REFERENCES Entry(startedDateTime)
 );
