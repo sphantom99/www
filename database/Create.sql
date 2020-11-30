@@ -21,7 +21,7 @@ CREATE TABLE Admins
 CREATE TABLE HAR_File
 (
   fileName VARCHAR(255) NOT NULL,
-  directory VARCHAR(512) NOT NULL,
+  directory VARCHAR(255) NOT NULL,
   userId INT(11),
   PRIMARY KEY (fileName),
   FOREIGN KEY (userId) REFERENCES Users(userId)
@@ -32,7 +32,7 @@ CREATE TABLE Entry
   startedDateTime VARCHAR(255) NOT NULL,
   serverIPAddress VARCHAR(255) NOT NULL,
   timingsWait INT NOT NULL,
-  fileName VARCHAR(256) NOT NULL,
+  fileName VARCHAR(255) NOT NULL,
   PRIMARY KEY (startedDateTime),
   FOREIGN KEY (fileName) REFERENCES HAR_file(fileName)
 );
@@ -50,7 +50,7 @@ CREATE TABLE Response
 CREATE TABLE Request
 (
   method ENUM('GET','HEAD','POST','PUT','DELETE','CONNECT','OPTIONS','TRACE') NOT NULL,
-  urlDomain VARCHAR(64) NOT NULL,
+  urlDomain VARCHAR(63) NOT NULL,
   startedDateTime VARCHAR(255) NOT NULL,
   PRIMARY KEY (startedDateTime),
   FOREIGN KEY (startedDateTime) REFERENCES Εntry(startedDateTime)
@@ -60,7 +60,7 @@ CREATE TABLE Headers
 (
   content_type VARCHAR(255) NOT NULL,
   cache_control VARCHAR(255) NOT NULL,
-  pragma VARCHAR(128) NOT NULL,
+  pragma VARCHAR(255) NOT NULL,
   expires INT NOT NULL,
   size INT NOT NULL,
   age INT NOT NULL,
