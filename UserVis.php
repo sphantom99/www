@@ -13,6 +13,7 @@
    <style>
    	#map {
    		height: 500px;
+   		width : 500px;
    	}
    </style>
    
@@ -59,7 +60,7 @@
 	}
 
 	$(document).ready( function() {
-		const Url = "https://freegeoip.app/json/";
+		const Url = "https://freegeoip.app/json/151.101.129.69";
 		$.getJSON(Url , function(res) {
 			var long = res.longitude;
 			var lat = res.latitude;
