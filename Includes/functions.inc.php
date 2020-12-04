@@ -58,7 +58,7 @@
 		return $result;
 	}
 
-	function UserExists($conn,$Uname,$Email)
+	function UserExists($conn,$Uname)
 	{
 		$sql = "SELECT * FROM Users WHERE usernameHash = ? OR email = ? ;";
 		$stmt = mysqli_stmt_init($conn);
@@ -67,7 +67,7 @@
 			header("location: ../signup.php?error=sqlfail");
 			exit();
 		}
-		mysqli_stmt_bind_param($stmt, "ss", $Uname, $Email);
+		mysqli_stmt_bind_param($stmt, "ss", $Uname,$Uname);
 		mysqli_stmt_execute($stmt);
 
 		$res = mysqli_stmt_get_result($stmt);
@@ -83,6 +83,24 @@
 		}
 
 		mysqli_stmt_close($stmt);
+	}
+
+	function isAdmin($conn,$Uname)
+	{
+		//query that returns 0 if not admin, 1 if admin
+		$sql = "SELECT EXISTS(SELECT Users.userId FROM Users INNER JOIN Admins WHERE usernameHash = ?);";
+		$stmt = mysqli_stmt_init($conn);
+		if (!mysqli_stmt_prepare($stmt,$sql))
+		{
+			header("location: ../signup.php?error=sqlfailonAdminCheckline94");
+			exit();
+		}
+		mysqli_stmt_bind_param($stmt, "s", $Uname);
+		mysqli_stmt_execute($stmt);
+
+		$res =  mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+		//typecasting result to an integer
+		return (int)$res;
 	}
 
 	function passCon($pwd)
@@ -116,7 +134,7 @@
 
 		mysqli_stmt_close($stmt);
 
-		header("location: ../signup.php?error=none");
+		loginUser($conn,$Uname,$pwd);
 		exit();
 	}
 
@@ -136,9 +154,9 @@
 
 	function loginUser($conn,$Uname,$pwd)
 	{
-		$uidexists = UserExists($conn,$Uname,$Uname);
+		$uidexists = UserExists($conn,$Uname);
 		if ($uidexists===false) {
-			header("location: ../Login.php?error=wronglogin");
+			header("location: ../login.php?error=wronglogin1");
 			exit();
 		}
 
@@ -146,13 +164,26 @@
 		$checkpass = password_verify($pwd, $pwdhashed);
 
 		if ($checkpass===false) {
-			header("location: ../Login.php?error=wronglogin");
+			header("location: ../login.php?error=wronglogin2");
 			exit();
 		}
+
+
 		elseif ($checkpass===true) {
-			session_start();
-			$_SESSION["user"] = $uidexists["usernameHash"];
-			header("location: ../index.php");
-			#exit();
+
+			if (isAdmin($conn,$Uname) === 1)
+			{
+				session_start();
+				$_SESSION["admin"] = $uidexists["usernameHash"];
+				header("location: ../admin.php");
+				#exit();
+			}
+			else {
+				session_start();
+				$_SESSION["user"] = $uidexists["usernameHash"];
+				header("location: ../user.php");
+				#exit();
+			}
+
 		}
 	}

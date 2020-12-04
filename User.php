@@ -3,9 +3,9 @@
 ?>
 <main>
 	<div class="box">
-		<form action="includes/upload_file.inc.php" method="post"  enctype="multipart/form-data">
+		<form id="upload_form" action="includes/upload_file.inc.php" method="post"  enctype="multipart/form-data">
 			<h1>Upload your HAR file.</h1>
-			<input type ="file" name ="file">
+			<input type ="file" name ="file" id="file1" onchange="uploadFile()">
 			<input type = "submit" name ="submit" value="Upload please!"> 
 		</form>
 
