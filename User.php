@@ -3,12 +3,11 @@
 ?>
 <main>
 	<div class="box">
-		<form action="includes/upload_file.inc.php" method="post"  enctype="multipart/form-data">
+		<form method="post"  enctype="multipart/form-data">
 			<h1>Upload your HAR file.</h1>
-			<input type ="file" name ="file">
-			<input type = "submit" name ="submit" value="Upload please!"> 
+			<input type ="file" name ="file" accept = ".har" id="upfile">
+			<input type = "submit" name ="submit" value="Upload please!" onclick="fileR()">
 		</form>
-
 	</div>
 
 	<div class="section">
@@ -16,5 +15,9 @@
 			<h1>Visualize your data.</h1>
 			<input type = "Submit" name = "Sub" value="Visualize">
 		</form>
+
+		
 	</div>
+	<script type="text/javascript" src="uploadfile2.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </main>
