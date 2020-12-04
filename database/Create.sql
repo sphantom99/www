@@ -42,7 +42,7 @@ CREATE TABLE Response
 (
   status INT(3) NOT NULL,
   statusText VARCHAR(255) NOT NULL,
-  startedDateTime VARCHAR(32) NOT NULL,
+  startedDateTime VARCHAR(255) NOT NULL,
   PRIMARY KEY (startedDateTime),
   FOREIGN KEY (startedDateTime) REFERENCES Entry(startedDateTime)
 );
@@ -50,10 +50,10 @@ CREATE TABLE Response
 CREATE TABLE Request
 (
   method ENUM('GET','HEAD','POST','PUT','DELETE','CONNECT','OPTIONS','TRACE') NOT NULL,
-  urlDomain VARCHAR(63) NOT NULL,
+  urlDomain VARCHAR(255) NOT NULL,
   startedDateTime VARCHAR(255) NOT NULL,
   PRIMARY KEY (startedDateTime),
-  FOREIGN KEY (startedDateTime) REFERENCES Εntry(startedDateTime)
+  FOREIGN KEY (startedDateTime) REFERENCES Entry(startedDateTime)
 );
 
 CREATE TABLE Headers
@@ -64,9 +64,9 @@ CREATE TABLE Headers
   expires INT NOT NULL,
   size INT NOT NULL,
   age INT NOT NULL,
-  last_modified VARCHAR(128) NOT NULL,
-  host VARCHAR(128) NOT NULL,
-  startedDateTime VARCHAR(128) NOT NULL,
+  last_modified VARCHAR(255) NOT NULL,
+  host VARCHAR(255) NOT NULL,
+  startedDateTime VARCHAR(255) NOT NULL,
   PRIMARY KEY (startedDateTime),
   FOREIGN KEY (startedDateTime) REFERENCES Entry(startedDateTime)
 );
