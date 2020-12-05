@@ -34,7 +34,7 @@ body {
     transition: border-color .2s ease-in .2s;
 }
 
-.box h1 {
+.box h1, h2{
     font-size: 20pt;
     background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
     -webkit-background-clip:text;

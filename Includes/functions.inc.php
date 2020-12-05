@@ -156,3 +156,99 @@
 			#exit();
 		}
 	}
+
+
+function getLastUpload($conn,$Uname)
+	{
+		$sql = "call getLastUpload(?)";
+		
+		$stmt = mysqli_stmt_init($conn);
+		
+		if (!mysqli_stmt_prepare($stmt,$sql)) {
+			header("location: ../signup.php?error=sqlfaillastupload");
+			exit();
+		}
+
+		mysqli_stmt_bind_param($stmt, "s", $Uname);
+
+		mysqli_stmt_execute($stmt);
+
+		mysqli_stmt_close($stmt);
+
+		header("location: ../myProfile.php?error=none");
+		exit();
+	}
+
+function getNumOfUploads($conn,$Uname)
+	{
+		$sql = "call getNumOfUploads(?)";
+		
+		$stmt = mysqli_stmt_init($conn);
+		
+		if (!mysqli_stmt_prepare($stmt,$sql)) {
+			header("location: ../signup.php?error=sqlfailgetnumofuploads");
+			exit();
+		}
+
+		mysqli_stmt_bind_param($stmt, "s", $Uname);
+
+		mysqli_stmt_execute($stmt);
+
+		mysqli_stmt_close($stmt);
+
+		header("location: ../myProfile.php?error=none");
+		exit();
+	}
+
+function updatePassword($conn,$pwd,$Uname)
+	{
+		$sql = "UPDATE Users SET passwordHash = ? WHERE usernameHash= ?";
+		
+		$stmt = mysqli_stmt_init($conn);
+		
+		if (!mysqli_stmt_prepare($stmt,$sql)) {
+			header("location: ../passChange.php?error=sqlfailupdatepass");
+			exit();
+		}
+
+		$hashedPassword = password_hash($pwd, PASSWORD_DEFAULT);
+		mysqli_stmt_bind_param($stmt, "ss", $hashedPassword,$Uname);
+
+		mysqli_stmt_execute($stmt);
+
+		mysqli_stmt_close($stmt);
+
+		header("location: ../passChange.php?error=none");
+		exit();
+	}
+
+function checkPass($conn,$pwd,$Uname)
+	{
+		$sql = "SELECT passwordHash FROM Users WHERE usernameHash = ?;";
+		$stmt = mysqli_stmt_init($conn);
+		if (!mysqli_stmt_prepare($stmt,$sql))
+		{
+			header("location: ../signup.php?error=sqlfailcheckpass");
+			exit();
+		}
+		mysqli_stmt_bind_param($stmt, "s",$Uname);
+		mysqli_stmt_execute($stmt);
+
+		$res = mysqli_stmt_get_result($stmt);
+
+		if ($row = mysqli_fetch_assoc($res)) 
+		{
+			$pwdhashed = $row["passwordHash"];
+			$checkpass = password_verify($pwd, $pwdhashed);
+			return $checkpass;
+		}
+		else
+		{
+			header("location: ../signup.php?error=sqlfailassoc");
+			 $result = false;
+			 return $result;
+
+		}
+
+		mysqli_stmt_close($stmt);
+	}
