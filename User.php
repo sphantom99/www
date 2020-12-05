@@ -7,6 +7,20 @@
 			<h1>Upload your HAR file.</h1>
 			<input type ="file" name ="file" accept = ".har" id="upfile">
 			<input type = "submit" name ="submit" value="Upload please!" onclick="fileR()">
+			<?php
+				if( isset($_POST['submit'])) 
+				{
+					
+					echo" <br> <input type = \"submit\" onclick=\"window.location.href='uploadJson.php'\"    value=\"Submit to server\" ";
+					echo" <br> <input type = \"submit\" onclick=\"window.location.href='downloadJson.php'\"  value=\"Download proccesed file\" ";
+				   
+				}
+
+
+
+
+
+			?>
 		</form>
 	</div>
 
