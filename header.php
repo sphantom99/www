@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="Placeholder">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style.css"<?php echo time(); ?>>
 	<title>User Panel</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
 						{
 							echo "<li><a href=\"user.php\" title=\"\">Home</a></li>";
 							echo "<li><a href=\"#\" title=\"\">Profile</a>
-									<ul>
+									<ul class=\"dropdown\">
 										<li><a href=\"#\">Profile Information</a></li>
 										<li><a href=\"#\">Settings</a></li>
 									</ul>

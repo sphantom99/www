@@ -12,13 +12,13 @@ if (isset($_POST['submit']))
 	$fileExt = explode('.',$fileName);
 	$fileActualExt = strtolower(end($fileExt));
 
-	$allowed = array('txt');
+	$allowed = array('har');
 
 	if(in_array($fileActualExt, $allowed))
 	{
 		if($fileError === 0)
 		{
-			if($fileSize<1000000)
+			if($fileSize<100000000000)
 			{
 				$fileNameNew = uniqid('', true).".".$fileActualExt;
 				$fileDestination = '../uploads/'.$fileNameNew;

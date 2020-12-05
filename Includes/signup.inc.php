@@ -32,7 +32,7 @@
 			header("location: ../signup.php?error=nomatchingPasswords");
 			exit();
 		}
-		if (UserExists($conn,$Uname,$Email)!==false) 
+		if (UserExists($conn,$Uname)!==false) 
 		{
 			header("location: ../signup.php?error=usernameEmailExists");
 			exit();

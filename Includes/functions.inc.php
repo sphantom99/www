@@ -6,7 +6,7 @@
 		if (empty($Uname) || empty($Name) ||empty($LName) 
 			||empty($Email) ||empty($pwd) ||empty($Repwd) ) 
 		{
-			$result = true;	
+			$result = true;
 		}
 		else
 		{
@@ -122,7 +122,7 @@
 
 	function createUser($conn,$Name,$LName,$Uname,$Email,$pwd)
 	{
-		$sql = "INSERT INTO Users (firstName,lastName,usernameHash,email,passwordHash) VALUES (?,?,?,?,?);";
+		$sql = "INSERT INTO Users (firstName,lastName,username,email,passwordHash) VALUES (?,?,?,?,?);";
 		
 		$stmt = mysqli_stmt_init($conn);
 		

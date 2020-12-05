@@ -4,10 +4,6 @@
     box-sizing: 0;
 }
 
-*:selection {
-  background: #722E42;
-}
-
 body {
     background-image: url('.//bground.jpg');
     background-size: cover;
@@ -133,6 +129,7 @@ body {
     background-position: center;
     cursor: pointer;
 }
+/* the navigation bar */
 nav{
     position: fixed;
     left:0;
@@ -144,7 +141,7 @@ nav{
     z-index: 1000;
     background-color: #1E1F26;
 }
-
+/* the container of the choices on the navigation bar */
 nav ul{
     display: flex;
     flex-wrap: wrap;
@@ -152,11 +149,11 @@ nav ul{
 }
 
 nav ul li {
-
     list-style: none;
     line-height: 60px;
 }
 
+/* the items of the list of the navigation bar*/
 nav ul li a{
     font-weight: bold;
     display: block;
@@ -168,12 +165,13 @@ nav ul li a{
     font-family: arial;
     font-size: 14px;
 }
+
 nav ul li a:hover{
-    background-color: #2E735E;
+    background-color: #145944;
 }
 
 nav ul li ul{
-    transition: all 0.3s ease-in-out;
+    transition: all 1s ease;
     text-align:center;
     display: none;
     position: absolute;
@@ -183,11 +181,14 @@ nav ul li ul{
     border-radius: 0px 0px 4px 4px; 
 }
 
-nav ul li:hover ul{
-    background-color: #2E735E;
+nav ul li:hover > ul, 
+nav ul li:focus-within > ul,
+nav ul li ul:hover {
+    background-color: #1E1F26;
     display: block;
 }
 
+/* the box of the submenu */
 nav ul li ul li{
     align-content: center;
     white-space:nowrap;
@@ -195,7 +196,7 @@ nav ul li ul li{
     border-radius: 4px; 
 }
 
-
+/* sub menus */
 nav ul li ul li a{
     padding: 8px 14px;
     font-size: 13px;
@@ -203,8 +204,4 @@ nav ul li ul li a{
     text-decoration: none;
 }
 
-nav ul li ul li:hover a{
-    background-color: #145944;
-    border-radius: 4px;
-}
     

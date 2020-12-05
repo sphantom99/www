@@ -2,9 +2,9 @@ DROP PROCEDURE IF EXISTS users_count;
 DELIMITER &
 CREATE PROCEDURE users_count()
 BEGIN
-	SELECT COUNT(Users.userId) AS usersCount FROM Users
-	LEFT JOIN Admins ON Users.userId = Admins.userId
-	WHERE Users.userId IS NOT NULL AND Admins.userId IS NULL;
+	SELECT COUNT(Users.username) AS usersCount FROM Users
+	LEFT JOIN Admins ON Users.username = Admins.username
+	WHERE Users.username IS NOT NULL AND Admins.username IS NULL;
 END&
 DELIMITER ;
 
@@ -44,9 +44,9 @@ DROP PROCEDURE IF EXISTS isAdmin;
 DELIMITER &
 CREATE PROCEDURE isAdmin(username VARCHAR(255))
 BEGIN
-	SELECT COUNT(Users.userId) AS isAdmin FROM Users 
-	INNER JOIN Admins ON Users.userId = Admins.userId
-	WHERE Users.usernameHash = username;
+	SELECT COUNT(Users.username) AS isAdmin FROM Users 
+	INNER JOIN Admins ON Users.username = Admins.username
+	WHERE Users.username = username;
 END&
 DELIMITER ;
 
@@ -54,6 +54,6 @@ DROP PROCEDURE IF EXISTS userExists;
 DELIMITER &
 CREATE PROCEDURE userExists(username VARCHAR(255))
 BEGIN
-	SELECT * FROM Users WHERE usernameHash = username OR email = username;
+	SELECT * FROM Users WHERE username = username;
 END&
 DELIMITER ;
