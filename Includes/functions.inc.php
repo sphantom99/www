@@ -58,16 +58,16 @@
 		return $result;
 	}
 
-	function UserExists($conn,$Uname)
+	function userExists($conn,$Uname)
 	{
-		$sql = "SELECT * FROM Users WHERE usernameHash = ? OR email = ? ;";
+		$sql = "call userExists(?);";
 		$stmt = mysqli_stmt_init($conn);
 		if (!mysqli_stmt_prepare($stmt,$sql))
 		{
 			header("location: ../signup.php?error=sqlfail");
 			exit();
 		}
-		mysqli_stmt_bind_param($stmt, "ss", $Uname,$Uname);
+		mysqli_stmt_bind_param($stmt, "s", $Uname);
 		mysqli_stmt_execute($stmt);
 
 		$res = mysqli_stmt_get_result($stmt);
@@ -88,7 +88,7 @@
 	function isAdmin($conn,$Uname)
 	{
 		//query that returns 0 if not admin, 1 if admin
-		$sql = "SELECT EXISTS(SELECT Users.userId FROM Users INNER JOIN Admins WHERE usernameHash = ?);";
+		$sql = "call isAdmin(?);";
 		$stmt = mysqli_stmt_init($conn);
 		if (!mysqli_stmt_prepare($stmt,$sql))
 		{
@@ -98,9 +98,13 @@
 		mysqli_stmt_bind_param($stmt, "s", $Uname);
 		mysqli_stmt_execute($stmt);
 
-		$res =  mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+		$res =  mysqli_stmt_get_result($stmt);
+
+		$row = mysqli_fetch_assoc($res);
 		//typecasting result to an integer
-		return (int)$res;
+		return (int)$row["isAdmin"];
+
+		mysqli_stmt_close($stmt);
 	}
 
 	function passCon($pwd)
@@ -154,7 +158,7 @@
 
 	function loginUser($conn,$Uname,$pwd)
 	{
-		$uidexists = UserExists($conn,$Uname);
+		$uidexists = userExists($conn,$Uname);
 		if ($uidexists===false) {
 			header("location: ../login.php?error=wronglogin1");
 			exit();

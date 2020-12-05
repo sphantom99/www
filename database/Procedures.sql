@@ -39,3 +39,21 @@ BEGIN
 	SELECT COUNT(DISTINCT(host)) AS hostsCount FROM Headers;
 END&
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS isAdmin;
+DELIMITER &
+CREATE PROCEDURE isAdmin(username VARCHAR(255))
+BEGIN
+	SELECT COUNT(Users.userId) AS isAdmin FROM Users 
+	INNER JOIN Admins ON Users.userId = Admins.userId
+	WHERE Users.usernameHash = username;
+END&
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS userExists;
+DELIMITER &
+CREATE PROCEDURE userExists(username VARCHAR(255))
+BEGIN
+	SELECT * FROM Users WHERE usernameHash = username OR email = username;
+END&
+DELIMITER ;
