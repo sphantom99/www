@@ -22,8 +22,8 @@
 							echo "<li><a href=\"user.php\" title=\"\">Home</a></li>";
 							echo "<li><a href=\"#\" title=\"\">Profile</a>
 									<ul class=\"dropdown\">
-										<li><a href=\"#\">Profile Information</a></li>
-										<li><a href=\"#\">Settings</a></li>
+										<li><a href=\"./myProfile.php\">Profile Information</a></li>
+										<li><a href=\"./passChange.php\">Settings</a></li>
 									</ul>
 								  </li> ";
 
