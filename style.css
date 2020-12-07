@@ -9,6 +9,18 @@ body {
     background-size: cover;
 }
 
+footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #1E1F26;
+  color: #56E39F;
+  text-align: center;
+}
+
+
+/* box with forms */
 .box {
     margin: auto;
     width: 300px;
@@ -34,7 +46,11 @@ body {
     transition: border-color .2s ease-in .2s;
 }
 
+<<<<<<< Updated upstream
 
+=======
+/* box titles / headers*/
+>>>>>>> Stashed changes
 .box h1 {
     padding-bottom: 15px;
     letter-spacing: 7px;
