@@ -18,10 +18,6 @@ if (isset($_SESSION["user"])) {
 				   
 				}
 
-
-
-
-
 			echo "
 
 		</form>

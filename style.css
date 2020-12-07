@@ -34,11 +34,15 @@ body {
     transition: border-color .2s ease-in .2s;
 }
 
-.box h1, h2{
-    font-size: 20pt;
+
+.box h1 {
+    padding-bottom: 15px;
+    letter-spacing: 7px;
+    font-size: 20px;
     background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
     -webkit-background-clip:text;
-    -webkit-text-fill-color: transparent;
+    font-family: arial;
+    color: #fff;
 }
 
 .box input[type="text"]:focus, .box input[type="password"]:focus {
@@ -53,7 +57,7 @@ body {
     padding: 5px 5px 5px 5px;
     color: #3f7eeb;
     font-family: comic-sans;
-    font-size: 15pt;
+    font-size: 18pt;
     transition: background-color .2s ease-in .2s;
     
 }
@@ -114,76 +118,91 @@ body {
     background-color: #6ea3ff;
 }
 
+/* ------------------ HEADER ---------------------------*/
+.logo {
+    padding-left: 15px;
+    width: 100px;
+    height:100%;
+    background-color: #1E1F26;
+    background-image: url("img/logo.png");
+    background-repeat: no-repeat;
+    background-size: 85%;
+    background-position: center;
+    cursor: pointer;
+}
+/* the navigation bar */
 nav{
+    position: fixed;
+    left:0;
+    top:0;
     width: 100%;
-    height: 84px;
-    background-color: #172845;
-
+    height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 1000;
+    background-color: #1E1F26;
 }
-nav p {
-    font-family: arial;
-    background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color: transparent;
-    font-size: 25px;
-    line-height: 55px;
-    float: left;
-    padding: 10px 20px;
-}
-
+/* the container of the choices on the navigation bar */
 nav ul{
-    float: center;
-    line-height: 55px;
-    font-size: 24;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 15px;
 }
 
 nav ul li {
-    float: left;
     list-style: none;
-    position: relative;
+    line-height: 60px;
+}
+
+/* the items of the list of the navigation bar*/
+nav ul li a{
+    font-weight: bold;
+    display: block;
+    height:100%;
+    padding: 0 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
     font-family: arial;
     font-size: 14px;
 }
 
-nav ul li a{
-    display: block;
-    font-family: arial;
-    color: #6ea3ff;
-    font-size: 20px;
-    padding: 14px 14px;  
-    text-decoration: none;
+nav ul li a:hover{
+    background-color: #145944;
 }
 
 nav ul li ul{
+    transition: all 1s ease;
+    text-align:center;
     display: none;
     position: absolute;
-    background-color: #092854;
+    background-color: #1E1F26;
     padding: 5px;
     z-index: 1;
     border-radius: 0px 0px 4px 4px; 
 }
 
-nav ul li:hover ul{
+nav ul li:hover > ul, 
+nav ul li:focus-within > ul,
+nav ul li ul:hover {
+    background-color: #1E1F26;
     display: block;
 }
 
+/* the box of the submenu */
 nav ul li ul li{
-    width: 160px;
+    align-content: center;
+    white-space:nowrap;
+    width: 180px;
     border-radius: 4px; 
 }
 
-
+/* sub menus */
 nav ul li ul li a{
     padding: 8px 14px;
     font-size: 13px;
-    color: #6ea3ff;
+    color: #fff;
     text-decoration: none;
 }
 
-nav ul li ul li a:hover{
-    background-color: #3A619B;
-
-
-
-}
     

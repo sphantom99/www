@@ -3,7 +3,8 @@
 	$serverName = "localhost";
 	$DBUsername = "root";
 	$DBPassword = "";
-	$DBName = "web";
+	$DBName = "Web";
+
 
 	$conn = mysqli_connect($serverName,$DBUsername,$DBPassword,$DBName);
 
