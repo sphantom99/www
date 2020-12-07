@@ -2,9 +2,9 @@ DROP PROCEDURE IF EXISTS users_count;
 DELIMITER &
 CREATE PROCEDURE users_count()
 BEGIN
-	SELECT COUNT(Users.userId) AS usersCount FROM Users
-	LEFT JOIN Admins ON Users.userId = Admins.userId
-	WHERE Users.userId IS NOT NULL AND Admins.userId IS NULL;
+	SELECT COUNT(Users.username) AS usersCount FROM Users
+	LEFT JOIN Admins ON Users.username = Admins.username
+	WHERE Users.username IS NOT NULL AND Admins.username IS NULL;
 END&
 DELIMITER ;
 
@@ -44,16 +44,52 @@ DROP PROCEDURE IF EXISTS isAdmin;
 DELIMITER &
 CREATE PROCEDURE isAdmin(username VARCHAR(255))
 BEGIN
-	SELECT COUNT(Users.userId) AS isAdmin FROM Users 
-	INNER JOIN Admins ON Users.userId = Admins.userId
-	WHERE Users.usernameHash = username;
+	SELECT COUNT(Users.username) AS isAdmin FROM Users 
+	INNER JOIN Admins ON Users.username = Admins.username
+	WHERE Users.username = username;
 END&
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS userExists;
 DELIMITER &
-CREATE PROCEDURE userExists(username VARCHAR(255))
+CREATE PROCEDURE userExists(username VARCHAR(255), email VARCHAR(255))
 BEGIN
-	SELECT * FROM Users WHERE usernameHash = username OR email = username;
+	SELECT * FROM Users WHERE Users.username = username OR Users.email = email;
+END&
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS lastUpload;
+DELIMITER &
+CREATE PROCEDURE getLastUpload(username VARCHAR(255))
+BEGIN
+	SELECT uploadDate AS lastUpload FROM HAR_File
+	INNER JOIN Users ON Users.username = HAR_File.username
+	WHERE HAR_File.username = username;
+END&
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS HARCount;
+DELIMITER &
+CREATE PROCEDURE getNumOfUploads(username VARCHAR(255))
+BEGIN
+	SELECT COUNT(*) AS HARCount FROM HAR_File
+	INNER JOIN Users ON Users.username = HAR_File.username
+	WHERE HAR_File.username = username;
+END&
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS updatePassword;
+DELIMITER &
+CREATE PROCEDURE updatePassword(newPassword VARCHAR(255),username VARCHAR(255))
+BEGIN
+	UPDATE Users SET passwordHash = newPassword WHERE Users.username=username;
+END&
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS getPassword;
+DELIMITER &
+CREATE PROCEDURE getPassword(username VARCHAR(255))
+BEGIN
+	SELECT passwordHash FROM Users WHERE Users.username=username;
 END&
 DELIMITER ;
