@@ -27,12 +27,12 @@
 			header("location: ../signup.php?error=invalidEmail");
 			exit();
 		}
-		if (PassMatch($pwd,$Repwd)!==false) 
+		if (passMatch($pwd,$Repwd)!==false) 
 		{
 			header("location: ../signup.php?error=nomatchingPasswords");
 			exit();
 		}
-		if (UserExists($conn,$Uname)!==false) 
+		if (userExists($conn,$Uname,$pwd)!==false) 
 		{
 			header("location: ../signup.php?error=usernameEmailExists");
 			exit();

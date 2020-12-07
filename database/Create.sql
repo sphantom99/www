@@ -23,6 +23,7 @@ CREATE TABLE HAR_File
   fileName VARCHAR(255) NOT NULL,
   directory VARCHAR(255) NOT NULL,
   username VARCHAR(255) NOT NULL,
+  uploadDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (fileName),
   FOREIGN KEY (username) REFERENCES Users(username)
 );
@@ -46,7 +47,6 @@ CREATE TABLE Entry
   PRIMARY KEY (startedDateTime),
   FOREIGN KEY (fileName) REFERENCES HAR_file(fileName)
 );
-
 
 CREATE TABLE Request
 (

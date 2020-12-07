@@ -44,7 +44,7 @@
 		return $result;
 	}
 
-	function PassMatch($pwd,$Repwd)
+	function passMatch($pwd,$Repwd)
 	{
 		$result;
 		if ($pwd !== $Repwd) 
@@ -58,16 +58,16 @@
 		return $result;
 	}
 
-	function userExists($conn,$Uname)
+	function userExists($conn,$Uname,$pwd)
 	{
-		$sql = "call userExists(?);";
+		$sql = "call userExists(?,?);";
 		$stmt = mysqli_stmt_init($conn);
 		if (!mysqli_stmt_prepare($stmt,$sql))
 		{
 			header("location: ../signup.php?error=sqlfail");
 			exit();
 		}
-		mysqli_stmt_bind_param($stmt, "s", $Uname);
+		mysqli_stmt_bind_param($stmt, "ss", $Uname,$pwd);
 		mysqli_stmt_execute($stmt);
 
 		$res = mysqli_stmt_get_result($stmt);
@@ -101,7 +101,8 @@
 		$res =  mysqli_stmt_get_result($stmt);
 
 		$row = mysqli_fetch_assoc($res);
-		//typecasting result to an integer
+
+		# typecasting result to an integer
 		return (int)$row["isAdmin"];
 
 		mysqli_stmt_close($stmt);
@@ -139,6 +140,10 @@
 		mysqli_stmt_close($stmt);
 
 		loginUser($conn,$Uname,$pwd);
+
+		# making a folder with the username of the new user, to put his files in
+		$dirname = "../users/".$Uname;
+    	mkdir($dirname); 
 		exit();
 	}
 
@@ -158,7 +163,7 @@
 
 	function loginUser($conn,$Uname,$pwd)
 	{
-		$uidexists = userExists($conn,$Uname);
+		$uidexists = userExists($conn,$Uname,$pwd);
 		if ($uidexists===false) {
 			header("location: ../login.php?error=wronglogin1");
 			exit();
@@ -178,14 +183,16 @@
 			if (isAdmin($conn,$Uname) === 1)
 			{
 				session_start();
-				$_SESSION["admin"] = $uidexists["usernameHash"];
+				#this gives the $_SESSION["admin"] var the name of the logged in admin
+				$_SESSION["admin"] = $uidexists["username"];
 				header("location: ../admin.php");
 				#exit();
 			}
 			else {
 				session_start();
-				$_SESSION["user"] = $uidexists["usernameHash"];
-				header("location: ../user.php");
+				#this gives the $_SESSION["user"] var the name of the logged in user
+				$_SESSION["user"] = $Uname;
+				header("location: ../user.php?".$_SESSION["user"]);
 				#exit();
 			}
 

@@ -7,8 +7,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="Placeholder">
+	<! the echo time() code is to ensure no caching, in order to be able to see changes while changing the code. Should be commented out when page is ready.> 
 	<link rel="stylesheet" href="style.css"<?php echo time(); ?>>
-	<title>User Panel</title>
+	<title>HARHub</title>
 </head>
 <body>
 	<header>

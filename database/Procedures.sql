@@ -52,8 +52,29 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS userExists;
 DELIMITER &
-CREATE PROCEDURE userExists(username VARCHAR(255))
+CREATE PROCEDURE userExists(username VARCHAR(255), email VARCHAR(255))
 BEGIN
-	SELECT * FROM Users WHERE username = username;
+	SELECT * FROM Users WHERE Users.username = username OR Users.email = email;
 END&
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS lastUpload;
+DELIMITER &
+CREATE PROCEDURE lastUpload(username VARCHAR(255))
+BEGIN
+	SELECT uploadDate AS lastUpload FROM HAR_File
+	INNER JOIN Users ON Users.username = HAR_File.username
+	WHERE HAR_File.username = username;
+END&
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS HARCount;
+DELIMITER &
+CREATE PROCEDURE HARCount(username VARCHAR(255))
+BEGIN
+	SELECT COUNT(*) AS HARCount FROM HAR_File
+	INNER JOIN Users ON Users.username = HAR_File.username
+	WHERE HAR_File.username = username;
+END&
+DELIMITER ;
+
