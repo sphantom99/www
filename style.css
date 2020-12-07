@@ -5,18 +5,22 @@
 }
 
 body {
-    background-image: url('.//bground.jpg');
+    background-color: #0E4D54;
     background-size: cover;
 }
 
 footer {
-  position: relative;
+  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
+  height: 30px;
   background-color: #1E1F26;
-  color: #56E39F;
-  text-align: center;
+  color: #3F595E;
+  text-align: left;
+  padding-top: 15px; 
+  padding-left: 15px;
+  font-family: arial;
 }
 
 
@@ -27,107 +31,108 @@ footer {
     padding: 30px;
     transform: translateY(20%);
     text-align: center;
-    background-color: #172845;
+    background-color: #1E1F26;
     border-radius: 30px;
 }
 
 .box input[type="text"], .box input[type="password"] {
-    border: 0;
+    border: 2;
     background: none;
     margin: 30px auto;
     text-align: center;
     display: block;
-    border: 2px solid #253f6b;
+    border: 2px solid #792F44;
     border-radius: 30px;
     padding: 10px 0px 10px 0px;
     font-size: 13pt;
     color: white;
     transition: width .15s ease-in .15s;
-    transition: border-color .2s ease-in .2s;
+    transition: border-color .15s ease-in .15s;
 }
 
-<<<<<<< Updated upstream
-
-=======
 /* box titles / headers*/
->>>>>>> Stashed changes
 .box h1 {
     padding-bottom: 15px;
-    letter-spacing: 7px;
+    /*letter-spacing: 7px;*/
     font-size: 20px;
     background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
     -webkit-background-clip:text;
     font-family: arial;
     color: #fff;
 }
-
+/* text box */
 .box input[type="text"]:focus, .box input[type="password"]:focus {
     width: 300px;
-    border-color: #3f7eeb;
+    border-color: #126069;
 
 }
-
+/* submit button*/
 .box input[type="submit"], .box input[type="file"] {
+    border-radius: 30px;
     background: none;
     border: none;
     padding: 5px 5px 5px 5px;
-    color: #3f7eeb;
-    font-family: comic-sans;
-    font-size: 18pt;
+    color: #F0EFF4;
+    font-family: arial;
+    font-size: 18px;
     transition: background-color .2s ease-in .2s;
     
 }
 
-
 .box input[type="submit"]:hover, .box input[type="file"]:hover {
-    border: 2px solid #6ea3ff;
+    border: 2px solid #792F44;
     border-radius: 30px;
-    background-color: #253f6b;
+    background-color: #792F44;
 }
 
 .box input[type="submit"]:active:after, .box input[type="file"]:active:after{
-    background-color: #6ea3ff;
+    border: 2px solid #792F44;
+    border-radius: 30px;
+    background-color: #792F44;
 }
-
+/* section is the second box of the user page */
 .section {
     margin: auto;
     width: 300px;
     padding: 30px;
     transform: translateY(40%);
     text-align: center;
-    background-color: #172845;
+    background-color: #1E1F26;
     border-radius: 30px;
 }
-
+/* header of the section box */
 .section h1 {
+    color: #F0EFF4;
+    font-family: arial;
     font-size: 20pt;
-    background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
+    /*background: -webkit-linear-gradient(#6ea3ff,#3f7eeb);
     -webkit-background-clip:text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;*/
 }
 
 .section input[type="text"]:focus{
     width: 300px;
-    border-color: #3f7eeb;
+    border-color: #126069;
 
 }
-
+/* submit button 2nd box*/
 .section input[type="submit"]{
+    border-radius: 30px;
     background: none;
     border: none;
     padding: 5px 5px 5px 5px;
-    color: #3f7eeb;
-    font-family: comic-sans;
-    font-size: 15pt;
+    color: #F0EFF4;
+    font-family: arial;
+    font-size: 18pt;
     transition: background-color .2s ease-in .2s;
     
 }
 
 
 .section input[type="submit"]:hover{
-    border: 2px solid #6ea3ff;
+    border: 2px solid #792F44;
     border-radius: 30px;
-    background-color: #253f6b;
+    background-color: #792F44;
 }
 
 .section input[type="submit"]:active:after{
@@ -184,7 +189,7 @@ nav ul li a{
 }
 
 nav ul li a:hover{
-    background-color: #145944;
+    background-color: #0E4D54;
 }
 
 nav ul li ul{

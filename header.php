@@ -45,5 +45,6 @@
 					<li><a href="about.php" title="">About</a></li>					
 				</ul>
 			</nav>	
-	</header>		
+	</header>	
+	<footer>HARHub 2020. All right reserved.</footer>	
 </body>

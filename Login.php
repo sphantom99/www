@@ -27,5 +27,5 @@
 <br>
 <br>
 </body>
-<footer style="position: fixed; bottom: 0;">This site was made by me</footer>
+
 </html>
