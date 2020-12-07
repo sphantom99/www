@@ -78,3 +78,18 @@ BEGIN
 END&
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS updatePassword;
+DELIMITER &
+CREATE PROCEDURE updatePassword(newPassword VARCHAR(255),username VARCHAR(255))
+BEGIN
+	UPDATE Users SET passwordHash = newPassword WHERE Users.username=username;
+END&
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS getPassword;
+DELIMITER &
+CREATE PROCEDURE updatePassword(username VARCHAR(255))
+BEGIN
+	SELECT passwordHash FROM Users WHERE Users.username=username;
+END&
+DELIMITER ;

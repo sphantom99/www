@@ -2,7 +2,7 @@
 	include_once "header.php";
 ?>
 	<form class="box" action="./includes/login.inc.php" method="post">
-		<h1>Welcome</h1>
+		<h1>WELCOME</h1>
 		<input type="text" name="Username" placeholder="Username/Email">
 		<input type="password" name="Password" placeholder="Password">
 		<input type="Submit" name="log" value="Login">
