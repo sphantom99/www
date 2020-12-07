@@ -88,7 +88,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getPassword;
 DELIMITER &
-CREATE PROCEDURE updatePassword(username VARCHAR(255))
+CREATE PROCEDURE getPassword(username VARCHAR(255))
 BEGIN
 	SELECT passwordHash FROM Users WHERE Users.username=username;
 END&

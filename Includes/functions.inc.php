@@ -145,9 +145,6 @@
 
 		loginUser($conn,$Uname,$pwd);
 
-		# making a folder with the username of the new user, to put his files in
-		$dirname = "../users/".$Uname;
-    	mkdir($dirname); 
 		exit();
 	}
 
