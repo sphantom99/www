@@ -60,7 +60,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS lastUpload;
 DELIMITER &
-CREATE PROCEDURE lastUpload(username VARCHAR(255))
+CREATE PROCEDURE getLastUpload(username VARCHAR(255))
 BEGIN
 	SELECT uploadDate AS lastUpload FROM HAR_File
 	INNER JOIN Users ON Users.username = HAR_File.username
@@ -70,7 +70,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS HARCount;
 DELIMITER &
-CREATE PROCEDURE HARCount(username VARCHAR(255))
+CREATE PROCEDURE getNumOfUploads(username VARCHAR(255))
 BEGIN
 	SELECT COUNT(*) AS HARCount FROM HAR_File
 	INNER JOIN Users ON Users.username = HAR_File.username
