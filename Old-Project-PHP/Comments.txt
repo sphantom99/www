@@ -1,0 +1,4 @@
+If the stored procedures are not set, a signup will always succeed, but the user account will be inaccessible and 
+the signup page will return an error, because the procedure userExists() is not defined.
+It will also not create a user folder, because the loginUser() function fails. 
+Therefore, the account should be deleted and re-made, or the folder of the user created manually.
