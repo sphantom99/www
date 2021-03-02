@@ -27,7 +27,7 @@ export default function Up () {
         console.log('this is the json form');
         console.log(j);
         cleanUp(j); // Send file for cleanUp
-        setFile(JSON.stringify(j)); // keep contents of file in a state variable
+        setFile(JSON.stringify(j)); // keep contents(string) of file in a state variable for the download and upload
         return content;
       };
       reader.readAsText(file);
@@ -72,18 +72,3 @@ export default function Up () {
     </Form>
   )
 }
-
-
-/*import {Upload, Button} from 'antd';
-export default function Up() {
-  return (
-    <Upload
-      accept=".txt, .csv"
-      showUploadList={true}
-      beforeUpload={Parse}
-    >
-
-      <Button>Click to Upload</Button>
-    </Upload>
-  )
-}*/
