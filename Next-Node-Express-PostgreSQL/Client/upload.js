@@ -17,7 +17,7 @@ export default function up () {
   },[file]); // display state variable after change just for checking
   
 
-  const Parse = (file) => {
+  const parse = (file) => {
     console.log(file); // file is a blob
     var reader = new FileReader();
     reader.onload = (e) => {
