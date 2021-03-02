@@ -9,7 +9,7 @@ const { Dragger } = Upload;
 
 
 
-export default function Up () {
+export default function up () {
   const [file, setFile] = useState('');
 
   useEffect(()=> {
