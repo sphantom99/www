@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    username VARCHAR(255) PRIMARY KEY NOT NULL,
+    pwd VARCHAR(255) NOT NULL,
+    isAdmin BOOLEAN NOT NULL
+);
