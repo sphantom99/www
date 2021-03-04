@@ -1,89 +1,76 @@
-import cleanUp from '../utils/cleanUp.js';
-import { Upload, Button, Form } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
-import { DownloadOutlined, UploadOutlined } from '@ant-design/icons';
-import {useState, useEffect} from 'react';
-const { Dragger } = Upload;
+import { Layout, Menu, Breadcrumb } from 'antd';
+import { Form, Input, Button, Checkbox } from 'antd';
+import { Row, Col } from 'antd';
+import { Typography } from 'antd';
+const { Header, Content, Footer } = Layout;
+const { Title } = Typography;
 
 
 
-
-
-export default function Up () {
-  const [file, setFile] = useState('');
-
-  useEffect(()=> {
-    console.log(file);
-  },[file]); // display state variable after change just for checking
-  
-
-  const Parse = (file) => {
-    console.log(file); // file is a blob
-    var reader = new FileReader();
-    reader.onload = (e) => {
-        console.log('Content of file');
-        const content = e.target.result; // This is the content of the file
-        const j = JSON.parse(content); // Converte content of file into object
-        console.log('this is the json form');
-        console.log(j);
-        cleanUp(j); // Send file for cleanUp
-        setFile(JSON.stringify(j)); // keep contents of file in a state variable
-        return content;
-      };
-      reader.readAsText(file);
-  }
-
-  function handleDownload(file) {
-
-  }
-
-  function handleUpload(file) {
-    
-  }
-
+export default function landingPage () {
 
   return (
-    <Form>
-      <Form.Item label ="dragger">
-        <Dragger 
-          accept=".txt, .har"
-          showUploadList={true}
-          beforeUpload={Parse} // Before pressing any buttons cleanup file
-        >
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">Click or drag file to this area to upload</p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-            band files
-          </p>
-        </Dragger>
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" shape="round" icon={<DownloadOutlined />} size="large">
-          Download
-        </Button>
-        <Button type="primary" shape="round" icon={<UploadOutlined />} size="large">
-          Upload
-        </Button>
-      </Form.Item>
-
-    </Form>
-  )
-}
-
-
-/*import {Upload, Button} from 'antd';
-export default function Up() {
-  return (
-    <Upload
-      accept=".txt, .csv"
-      showUploadList={true}
-      beforeUpload={Parse}
+    <Layout className="layout">
+    <Header>
+    <div className="logo" />
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+        <Menu.Item key="1">Login</Menu.Item>
+        <Menu.Item key="2">Register</Menu.Item>
+      </Menu>
+    </Header>
+    <Content style={{ padding: '0 50px' }}>
+    <Row>
+      <Col span={8}></Col>
+      <Col span={8}><br/></Col>
+      <Col span={8}></Col>
+    </Row>
+    <Row>
+      <Col span={8}></Col>
+      <Col span={8}>
+      <Form
+      name="basic"
+      initialValues={{ remember: true }}
     >
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input />
+      </Form.Item>
 
-      <Button>Click to Upload</Button>
-    </Upload>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item >
+        <Button type="primary" htmlType="submit">
+          register
+        </Button>
+      </Form.Item>
+    </Form>
+
+
+
+      </Col>
+      <Col span={8}></Col>
+    </Row>
+
+    <Row>
+      <Col span={8}></Col>
+      <Col span={8}></Col>
+      <Col span={8}></Col>
+    </Row>
+
+      
+    </Content>
+    <Footer style={{ textAlign: 'center' }}> Harhub ©2021 Created by..</Footer>
+  </Layout>
+
   )
-}*/
+
+}
