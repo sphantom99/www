@@ -1,5 +1,5 @@
 /*
-need to change layout buttons!! bug
+need to change layout buttons!! Done
 
 
 */
@@ -7,6 +7,11 @@ need to change layout buttons!! bug
 import { Form, Input, Button, Checkbox, Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {useRouter} from 'next/router';
+import { checkCreds } from '../lib/auth';
+import Image from 'next/image';
+
+
+
 const { Header, Content, Footer } = Layout;
 export default function login() {
 
@@ -32,10 +37,10 @@ export default function login() {
       initialValues={{
         remember: true,
       }}
-      onFinish={onFinish}
+      onFinish={execLogin}
     >
       <h1>Welcome to <span style={{color: "#00a3cc"}}>HARHUB</span></h1>
-      <br/>
+      <br/>     
       <br/>
       <br/>
       <Form.Item
@@ -50,6 +55,8 @@ export default function login() {
       >
         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
       </Form.Item>
+
+
       <Form.Item
         style={{width:"250pt"}}
         name="password"
@@ -66,6 +73,10 @@ export default function login() {
           placeholder="Password"
         />
       </Form.Item>
+
+
+
+
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
@@ -76,11 +87,13 @@ export default function login() {
         </a></span>
       </Form.Item>
 
+
+
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-       <br/> Or <a href="">register now!</a>
+        <span style ={{marginLeft:"160px",}}>Or </span><a onClick={()=> router.push('/')} style={{color:"blue",textDecoration: "underline"}}>register now!</a>
       </Form.Item>
     </Form>
     </Content>
@@ -88,3 +101,11 @@ export default function login() {
   </Layout>
   );
 };
+
+const execLogin = (values) => {
+  console.log(values.username,values.password)
+  /*const creds = checkCreds(values.username,values.password)
+  if(creds==true){
+    router.push(`./${values.username}/upload`)
+  }*/
+}
