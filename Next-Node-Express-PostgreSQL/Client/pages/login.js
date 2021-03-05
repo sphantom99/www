@@ -9,12 +9,12 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {useRouter} from 'next/router';
 import { checkCreds } from '../lib/auth';
 import Image from 'next/image';
-
-
+import {useState} from 'react'
+//import jsCookie from 'js-cookie';
 
 const { Header, Content, Footer } = Layout;
 export default function login() {
-
+  const {match, setMatch} = useState(false)
   const router = useRouter();
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -31,7 +31,7 @@ export default function login() {
     </Header>
     <Content>
     <Form
-      style={{paddingLeft: "40%", paddingTop:"10%"}}
+      style={{marginLeft: "35%", marginTop:"10%", marginRight:"20%", borderColor:"red", }}
       name="normal_login"
       className="login-form"
       initialValues={{
@@ -103,9 +103,16 @@ export default function login() {
 };
 
 const execLogin = (values) => {
-  console.log(values.username,values.password)
-  /*const creds = checkCreds(values.username,values.password)
+  //console.log(values.username,values.password)
+  const creds = checkCreds(values.username,values.password)
+  sessionStorage.setItem('matched',true)
+  console.log(localStorage.getItem('matched'))
+  /*
   if(creds==true){
     router.push(`./${values.username}/upload`)
+  }
+  else
+  {
+    setMatch(false)
   }*/
 }
