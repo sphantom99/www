@@ -8,3 +8,8 @@ export async function checkCreds(username, password){
 }
 
 //export async function register()
+/*
+1. get password of username
+2. create user with hashed password
+3. see if user exists
+*/

@@ -6,6 +6,11 @@ const { Header, Content, Footer } = Layout;
 import Link from 'next/link';
 
 export default function landingPage () {
+
+  function handleRegister (values) {
+    console.log(values);
+
+  }
   return (
     <Layout className="layout">
     <Header>
@@ -28,7 +33,9 @@ export default function landingPage () {
     <Row>
       <Col span={8}></Col>
       <Col span={8}>
-      <Form>
+      <Form
+        onFinish = {handleRegister}
+      >
       <Form.Item
         name="email"
         label="E-mail"
