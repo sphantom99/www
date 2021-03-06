@@ -2,19 +2,20 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { Row, Col } from 'antd';
 import { Typography } from 'antd';
+import {useRouter} from 'next/router'
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
 
 //arxidia
 
 export default function landingPage () {
-
+  const router = useRouter()
   return (
     <Layout className="layout">
     <Header>
     <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-        <Menu.Item key="1">Login</Menu.Item>
+        <Menu.Item key="1" onClick={()=>router.push('./login')}>Login</Menu.Item>
         <Menu.Item key="2">Register</Menu.Item>
       </Menu>
     </Header>
