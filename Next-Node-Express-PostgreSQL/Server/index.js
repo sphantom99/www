@@ -20,9 +20,10 @@ app.get('/', (request, response) => {
 app.get('/Users', db.getUsers);
 app.post('/Users', db.createUser);
 app.get('/Users/:email', db.getUserByEmail);
+app.put('/Users/:email', db.updateEmployee)
 /*
 
-app.put('/Employee/:id', db.updateEmployee);
+;
 app.delete('/Employee/:id', db.deleteEmployee);
 app.delete('/Employee',  db.deleteAllEmployees);
 */
