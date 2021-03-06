@@ -1,9 +1,3 @@
-/*
-need to change layout buttons!! Done
-
-
-*/
-
 import { Form, Input, Button, Checkbox, Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {useRouter} from 'next/router';
@@ -26,7 +20,7 @@ export default function login() {
     <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
         <Menu.Item key="1">Login</Menu.Item>
-        <Menu.Item key="2" onClick={()=>router.push('/')}>Register</Menu.Item> 
+        <Menu.Item key="2" onClick={()=>router.push('/register')}>Register</Menu.Item> 
       </Menu>
     </Header>
     <Content>
@@ -93,7 +87,7 @@ export default function login() {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        <span style ={{marginLeft:"160px",}}>Or </span><a onClick={()=> router.push('/')} style={{color:"blue",textDecoration: "underline"}}>register now!</a>
+        <span style ={{marginLeft:"160px",}}>Or </span><a onClick={()=> router.push('/register')} style={{color:"blue",textDecoration: "underline"}}>register now!</a>
       </Form.Item>
     </Form>
     </Content>
