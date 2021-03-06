@@ -20,30 +20,8 @@ app.get('/', (request, response) => {
 app.get('/Users', db.getUsers);
 app.post('/Users', db.createUser);
 app.get('/Users/:email', db.getUserByEmail);
-app.put('/Users/:email', db.updateEmployee)
-/*
+app.put('/Users/:email', db.updateUser)
 
-;
-app.delete('/Employee/:id', db.deleteEmployee);
-app.delete('/Employee',  db.deleteAllEmployees);
-*/
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 })
-/*
-import {generate, verify} from 'password-hash'
-
-export async function checkCreds(username, password){
-    console.log(`Hash of ${password} is: ${generate(password)}`)
-    //const res = await fetch(`http://localhost:5000/login/${username}`);
-    //const match = verify(password,res)    
-    //return creds;
-}
-
-//export async function register()
-
-1. get password of username
-2. create user with hashed password
-3. see if user exists
-
-*/
