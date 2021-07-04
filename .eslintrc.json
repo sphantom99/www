@@ -20,13 +20,11 @@
         "react"
     ],
     "rules": {
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
         "react/prop-types": [0],
         "react/display-name": [0],
         "react/jsx-filename-extension":"off",
-        "import/no-unresolved":"off"
+        "import/no-unresolved":"off",
+        "linebreak-style": "off",
+        "no-console": "off"
     }
 }
