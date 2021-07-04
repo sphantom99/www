@@ -1,7 +1,5 @@
-import { Layout, Menu, Breadcrumb, Button } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import React from 'react';
-import Image from 'next/image';
-import logo from '../public/logo.png';
 
 const { Header, Content, Footer } = Layout;
 
