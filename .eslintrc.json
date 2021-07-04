@@ -19,6 +19,7 @@
         "react"
     ],
     "rules": {
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "prettier/prettier": "off",
     }
 }
