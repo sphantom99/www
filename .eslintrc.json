@@ -27,6 +27,7 @@
         "react/prop-types": [0],
         "react/display-name": [0],
         "react/jsx-filename-extension":"off",
-        "import/no-unresolved":"off"
+        "import/no-unresolved":"off",
+        "no-console": "off"
     }
 }
