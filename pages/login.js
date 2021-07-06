@@ -2,11 +2,15 @@ import React from 'react';
 import {
   Form, Input, Button, Row, Col,
 } from 'antd';
+import { useRouter } from 'next/router';
 
 export default function Login() {
-  const onFinish = (values) => {
+  const router = useRouter();
+
+  async function onFinish(values) {
     console.log('Success:', values);
-  };
+    router.push('/user');
+  }
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
