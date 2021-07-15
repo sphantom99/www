@@ -8,7 +8,12 @@ export default function CustomLayout({ children }) {
     <Layout className="layout">
       <Header>
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-          <Menu.Item>Profile</Menu.Item>
+          <Menu.Item>
+            <a href="/uploadFile">Home</a>
+          </Menu.Item>
+          <Menu.Item>
+            <a href="/user">Profile</a>
+          </Menu.Item>
         </Menu>
       </Header>
       <Content style={{ padding: '0 50px' }}>
