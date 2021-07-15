@@ -2,23 +2,32 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import {
-  Upload, message, Input, Button, Row, Col, notification,
+  Upload, message, Input, Button, Row, Col, notification, Spin,
 } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+import {
+  InboxOutlined,
+  LoadingOutlined,
+  DownloadOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import downloadFile from '../lib/downloadFile';
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
 export default function FileUploader() {
+  const [LoadingFlag, setLoadingFlag] = useState(false);
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
   const props = {
     name: 'file',
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
-        // console.log(info.file, info.fileList);
+        setLoadingFlag(true);
       }
       if (status === 'done') {
+        setLoadingFlag(false);
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
@@ -82,16 +91,26 @@ export default function FileUploader() {
               other band files
             </p>
           </Dragger>
-          <TextArea rows={4} value={data} />
+          {/* <TextArea rows={4} value={data} /> */}
+          {LoadingFlag && !data && <Spin indicator={antIcon} />}
           {data && (
-            <>
-              <Button>
-                <a href={info.ref} download={info.name}>
-                  Download processed file
-                </a>
-              </Button>
-              <Button>Upload processed file to server</Button>
-            </>
+            <Row justify="space-around">
+              <Col>
+                <Button type="primary" icon={<DownloadOutlined />}>
+                  <a href={info.ref} download={info.name} style={{ color: '#FFF' }}>
+                    Download processed file
+                  </a>
+                </Button>
+              </Col>
+              <Col />
+              <Col>
+                <Button type="primary" icon={<UploadOutlined />}>
+                  <a href="/uploadFile" style={{ color: '#FFF' }}>
+                    Upload processed file
+                  </a>
+                </Button>
+              </Col>
+            </Row>
           )}
         </Col>
       </Row>
