@@ -5,7 +5,7 @@ import {
   Upload, message, Input, Button, Row, Col, notification,
 } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
-import harFileCleaner from '../lib/harFileCleaner';
+import downloadFile from '../lib/downloadFile';
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
@@ -13,20 +13,16 @@ const { TextArea } = Input;
 export default function FileUploader() {
   const props = {
     name: 'file',
-    onChange(info, files) {
+    onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
+        // console.log(info.file, info.fileList);
       }
       if (status === 'done') {
         message.success(`${info.file.name} file uploaded successfully.`);
-        console.log(files);
       } else if (status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
-    },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
     },
   };
   const close = () => {
@@ -43,8 +39,7 @@ export default function FileUploader() {
     );
     notification.open({
       message: 'Notification Title',
-      description:
-        'Something went wrong. Please check your file or try again later',
+      description: 'Something went wrong. Please check your file or try again later',
       btn,
       key,
       onClose: close,
@@ -52,7 +47,7 @@ export default function FileUploader() {
   };
 
   const [data, setData] = useState(null);
-
+  const [info, setInfo] = useState({ ref: '', name: '' });
   return (
     <div>
       <Row type="flex" justify="center" align="middle">
@@ -61,21 +56,19 @@ export default function FileUploader() {
             {...props}
             accept=".har"
             maxCount={1}
-            customRequest={(fileList) => {
-              console.log(fileList);
-            }}
             beforeUpload={(file) => {
               const reader = new FileReader();
 
               reader.onload = (e) => {
                 try {
+                  const tempInfo = downloadFile(e.target.result);
+                  setInfo({ ...info, ref: tempInfo.ref, name: tempInfo.name });
                   setData(e.target.result);
                 } catch (e) {
                   openNotification();
                 }
               };
               reader.readAsText(file);
-
               // Prevent upload
               return false;
             }}
@@ -92,7 +85,11 @@ export default function FileUploader() {
           <TextArea rows={4} value={data} />
           {data && (
             <>
-              <Button onClick={() => harFileCleaner(data)}>Download processed file</Button>
+              <Button>
+                <a href={info.ref} download={info.name}>
+                  Download processed file
+                </a>
+              </Button>
               <Button>Upload processed file to server</Button>
             </>
           )}
