@@ -90,7 +90,6 @@ export default function FileUploader() {
               other band files
             </p>
           </Dragger>
-          {/* <TextArea rows={4} value={data} /> */}
           {LoadingFlag && !data && <Spin indicator={antIcon} />}
           {data && (
             <Row justify="space-around">
