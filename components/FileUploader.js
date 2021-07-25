@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import {
-  Upload, message, Input, Button, Row, Col, notification, Spin,
+  Upload, message, Button, Row, Col, notification, Spin,
 } from 'antd';
 import {
   InboxOutlined,
@@ -10,10 +10,9 @@ import {
   DownloadOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import downloadFile from '../lib/downloadFile';
+import cleanFile from '../lib/cleanFile';
 
 const { Dragger } = Upload;
-const { TextArea } = Input;
 
 export default function FileUploader() {
   const [LoadingFlag, setLoadingFlag] = useState(false);
@@ -70,7 +69,7 @@ export default function FileUploader() {
 
               reader.onload = (e) => {
                 try {
-                  const tempInfo = downloadFile(e.target.result);
+                  const tempInfo = cleanFile(e.target.result);
                   setInfo({ ...info, ref: tempInfo.ref, name: tempInfo.name });
                   setData(e.target.result);
                 } catch (e) {

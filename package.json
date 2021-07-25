@@ -12,15 +12,20 @@
     "antd": "4.3.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
+    "chart.js": "^3.4.1",
     "cross-env": "^7.0.2",
     "dayjs": "1.8.28",
     "eslint-cli": "^1.1.1",
     "esm": "^3.2.25",
+    "leaflet": "^1.7.1",
     "next": "latest",
     "postcss-preset-env": "^6.7.0",
     "prettier-eslint": "^12.0.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-chartjs-2": "^3.0.4",
+    "react-dom": "^17.0.2",
+    "react-leaflet": "^3.2.0",
+    "react-simple-maps": "^2.3.0"
   },
   "browser": {
     "fs": false,
