@@ -56,6 +56,10 @@ export default function FileUploader() {
 
   const [data, setData] = useState(null);
   const [info, setInfo] = useState({ ref: '', name: '' });
+  const [server, setServer] = useState({ lat: '', long: '' });
+  const [client, setClient] = useState({ lat: '', long: '' });
+  const [isp, setIsp] = useState();
+
   return (
     <div>
       <Row type="flex" justify="center" align="middle">
@@ -69,9 +73,16 @@ export default function FileUploader() {
 
               reader.onload = (e) => {
                 try {
-                  const tempInfo = cleanFile(e.target.result);
+                  const tempInfo = cleanFile(
+                    e.target.result,
+                    server,
+                    setServer,
+                    client,
+                    setClient,
+                    setIsp,
+                  );
                   setInfo({ ...info, ref: tempInfo.ref, name: tempInfo.name });
-                  setData(e.target.result);
+                  setData(tempInfo.data);
                 } catch (e) {
                   openNotification();
                 }
