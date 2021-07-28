@@ -3,13 +3,24 @@ import {
   Form, Input, Button, Row, Col,
 } from 'antd';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export default function Login() {
   const router = useRouter();
 
   async function onFinish(values) {
-    console.log('Success:', values);
-    router.push('/user');
+    axios
+      .post('./api/checkCredentials', { values })
+      .then((response) => {
+        console.log(response);
+        if (response !== undefined) {
+          console.log('passed');
+          router.push('/user');
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }
 
   const onFinishFailed = (errorInfo) => {

@@ -89,7 +89,7 @@ export default function admin() {
           extra={<a href="/user">Report a problem</a>}
           style={{ width: 500 }}
         >
-          <Statistic title="Files uploaded" value={5} />
+          <Statistic title="Users" value={5} />
           <Statistic title="Files uploaded" value={5} />
           <Statistic title="Files uploaded" value={5} />
           <Statistic title="Files uploaded" value={5} />
@@ -113,69 +113,71 @@ export default function admin() {
             }}
           />
         </Card>
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder="Content Type"
-          optionFilterProp="children"
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onSearch={onSearch}
+        <Card
+          title="Options"
+          style={{ width: 500 }}
         >
-          {contentType.map((item) => (
-            <Option value={item.id}>{item.descr}</Option>
-          ))}
-        </Select>
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder="WeekDay"
-          optionFilterProp="children"
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onSearch={onSearch}
-        >
-          {WeekDay.map((item) => (
-            <Option value={item.id}>{item.descr}</Option>
-          ))}
-        </Select>
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder="HTTP Method"
-          optionFilterProp="children"
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onSearch={onSearch}
-        >
-          {Methods.map((item) => (
-            <Option value={item.id}>{item.descr}</Option>
-          ))}
-        </Select>
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder="Provider"
-          optionFilterProp="children"
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onSearch={onSearch}
-        >
-          {Provider.map((item) => (
-            <Option value={item.id}>{item.descr}</Option>
-          ))}
-        </Select>
-        <Button icon={<ReloadOutlined />} />
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Content Type"
+            optionFilterProp="children"
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onSearch={onSearch}
+          >
+            {contentType.map((item) => (
+              <Option value={item.id}>{item.descr}</Option>
+            ))}
+          </Select>
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="WeekDay"
+            optionFilterProp="children"
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onSearch={onSearch}
+          >
+            {WeekDay.map((item) => (
+              <Option value={item.id}>{item.descr}</Option>
+            ))}
+          </Select>
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="HTTP Method"
+            optionFilterProp="children"
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onSearch={onSearch}
+          >
+            {Methods.map((item) => (
+              <Option value={item.id}>{item.descr}</Option>
+            ))}
+          </Select>
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Provider"
+            optionFilterProp="children"
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onSearch={onSearch}
+          >
+            {Provider.map((item) => (
+              <Option value={item.id}>{item.descr}</Option>
+            ))}
+          </Select>
+          <Button icon={<ReloadOutlined />} />
+        </Card>
       </Col>
       <Col>
-        <Card
-          title="Map"
-          extra={<a href="/user">Report a problem</a>}
-        >
+        <Card title="Map" extra={<a href="/user">Report a problem</a>} style={{ width: 500 }}>
           <MapChart />
         </Card>
       </Col>
