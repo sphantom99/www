@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import {
   Upload, message, Button, Row, Col, notification, Spin,
 } from 'antd';
+import axios from 'axios';
 import {
   InboxOutlined,
   LoadingOutlined,
@@ -60,6 +61,21 @@ export default function FileUploader() {
   const [client, setClient] = useState({ lat: '', long: '' });
   const [isp, setIsp] = useState();
 
+  async function lastUploadDate() {
+    console.log(1);
+    axios
+      .post('./api/addUploadToDB', { username: 'raven' })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          console.log('date asdasd');
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+
   return (
     <div>
       <Row type="flex" justify="center" align="middle">
@@ -113,7 +129,7 @@ export default function FileUploader() {
               </Col>
               <Col />
               <Col>
-                <Button type="primary" icon={<UploadOutlined />}>
+                <Button type="primary" icon={<UploadOutlined />} onClick={() => lastUploadDate()}>
                   <a href="/uploadFile" style={{ color: '#FFF' }}>
                     Upload processed file
                   </a>

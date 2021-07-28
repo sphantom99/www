@@ -30,9 +30,7 @@ export default function CustomLayout({ children }) {
     axios
       .get('./api/getCookie')
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
-          console.log('got Cookie');
           setSession(response.data.session);
         }
       })
