@@ -2,15 +2,17 @@ import {
   Layout, Menu, Breadcrumb, Button,
 } from 'antd';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import cookie from 'js-cookie';
+import Link from 'next/link';
 
 const { Header, Content, Footer } = Layout;
 
 export default function CustomLayout({ children }) {
   const router = useRouter();
-  const [session, setSession] = useState();
+  const cook = cookie.get('secret');
   async function logout() {
     console.log('loggin gout ');
     axios
@@ -19,6 +21,7 @@ export default function CustomLayout({ children }) {
         console.log(response);
         if (response.status === 200) {
           console.log('Loged out');
+          cookie.remove('secret');
           router.push('/login');
         }
       })
@@ -26,41 +29,35 @@ export default function CustomLayout({ children }) {
         console.log(error.response);
       });
   }
-  useEffect(() => {
-    axios
-      .get('./api/getCookie')
-      .then((response) => {
-        if (response.status === 200) {
-          setSession(response.data.session);
-        }
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  }, []);
-  // useEffect(() => {}, [session]);
   return (
     <Layout className="layout">
       <Header>
-        <Menu theme="dark" mode="horizontal">
-          <Menu.Item>
-            <a href="/uploadFile">Home</a>
-          </Menu.Item>
-          <Menu.Item>
-            <a href="/user">Profile</a>
-          </Menu.Item>
-          <Menu.Item>
-            <Button
-              onClick={() => {
-                logout();
-                setSession('');
-              }}
-            >
-              Logout
-            </Button>
-          </Menu.Item>
-          <Menu.Item>{session}</Menu.Item>
-        </Menu>
+        {cook && (
+          <>
+            <Menu theme="dark" mode="horizontal">
+              <Menu.Item>
+                <Link href="/uploadFile">
+                  <a href="/uploadFile">Home</a>
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link href="/user">
+                  <a href="/user">Profile</a>
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Button
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Logout
+                </Button>
+              </Menu.Item>
+              <Menu.Item disabled>{cook}</Menu.Item>
+            </Menu>
+          </>
+        )}
       </Header>
       <Content style={{ padding: '0 50px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>

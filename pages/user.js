@@ -1,11 +1,38 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card, Row, Col, Form, Input, Button, Statistic,
 } from 'antd';
 import Link from 'next/link';
+import cookie from 'js-cookie';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function User() {
+  const [count, setCount] = useState();
+  const [lastUpload, setLastUpload] = useState();
+  const username = cookie.get('secret');
+  const router = useRouter();
+  useEffect(() => {
+    if (username === undefined) {
+      router.push('/login');
+    }
+    axios
+      .post('./api/getUserStatistics', { username })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          console.log('date:', response);
+          console.log(response.data[0].count);
+          console.log(response.data[1].last_upload_data);
+          setCount(response.data[0].count);
+          setLastUpload(response.data[1].last_upload_data);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }, []);
   return (
     <div>
       <Row>
@@ -28,7 +55,7 @@ export default function User() {
                 name="username"
                 rules={[{ required: true, message: 'Please input your username!' }]}
               >
-                <Input defaultValue="Paulinho" />
+                <Input defaultValue={username} />
               </Form.Item>
 
               <Form.Item
@@ -63,11 +90,11 @@ export default function User() {
           >
             <Row>
               <Col xs={10}>
-                <Statistic title="Last upload" value="15-7-2021" />
+                <Statistic title="Last upload" value={lastUpload} />
               </Col>
               <Col xs={4} />
               <Col xs={10}>
-                <Statistic title="Files uploaded" value={5} />
+                <Statistic title="Files uploaded" value={count} />
               </Col>
             </Row>
           </Card>
