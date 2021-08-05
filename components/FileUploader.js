@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
@@ -59,6 +60,7 @@ export default function FileUploader() {
   const [info, setInfo] = useState({ ref: '', name: '' });
   const [server, setServer] = useState({ lat: '', long: '' });
   const [client, setClient] = useState({ lat: '', long: '' });
+  // eslint-disable-next-line no-unused-vars
   const [isp, setIsp] = useState();
 
   async function lastUploadDate() {
