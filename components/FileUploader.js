@@ -69,13 +69,13 @@ export default function FileUploader() {
   const [isp, setIsp] = useState();
 
   async function lastUploadDate() {
-    console.log('sending');
+    // console.log('sending');
     axios
       .post('./api/addUploadToDB', { username: 'raven', data })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
-          console.log('date asdasd');
+          // console.log('date asdasd');
         }
       })
       .catch((error) => {
