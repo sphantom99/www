@@ -31,13 +31,14 @@ export async function getServerSideProps() {
       status: info.entryPerStatus,
       usersCount: info.usersCount,
       distinctDomains: info.distinctDomains,
+      averageTiming: info.averageTiming,
     },
   };
 }
 
 export default function admin(props) {
   const {
-    method, status, usersCount, distinctDomains,
+    method, status, usersCount, distinctDomains, averageTiming,
   } = props;
   const contentType = [
     { id: 1, descr: 'something1' },
@@ -138,6 +139,19 @@ export default function admin(props) {
       key: 'count',
     },
   ];
+  const columnsTimingsPerContentType = [
+    {
+      title: 'Content Type',
+      dataIndex: 'contentType',
+      key: 'contentType',
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: 'Average Time',
+      dataIndex: 'averageTime',
+      key: 'averageTime',
+    },
+  ];
   return (
     <Row>
       <Col xs={11}>
@@ -166,6 +180,15 @@ export default function admin(props) {
                 }}
               />
             </Col>
+          </Row>
+          <Row>
+            <Table
+              columns={columnsTimingsPerContentType}
+              dataSource={averageTiming}
+              pagination={{
+                defaultPageSize: 3,
+              }}
+            />
           </Row>
 
           <Statistic title="User Count" value={usersCount} />
