@@ -13,8 +13,8 @@ export default function Login() {
     axios
       .post('./api/checkCredentials', { values })
       .then((response) => {
-        console.log(response);
-        if (response !== undefined) {
+        console.log('this is the response from login', response);
+        if (response.data !== undefined && response.data !== '') {
           console.log('passed');
           cookie.set('secret', values.username, { expires: 1 / 24 });
           router.push('/user');

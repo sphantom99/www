@@ -20,13 +20,11 @@ export default function User() {
     axios
       .post('./api/getUserStatistics', { username })
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
-          console.log('date:', response);
-          console.log(response.data[0].count);
-          console.log(response.data[1].last_upload_data);
-          setCount(response.data[0].count);
-          setLastUpload(response.data[1].last_upload_data);
+          console.log(response.data);
+          console.log(response.data.count);
+          setCount(response.data.count);
+          setLastUpload(response.data.date[0].last_upload_data);
         }
       })
       .catch((error) => {

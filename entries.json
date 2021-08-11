@@ -1,0 +1,435 @@
+[{
+  "_id": {
+    "$oid": "610bd23983976a5fa8f0ce39"
+  },
+  "entry": {
+    "_initiator": {
+      "type": "script",
+      "stack": {
+        "callFrames": [
+          {
+            "functionName": "",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 1123968
+          },
+          {
+            "functionName": "o",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 1123633
+          },
+          {
+            "functionName": "",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 1124209
+          },
+          {
+            "functionName": "s",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 1124175
+          },
+          {
+            "functionName": "t.doPrefetch",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 1128763
+          },
+          {
+            "functionName": "n.doPrefetch",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 1129902
+          },
+          {
+            "functionName": "t.prefetch",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 1128567
+          },
+          {
+            "functionName": "enqueue",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 1130649
+          },
+          {
+            "functionName": "n._prefetch",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 27815
+          },
+          {
+            "functionName": "n",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 28349
+          },
+          {
+            "functionName": "",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 28521
+          },
+          {
+            "functionName": "",
+            "scriptId": "79",
+            "url": "https://docs.mongodb.com/manual/app-9689c2e43dac952d45c0.js",
+            "lineNumber": 1,
+            "columnNumber": 28412
+          }
+        ]
+      }
+    },
+    "_priority": "VeryLow",
+    "_resourceType": "other",
+    "cache": {},
+    "connection": "113121",
+    "request": {
+      "method": "GET",
+      "url": "https://docs.mongodb.com/manual/page-data/reference/program/mongod/page-data.json",
+      "httpVersion": "http/2.0",
+      "headers": [
+        {
+          "name": ":method",
+          "value": "GET"
+        },
+        {
+          "name": ":authority",
+          "value": "docs.mongodb.com"
+        },
+        {
+          "name": ":scheme",
+          "value": "https"
+        },
+        {
+          "name": ":path",
+          "value": "/manual/page-data/reference/program/mongod/page-data.json"
+        },
+        {
+          "name": "pragma",
+          "value": "no-cache"
+        },
+        {
+          "name": "cache-control",
+          "value": "no-cache"
+        },
+        {
+          "name": "sec-ch-ua",
+          "value": "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\""
+        },
+        {
+          "name": "origin",
+          "value": "https://docs.mongodb.com"
+        },
+        {
+          "name": "sec-ch-ua-mobile",
+          "value": "?0"
+        },
+        {
+          "name": "user-agent",
+          "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36"
+        },
+        {
+          "name": "dnt",
+          "value": "1"
+        },
+        {
+          "name": "accept",
+          "value": "application/signed-exchange;v=b3;q=0.9,*/*;q=0.8"
+        },
+        {
+          "name": "purpose",
+          "value": "prefetch"
+        },
+        {
+          "name": "sec-fetch-site",
+          "value": "same-origin"
+        },
+        {
+          "name": "sec-fetch-mode",
+          "value": "cors"
+        },
+        {
+          "name": "sec-fetch-dest",
+          "value": "empty"
+        },
+        {
+          "name": "referer",
+          "value": "https://docs.mongodb.com/manual/reference/connection-string/"
+        },
+        {
+          "name": "accept-encoding",
+          "value": "gzip, deflate, br"
+        },
+        {
+          "name": "accept-language",
+          "value": "en"
+        },
+        {
+          "name": "cookie",
+          "value": "_delighted_web={%22DDkUrqPFwkIIJk3T%22:{%22_delighted_fst%22:{%22t%22:%221627464208152%22}}}; __session.data=%7B%22tck%22%3A%22docs_server%22%2C%22loggedIn%22%3Afalse%2C%22previousPageLocale%22%3A%22en%22%2C%22jmp%22%3A%22docs%22%7D; __session.timestamps=%7B%22tck%22%3A1628157809048%2C%22jmp%22%3A1628158934926%7D"
+        },
+        {
+          "name": "sec-gpc",
+          "value": "1"
+        }
+      ],
+      "queryString": [],
+      "cookies": [
+        {
+          "name": "_delighted_web",
+          "value": "{%22DDkUrqPFwkIIJk3T%22:{%22_delighted_fst%22:{%22t%22:%221627464208152%22}}}",
+          "path": "/",
+          "domain": ".mongodb.com",
+          "expires": "2031-07-26T09:23:28.000Z",
+          "httpOnly": false,
+          "secure": false,
+          "sameSite": "Lax"
+        },
+        {
+          "name": "__session.data",
+          "value": "%7B%22tck%22%3A%22docs_server%22%2C%22loggedIn%22%3Afalse%2C%22previousPageLocale%22%3A%22en%22%2C%22jmp%22%3A%22docs%22%7D",
+          "path": "/",
+          "domain": ".mongodb.com",
+          "expires": "1969-12-31T23:59:59.000Z",
+          "httpOnly": false,
+          "secure": false
+        },
+        {
+          "name": "__session.timestamps",
+          "value": "%7B%22tck%22%3A1628157809048%2C%22jmp%22%3A1628158934926%7D",
+          "path": "/",
+          "domain": ".mongodb.com",
+          "expires": "1969-12-31T23:59:59.000Z",
+          "httpOnly": false,
+          "secure": false
+        }
+      ],
+      "headersSize": -1,
+      "bodySize": 0
+    },
+    "response": {
+      "status": 200,
+      "statusText": "",
+      "httpVersion": "http/2.0",
+      "headers": [
+        {
+          "name": "x-amz-id-2",
+          "value": "nROT4XyvZnEFI3bqGvZPSyRuX+/kWCYxMLw5m5IzB01ZkkNO95CFxuVjp9kMC1D2qK1fkDWzx80="
+        },
+        {
+          "name": "x-amz-request-id",
+          "value": "979V8PG5NDY6SZH1"
+        },
+        {
+          "name": "cache-control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "name": "last-modified",
+          "value": "Mon, 02 Aug 2021 19:21:39 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"2822ad34f6deb10ec563b81a4427a1d2\""
+        },
+        {
+          "name": "content-type",
+          "value": "application/json"
+        },
+        {
+          "name": "server",
+          "value": "AmazonS3"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "date",
+          "value": "Thu, 05 Aug 2021 11:52:50 GMT"
+        },
+        {
+          "name": "via",
+          "value": "1.1 varnish"
+        },
+        {
+          "name": "age",
+          "value": "28191"
+        },
+        {
+          "name": "x-served-by",
+          "value": "cache-ams21045-AMS"
+        },
+        {
+          "name": "x-cache",
+          "value": "HIT"
+        },
+        {
+          "name": "x-cache-hits",
+          "value": "1"
+        },
+        {
+          "name": "x-timer",
+          "value": "S1628164371.789528,VS0,VE1"
+        },
+        {
+          "name": "vary",
+          "value": "Accept-Encoding"
+        },
+        {
+          "name": "x-content-encoding-over-network",
+          "value": "gzip"
+        }
+      ],
+      "cookies": [],
+      "content": {
+        "size": 0,
+        "mimeType": "application/json"
+      },
+      "redirectURL": "",
+      "headersSize": -1,
+      "bodySize": -1,
+      "_transferSize": 1860438,
+      "_error": null
+    },
+    "serverIPAddress": "151.101.38.133",
+    "startedDateTime": "2021-08-05T11:50:46.131Z",
+    "time": 1604.3039999203756,
+    "timings": {
+      "blocked": 3.6159999507144094,
+      "dns": -1,
+      "ssl": -1,
+      "connect": -1,
+      "send": 0.10599999999999987,
+      "wait": 326.6620000209585,
+      "receive": 1273.9199999487028,
+      "_blocked_queueing": 2.4549999507144094
+    }
+  }
+},{
+  "_id": {
+    "$oid": "610bd70783976a5fa8f0ce3a"
+  },
+  "entry": {
+    "startedDateTime": "2021-08-05T15:02:01.149+03:00",
+    "serverIPAddress": "151.101.193.69",
+    "timings": 236,
+    "request": {
+      "method": "GET",
+      "url": "https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array",
+      "headers": [
+        {
+          "name": "Host",
+          "value": "stackoverflow.com"
+        },
+        {
+          "name": "Cache-Control",
+          "value": "max-age=0"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "statusText": "OK",
+      "headers": [
+        {
+          "name": "cache-control",
+          "value": "private"
+        }
+      ]
+    }
+  }
+},{
+  "_id": {
+    "$oid": "610bd7bb83976a5fa8f0ce3b"
+  },
+  "entry": {
+    "startedDateTime": "2021-08-05T15:02:01.462+03:00",
+    "serverIPAddress": "142.250.187.170",
+    "timings": 89,
+    "request": {
+      "method": "GET",
+      "url": "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js",
+      "headers": [
+        {
+          "name": "Host",
+          "value": "ajax.googleapis.com"
+        },
+        {
+          "name": "Cache-Control",
+          "value": "max-age=0"
+        }
+      ]
+    },
+    "response": {
+      "status": 304,
+      "statusText": "Not Modified",
+      "headers": [
+        {
+          "name": "expires",
+          "value": "Sat, 30 Jul 2022 07:38:10 GMT"
+        },
+        {
+          "name": "cache-control",
+          "value": "public, max-age=31536000, stale-while-revalidate=2592000"
+        },
+        {
+          "name": "age",
+          "value": "534231"
+        }
+      ]
+    }
+  }
+},{
+  "_id": {
+    "$oid": "610bd7ee83976a5fa8f0ce3c"
+  },
+  "entry": {
+    "startedDateTime": "2021-08-05T15:02:01.464+03:00",
+    "serverIPAddress": "151.101.193.69",
+    "timings": 73,
+    "request": {
+      "method": "GET",
+      "url": "https://cdn.sstatic.net/Js/stub.en.js?v=b0b27d8f179f",
+      "headers": [
+        {
+          "name": "Host",
+          "value": "cdn.sstatic.net"
+        },
+        {
+          "name": "Cache-Control",
+          "value": "max-age=0"
+        }
+      ]
+    },
+    "response": {
+      "status": 304,
+      "statusText": "Not Modified",
+      "headers": [
+        {
+          "name": "cache-control",
+          "value": "max-age=604800"
+        },
+        {
+          "name": "age",
+          "value": "53174"
+        }
+      ]
+    }
+  }
+}]
