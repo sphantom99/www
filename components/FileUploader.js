@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -68,6 +69,7 @@ export default function FileUploader() {
   const [isp, setIsp] = useState();
 
   async function lastUploadDate() {
+    console.log('sending');
     axios
       .post('./api/addUploadToDB', { username: 'raven', data })
       .then((response) => {
@@ -103,7 +105,7 @@ export default function FileUploader() {
                     setIsp,
                   );
                   setInfo({ ...info, ref: tempInfo.ref, name: tempInfo.name });
-                  setData(tempInfo.data);
+                  setData(tempInfo.cleanJSON);
                   setFileInfo({ ...fileInfo, name: file.name, size: file.size });
                 } catch (e) {
                   openNotification();
@@ -141,8 +143,8 @@ export default function FileUploader() {
               </Col>
               <Col />
               <Col>
-                <Button type="primary" icon={<UploadOutlined />} onClick={() => lastUploadDate()}>
-                  <a href="/uploadFile" style={{ color: '#FFF' }}>
+                <Button type="primary" icon={<UploadOutlined />} onClick={lastUploadDate}>
+                  <a href="#" style={{ color: '#FFF' }}>
                     Upload processed file
                   </a>
                 </Button>
