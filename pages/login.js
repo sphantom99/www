@@ -16,7 +16,7 @@ export default function Login() {
         console.log('this is the response from login', response);
         if (response.data !== undefined && response.data !== '') {
           console.log('passed');
-          cookie.set('secret', values.username, { expires: 1 / 24 });
+          cookie.set('secret', values.username, { expires: 7 });
           router.push('/user');
         }
       })

@@ -1,13 +1,44 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable array-callback-return */
 import React from 'react';
 import {
-  Row, Col, Card, Statistic, Button, Select,
+  Row, Col, Card, Statistic, Button, Select, Table,
 } from 'antd';
 import { Bar } from 'react-chartjs-2';
 import { ReloadOutlined } from '@ant-design/icons';
-import MapChart from '../components/MapChart';
+import axios from 'axios';
+
+import MapChart from '../../components/MapChart';
 
 const { Option } = Select;
-export default function admin() {
+
+export async function getServerSideProps() {
+  const info = await axios
+    .get('http://localhost:3000/api/getAdminStatistics')
+    .then((response) => {
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+
+  return {
+    props: {
+      method: info.entryPerMethod,
+      status: info.entryPerStatus,
+      usersCount: info.usersCount,
+      distinctDomains: info.distinctDomains,
+    },
+  };
+}
+
+export default function admin(props) {
+  const {
+    method, status, usersCount, distinctDomains,
+  } = props;
   const contentType = [
     { id: 1, descr: 'something1' },
     { id: 2, descr: 'something2' },
@@ -81,19 +112,64 @@ export default function admin() {
     console.log('search:', val);
   }
 
+  const columnsMethod = [
+    {
+      title: 'Method',
+      dataIndex: 'method',
+      key: 'method',
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: 'Count',
+      dataIndex: 'count',
+      key: 'count',
+    },
+  ];
+  const columnsStatus = [
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: 'Count',
+      dataIndex: 'count',
+      key: 'count',
+    },
+  ];
   return (
     <Row>
       <Col xs={11}>
         <Card
           title="Statistics"
           extra={<a href="/user">Report a problem</a>}
-          style={{ width: 500 }}
+          style={{ width: 700 }}
         >
-          <Statistic title="Users" value={5} />
-          <Statistic title="Files uploaded" value={5} />
-          <Statistic title="Files uploaded" value={5} />
-          <Statistic title="Files uploaded" value={5} />
-          <Statistic title="Files uploaded" value={5} />
+          <Row>
+            <Col xs={11}>
+              <Table
+                columns={columnsMethod}
+                dataSource={method}
+                pagination={{
+                  defaultPageSize: 3,
+                }}
+              />
+            </Col>
+            <Col xs={2} />
+            <Col xs={11}>
+              <Table
+                columns={columnsStatus}
+                dataSource={status}
+                pagination={{
+                  defaultPageSize: 3,
+                }}
+              />
+            </Col>
+          </Row>
+
+          <Statistic title="User Count" value={usersCount} />
+          <Statistic title="Unique Domains Count" value={distinctDomains} />
           <Statistic title="Files uploaded" value={5} />
         </Card>
       </Col>
@@ -113,10 +189,7 @@ export default function admin() {
             }}
           />
         </Card>
-        <Card
-          title="Options"
-          style={{ width: 500 }}
-        >
+        <Card title="Options" style={{ width: 500 }}>
           <Select
             showSearch
             style={{ width: 200 }}

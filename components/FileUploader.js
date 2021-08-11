@@ -144,7 +144,7 @@ export default function FileUploader() {
               <Col />
               <Col>
                 <Button type="primary" icon={<UploadOutlined />} onClick={lastUploadDate}>
-                  <a href="#" style={{ color: '#FFF' }}>
+                  <a style={{ color: '#FFF' }}>
                     Upload processed file
                   </a>
                 </Button>
