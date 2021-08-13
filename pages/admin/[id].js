@@ -32,13 +32,14 @@ export async function getServerSideProps() {
       usersCount: info.usersCount,
       distinctDomains: info.distinctDomains,
       averageTiming: info.averageTiming,
+      distinctIsps: info.distinctIsps,
     },
   };
 }
 
 export default function admin(props) {
   const {
-    method, status, usersCount, distinctDomains, averageTiming,
+    method, status, usersCount, distinctDomains, averageTiming, distinctIsps,
   } = props;
   const contentType = [
     { id: 1, descr: 'something1' },
@@ -193,7 +194,7 @@ export default function admin(props) {
 
           <Statistic title="User Count" value={usersCount} />
           <Statistic title="Unique Domains Count" value={distinctDomains} />
-          <Statistic title="Files uploaded" value={5} />
+          <Statistic title="Unique Isps Count" value={distinctIsps} />
         </Card>
       </Col>
       <Col xs={2} />
