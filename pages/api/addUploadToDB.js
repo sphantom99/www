@@ -6,6 +6,13 @@ export default async function addUploadToDB(req, res) {
   // console.log('updating');
   const result = await updateLastUploadDate(username);
   const resultFile = await uploadFileCall(data);
-  // console.log(data);
   res.json(result, resultFile);
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '250mb',
+    },
+  },
+};
