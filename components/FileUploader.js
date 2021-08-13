@@ -94,9 +94,9 @@ export default function FileUploader() {
             maxCount={1}
             beforeUpload={(file) => {
               const reader = new FileReader();
-              reader.onload = (e) => {
+              reader.onload = async (e) => {
                 try {
-                  const tempInfo = cleanFile(
+                  const tempInfo = await cleanFile(
                     e.target.result,
                     server,
                     setServer,
