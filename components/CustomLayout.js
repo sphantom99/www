@@ -3,7 +3,6 @@ import {
 } from 'antd';
 
 import React from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
@@ -15,19 +14,8 @@ export default function CustomLayout({ children }) {
   const cook = cookie.get('secret');
   async function logout() {
     console.log('loggin gout ');
-    axios
-      .get('./api/logout')
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          console.log('Loged out');
-          cookie.remove('secret');
-          router.push('/login');
-        }
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    cookie.remove('secret');
+    router.push('/login');
   }
   return (
     <Layout className="layout">
@@ -46,13 +34,7 @@ export default function CustomLayout({ children }) {
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Button
-                  onClick={() => {
-                    logout();
-                  }}
-                >
-                  Logout
-                </Button>
+                <Button onClick={logout}>Logout</Button>
               </Menu.Item>
               <Menu.Item disabled>{cook}</Menu.Item>
             </Menu>

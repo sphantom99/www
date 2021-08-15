@@ -15,6 +15,7 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 import { Router } from 'next/dist/client/router';
+import cookie from 'js-cookie';
 import cleanFile from '../lib/cleanFile';
 
 const { Dragger } = Upload;
@@ -23,7 +24,7 @@ export default function FileUploader() {
   const router = useRouter();
   const [LoadingFlag, setLoadingFlag] = useState(false);
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
+  const cook = cookie.get('secret');
   const props = {
     name: 'file',
     onChange(info) {
@@ -71,7 +72,7 @@ export default function FileUploader() {
   async function lastUploadDate() {
     // console.log('sending');
     axios
-      .post('./api/addUploadToDB', { username: 'raven', data })
+      .post('./api/addUploadToDB', { username: cook, data })
       .then((response) => {
         // console.log(response);
         if (response.status === 200) {
@@ -144,9 +145,7 @@ export default function FileUploader() {
               <Col />
               <Col>
                 <Button type="primary" icon={<UploadOutlined />} onClick={lastUploadDate}>
-                  <a style={{ color: '#FFF' }}>
-                    Upload processed file
-                  </a>
+                  <a style={{ color: '#FFF' }}>Upload processed file</a>
                 </Button>
               </Col>
             </Row>

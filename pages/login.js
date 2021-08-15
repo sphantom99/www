@@ -15,9 +15,10 @@ export default function Login() {
       .then((response) => {
         console.log('this is the response from login', response);
         if (response.data !== undefined && response.data !== '') {
-          console.log('passed');
-          cookie.set('secret', values.username, { expires: 7 });
-          router.push('/user');
+          console.log(response.data);
+          if (response.data.is_admin) router.push(`/admin/${response.data.username}`);
+          else router.push('/user');
+          cookie.set('secret', values.username, { expires: 1 });
         }
       })
       .catch((error) => {
