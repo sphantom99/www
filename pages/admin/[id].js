@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
-import {
-  Row, Col, Card, Statistic, Button, Select, Table,
-} from 'antd';
+import { Row, Col, Card, Statistic, Button, Select, Table } from 'antd';
 import { Bar } from 'react-chartjs-2';
 import { ReloadOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -49,9 +47,7 @@ export async function getServerSideProps() {
 }
 
 export default function admin(props) {
-  const {
-    method, status, usersCount, distinctDomains, averageTiming, distinctIsps,
-  } = props;
+  const { method, status, usersCount, distinctDomains, averageTiming, distinctIsps } = props;
   const [diagram, setDiagram] = useState(props.diagram);
   const contentType = [
     { id: 'text/css; charset=UTF-8', descr: 'text/css; charset=UTF-8' },
@@ -193,7 +189,24 @@ export default function admin(props) {
     },
   ];
 
-  async function updateDiagram() {
+  // async function updateDiagram() {
+  //   await axios
+  //     .post('../api/getAdminStatisticsDiagram', {
+  //       filter,
+  //     })
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         // console.log(response.data);
+  //         setDiagram(response.data);
+  //         return response.data;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response);
+  //     });
+  // }
+
+  useEffect(async () => {
     await axios
       .post('../api/getAdminStatisticsDiagram', {
         filter,
@@ -208,11 +221,7 @@ export default function admin(props) {
       .catch((error) => {
         console.log(error.response);
       });
-  }
-
-  // useEffect(() => {
-  //   console.log(filter);
-  // }, [filter]);
+  }, [filter]);
   return (
     <Row>
       <Col xs={11}>
@@ -323,7 +332,7 @@ export default function admin(props) {
               <Option value={item.id}>{item.descr}</Option>
             ))}
           </Select>
-          <Button icon={<ReloadOutlined />} onClick={updateDiagram} />
+          {/* <Button icon={<ReloadOutlined />} onClick={updateDiagram} /> */}
         </Card>
       </Col>
       <Col>
