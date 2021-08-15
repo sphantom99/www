@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 export default function User() {
   const [count, setCount] = useState();
   const [lastUpload, setLastUpload] = useState();
-  const username = cookie.get('secret');
+  const username = cookie.get('secret').split(',')[0];
   const router = useRouter();
   useEffect(() => {
     if (username === undefined) {

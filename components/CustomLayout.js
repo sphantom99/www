@@ -17,6 +17,11 @@ export default function CustomLayout({ children }) {
     cookie.remove('secret');
     router.push('/login');
   }
+  const cookieTemp = cook?.split(',');
+  console.log(cookieTemp);
+  // const username = cookieTemp[0] ? cookieTemp[0] : '';
+  // const isAdmin = cookieTemp[1] ? cookieTemp[1] : '';
+
   return (
     <Layout className="layout">
       <Header>
@@ -29,14 +34,20 @@ export default function CustomLayout({ children }) {
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Link href="/user">
-                  <a href="/user">Profile</a>
-                </Link>
+                {cookieTemp[1] === 'true' ? (
+                  <Link href={`/admin/${cookieTemp[0]}`}>
+                    <a href={`/admin/${cookieTemp[0]}`}>Profile</a>
+                  </Link>
+                ) : (
+                  <Link href="/user">
+                    <a href="/user">Profile</a>
+                  </Link>
+                )}
               </Menu.Item>
               <Menu.Item>
                 <Button onClick={logout}>Logout</Button>
               </Menu.Item>
-              <Menu.Item disabled>{cook}</Menu.Item>
+              <Menu.Item disabled>{cookieTemp[0]}</Menu.Item>
             </Menu>
           </>
         )}

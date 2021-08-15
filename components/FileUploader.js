@@ -24,7 +24,7 @@ export default function FileUploader() {
   const router = useRouter();
   const [LoadingFlag, setLoadingFlag] = useState(false);
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-  const cook = cookie.get('secret');
+  const cook = cookie.get('secret').split(',');
   const props = {
     name: 'file',
     onChange(info) {
@@ -72,7 +72,7 @@ export default function FileUploader() {
   async function lastUploadDate() {
     // console.log('sending');
     axios
-      .post('./api/addUploadToDB', { username: cook, data })
+      .post('./api/addUploadToDB', { username: cook[0], data })
       .then((response) => {
         // console.log(response);
         if (response.status === 200) {

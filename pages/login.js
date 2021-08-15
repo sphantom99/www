@@ -18,7 +18,11 @@ export default function Login() {
           console.log(response.data);
           if (response.data.is_admin) router.push(`/admin/${response.data.username}`);
           else router.push('/user');
-          cookie.set('secret', values.username, { expires: 1 });
+          cookie.set(
+            'secret',
+            `${response.data.username},${response.data.is_admin}`,
+            { expires: 1 },
+          );
         }
       })
       .catch((error) => {

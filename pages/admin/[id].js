@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Statistic, Button, Select, Table } from 'antd';
+import {
+  Row, Col, Card, Statistic, Select, Table,
+} from 'antd';
 import { Bar } from 'react-chartjs-2';
-import { ReloadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import MapChart from '../../components/MapChart';
@@ -47,7 +48,9 @@ export async function getServerSideProps() {
 }
 
 export default function admin(props) {
-  const { method, status, usersCount, distinctDomains, averageTiming, distinctIsps } = props;
+  const {
+    method, status, usersCount, distinctDomains, averageTiming, distinctIsps,
+  } = props;
   const [diagram, setDiagram] = useState(props.diagram);
   const contentType = [
     { id: 'text/css; charset=UTF-8', descr: 'text/css; charset=UTF-8' },
