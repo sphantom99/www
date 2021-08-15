@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable array-callback-return */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Row, Col, Card, Statistic, Button, Select, Table,
 } from 'antd';
@@ -17,16 +17,27 @@ export async function getServerSideProps() {
     .get('http://localhost:3000/api/getAdminStatistics')
     .then((response) => {
       if (response.status === 200) {
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
       }
     })
     .catch((error) => {
       console.log(error.response);
     });
-
+  const diagram = await axios
+    .post('http://localhost:3000/api/getAdminStatisticsDiagram')
+    .then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        return response.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
   return {
     props: {
+      diagram,
       method: info.entryPerMethod,
       status: info.entryPerStatus,
       usersCount: info.usersCount,
@@ -41,11 +52,13 @@ export default function admin(props) {
   const {
     method, status, usersCount, distinctDomains, averageTiming, distinctIsps,
   } = props;
+  const [diagram, setDiagram] = useState(props.diagram);
   const contentType = [
-    { id: 1, descr: 'something1' },
-    { id: 2, descr: 'something2' },
-    { id: 3, descr: 'something3' },
-    { id: 4, descr: 'something4' },
+    { id: 'text/css; charset=UTF-8', descr: 'text/css; charset=UTF-8' },
+    { id: 'image/webp', descr: 'image/webp' },
+    { id: 'text/plain', descr: 'text/plain' },
+    { id: 'video/mp4', descr: 'video/mp4' },
+    { id: null, descr: 'No option' },
   ];
 
   const WeekDay = [
@@ -55,28 +68,40 @@ export default function admin(props) {
     { id: 4, descr: 'Thursday' },
     { id: 5, descr: 'Friday' },
     { id: 6, descr: 'Saturday' },
-    { id: 7, descr: 'Sunday' },
+    { id: 0, descr: 'Sunday' },
+    { id: null, descr: 'No option' },
   ];
   const Methods = [
-    { id: 1, descr: 'GET' },
-    { id: 2, descr: 'POST' },
-    { id: 3, descr: 'PUT' },
-    { id: 4, descr: 'HEAD' },
-    { id: 5, descr: 'DELETE' },
+    { id: 'GET', descr: 'GET' },
+    { id: 'POST', descr: 'POST' },
+    { id: 'PUT', descr: 'PUT' },
+    { id: 'HEAD', descr: 'HEAD' },
+    { id: 'DELETE', descr: 'DELETE' },
+    { id: 'OPTIONS', descr: 'OPTIONS' },
+    { id: null, descr: 'No option' },
   ];
 
   const Provider = [
     { id: 1, descr: 'Wind' },
     { id: 2, descr: 'Cosmote' },
     { id: 3, descr: 'Vodafone' },
+    { id: null, descr: 'No option' },
   ];
-
+  console.log(diagram);
+  const labelData = [];
+  const diagramData = [];
+  diagram.map((item) => {
+    labelData.push(`${item.id}:00`);
+    diagramData.push(item.averageTime);
+  });
+  console.log(labelData);
+  console.log(diagramData);
   const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    labels: labelData,
     datasets: [
       {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'AverageTime',
+        data: diagramData,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -97,9 +122,27 @@ export default function admin(props) {
       },
     ],
   };
-
-  function onChange(value) {
+  const [filter, setFilter] = useState({
+    contentType: null,
+    weekDay: null,
+    httpMethod: null,
+    provider: null,
+  });
+  function onChangeType(value) {
     console.log(`selected ${value}`);
+    setFilter({ ...filter, contentType: value });
+  }
+  function onChangeDay(value) {
+    console.log(`selected ${value}`);
+    setFilter({ ...filter, weekDay: value });
+  }
+  function onChangeMethod(value) {
+    console.log(`selected ${value}`);
+    setFilter({ ...filter, httpMethod: value });
+  }
+  function onChangeIsp(value) {
+    console.log(`selected ${value}`);
+    setFilter({ ...filter, provider: value });
   }
 
   function onBlur() {
@@ -108,10 +151,6 @@ export default function admin(props) {
 
   function onFocus() {
     console.log('focus');
-  }
-
-  function onSearch(val) {
-    console.log('search:', val);
   }
 
   const columnsMethod = [
@@ -153,6 +192,27 @@ export default function admin(props) {
       key: 'averageTime',
     },
   ];
+
+  async function updateDiagram() {
+    await axios
+      .post('../api/getAdminStatisticsDiagram', {
+        filter,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          // console.log(response.data);
+          setDiagram(response.data);
+          return response.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+
+  // useEffect(() => {
+  //   console.log(filter);
+  // }, [filter]);
   return (
     <Row>
       <Col xs={11}>
@@ -190,11 +250,12 @@ export default function admin(props) {
                 defaultPageSize: 3,
               }}
             />
+            <Col>
+              <Statistic title="User Count" value={usersCount} />
+              <Statistic title="Unique Domains Count" value={distinctDomains} />
+              <Statistic title="Unique Isps Count" value={distinctIsps} />
+            </Col>
           </Row>
-
-          <Statistic title="User Count" value={usersCount} />
-          <Statistic title="Unique Domains Count" value={distinctDomains} />
-          <Statistic title="Unique Isps Count" value={distinctIsps} />
         </Card>
       </Col>
       <Col xs={2} />
@@ -215,62 +276,54 @@ export default function admin(props) {
         </Card>
         <Card title="Options" style={{ width: 500 }}>
           <Select
-            showSearch
             style={{ width: 200 }}
             placeholder="Content Type"
             optionFilterProp="children"
-            onChange={onChange}
+            onChange={onChangeType}
             onFocus={onFocus}
             onBlur={onBlur}
-            onSearch={onSearch}
           >
             {contentType.map((item) => (
               <Option value={item.id}>{item.descr}</Option>
             ))}
           </Select>
           <Select
-            showSearch
             style={{ width: 200 }}
             placeholder="WeekDay"
             optionFilterProp="children"
-            onChange={onChange}
+            onChange={onChangeDay}
             onFocus={onFocus}
             onBlur={onBlur}
-            onSearch={onSearch}
           >
             {WeekDay.map((item) => (
               <Option value={item.id}>{item.descr}</Option>
             ))}
           </Select>
           <Select
-            showSearch
             style={{ width: 200 }}
             placeholder="HTTP Method"
             optionFilterProp="children"
-            onChange={onChange}
+            onChange={onChangeMethod}
             onFocus={onFocus}
             onBlur={onBlur}
-            onSearch={onSearch}
           >
             {Methods.map((item) => (
               <Option value={item.id}>{item.descr}</Option>
             ))}
           </Select>
           <Select
-            showSearch
             style={{ width: 200 }}
             placeholder="Provider"
             optionFilterProp="children"
-            onChange={onChange}
+            onChange={onChangeIsp}
             onFocus={onFocus}
             onBlur={onBlur}
-            onSearch={onSearch}
           >
             {Provider.map((item) => (
               <Option value={item.id}>{item.descr}</Option>
             ))}
           </Select>
-          <Button icon={<ReloadOutlined />} />
+          <Button icon={<ReloadOutlined />} onClick={updateDiagram} />
         </Card>
       </Col>
       <Col>
