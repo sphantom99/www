@@ -289,6 +289,8 @@ export default function admin(props) {
         <Card title="Options" style={{ width: 500 }}>
           <Select
             style={{ width: 200 }}
+            allowClear
+            mode="multiple"
             placeholder="Content Type"
             optionFilterProp="children"
             onChange={onChangeType}
@@ -301,6 +303,8 @@ export default function admin(props) {
           </Select>
           <Select
             style={{ width: 200 }}
+            allowClear
+            mode="multiple"
             placeholder="WeekDay"
             optionFilterProp="children"
             onChange={onChangeDay}
@@ -313,6 +317,8 @@ export default function admin(props) {
           </Select>
           <Select
             style={{ width: 200 }}
+            allowClear
+            mode="multiple"
             placeholder="HTTP Method"
             optionFilterProp="children"
             onChange={onChangeMethod}
@@ -325,6 +331,8 @@ export default function admin(props) {
           </Select>
           <Select
             style={{ width: 200 }}
+            allowClear
+            mode="multiple"
             placeholder="Provider"
             optionFilterProp="children"
             onChange={onChangeIsp}
