@@ -1,3 +1,6 @@
+/* eslint-disable radix */
+/* eslint-disable no-plusplus */
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
@@ -61,12 +64,13 @@ export async function getServerSideProps() {
 
 export default function admin(props) {
   const {
-    method, status, usersCount, distinctDomains, averageTiming, distinctIsps, histogram,
+    method, status, usersCount, distinctDomains, averageTiming, distinctIsps,
   } = props;
 
   // console.log('averageTiming:', averageTiming);
   const [diagram, setDiagram] = useState(props.diagram);
-
+  const [histogram, setHistogram] = useState(props.histogram);
+  // console.log(histogram);
   const WeekDay = [
     { id: 1, descr: 'Monday' },
     { id: 2, descr: 'Tuesday' },
@@ -87,6 +91,35 @@ export default function admin(props) {
   });
   // console.log(labelData);
   // console.log(diagramData);
+  const bucketSize = (histogram[0].response.headers.maxAge
+      - histogram[histogram.length - 1].response.headers.maxAge)
+    / 10;
+  // console.log(bucketSize);
+  const bucketRange = [{ low: 0, high: 0, count: 0 }];
+  const bucketLabel = [];
+  for (let i = 0; i < 10; i++) {
+    const temp = parseInt(bucketRange[i].high);
+    const curr = parseInt(temp + bucketSize);
+    bucketRange.push({ low: temp, high: curr, count: 0 });
+    bucketLabel.push(`${temp}-${curr}`);
+  }
+
+  bucketRange.shift();
+  // console.log(bucketRange);
+  // console.log(bucketLabel);
+  const bucketData = [];
+  histogram.map((item) => {
+    const maxAge = parseInt(item.response.headers.maxAge);
+    bucketRange.map((buck) => {
+      if (maxAge >= buck.low && maxAge < buck.high) {
+        buck.count += 1;
+      }
+    });
+  });
+  // console.log(bucketRange);
+  bucketRange.map((item) => {
+    bucketData.push(item.count);
+  });
   const data = {
     labels: labelData,
     datasets: [
@@ -113,6 +146,19 @@ export default function admin(props) {
       },
     ],
   };
+  const dataHistogram = {
+    labels: bucketLabel,
+    datasets: [
+      {
+        label: 'distribution of Max Age',
+        data: bucketData,
+        backgroundColor: ['rgba(54, 162, 235, 0.2)'],
+        borderColor: ['rgba(54, 162, 235, 1)'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
   const [filter, setFilter] = useState({
     contentType: null,
     weekDay: null,
@@ -276,7 +322,7 @@ export default function admin(props) {
         >
           <Bar
             data={data}
-            width={400}
+            width={500}
             height={200}
             options={{
               maintainAspectRatio: false,
@@ -342,11 +388,25 @@ export default function admin(props) {
           </Select>
           {/* <Button icon={<ReloadOutlined />} onClick={updateDiagram} /> */}
         </Card>
+        <Card
+          title="Statistics"
+          extra={<a href="/user">Report a problem</a>}
+          style={{ width: 500 }}
+        >
+          <Bar
+            data={dataHistogram}
+            width={500}
+            height={400}
+            options={{
+              maintainAspectRatio: false,
+            }}
+          />
+        </Card>
       </Col>
       <Col>
-        <Card title="Map" extra={<a href="/user">Report a problem</a>} style={{ width: 500 }}>
+        {/* <Card title="Map" extra={<a href="/user">Report a problem</a>} style={{ width: 500 }}>
           <MapChart />
-        </Card>
+        </Card> */}
       </Col>
     </Row>
   );
