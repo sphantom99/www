@@ -24,7 +24,7 @@ export default function FileUploader() {
   const router = useRouter();
   const [LoadingFlag, setLoadingFlag] = useState(false);
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-  const cook = cookie.get('secret').split(',');
+  const cook = cookie.get('secret')?.split(',');
   const props = {
     name: 'file',
     onChange(info) {

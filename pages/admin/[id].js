@@ -34,8 +34,20 @@ export async function getServerSideProps() {
     .catch((error) => {
       console.log(error.response);
     });
+  const histogram = await axios
+    .post('http://localhost:3000/api/getHistogram', {})
+    .then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        return response.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
   return {
     props: {
+      histogram,
       diagram,
       method: info.entryPerMethod,
       status: info.entryPerStatus,
@@ -49,16 +61,11 @@ export async function getServerSideProps() {
 
 export default function admin(props) {
   const {
-    method, status, usersCount, distinctDomains, averageTiming, distinctIsps,
+    method, status, usersCount, distinctDomains, averageTiming, distinctIsps, histogram,
   } = props;
+
+  // console.log('averageTiming:', averageTiming);
   const [diagram, setDiagram] = useState(props.diagram);
-  const contentType = [
-    { id: 'text/css; charset=UTF-8', descr: 'text/css; charset=UTF-8' },
-    { id: 'image/webp', descr: 'image/webp' },
-    { id: 'text/plain', descr: 'text/plain' },
-    { id: 'video/mp4', descr: 'video/mp4' },
-    { id: null, descr: 'No option' },
-  ];
 
   const WeekDay = [
     { id: 1, descr: 'Monday' },
@@ -70,31 +77,16 @@ export default function admin(props) {
     { id: 0, descr: 'Sunday' },
     { id: null, descr: 'No option' },
   ];
-  const Methods = [
-    { id: 'GET', descr: 'GET' },
-    { id: 'POST', descr: 'POST' },
-    { id: 'PUT', descr: 'PUT' },
-    { id: 'HEAD', descr: 'HEAD' },
-    { id: 'DELETE', descr: 'DELETE' },
-    { id: 'OPTIONS', descr: 'OPTIONS' },
-    { id: null, descr: 'No option' },
-  ];
 
-  const Provider = [
-    { id: 1, descr: 'Wind' },
-    { id: 2, descr: 'Cosmote' },
-    { id: 3, descr: 'Vodafone' },
-    { id: null, descr: 'No option' },
-  ];
-  console.log(diagram);
+  // console.log(diagram);
   const labelData = [];
   const diagramData = [];
   diagram.map((item) => {
     labelData.push(`${item.id}:00`);
     diagramData.push(item.averageTime);
   });
-  console.log(labelData);
-  console.log(diagramData);
+  // console.log(labelData);
+  // console.log(diagramData);
   const data = {
     labels: labelData,
     datasets: [
@@ -255,17 +247,22 @@ export default function admin(props) {
             </Col>
           </Row>
           <Row>
-            <Table
-              columns={columnsTimingsPerContentType}
-              dataSource={averageTiming}
-              pagination={{
-                defaultPageSize: 3,
-              }}
-            />
-            <Col>
-              <Statistic title="User Count" value={usersCount} />
-              <Statistic title="Unique Domains Count" value={distinctDomains} />
-              <Statistic title="Unique Isps Count" value={distinctIsps} />
+            <Col xs={11}>
+              <Table
+                columns={columnsTimingsPerContentType}
+                dataSource={averageTiming}
+                pagination={{
+                  defaultPageSize: 3,
+                }}
+              />
+            </Col>
+            <Col xs={2} />
+            <Col xs={11}>
+              <Card title="Counts">
+                <Statistic title="User Count" value={usersCount} />
+                <Statistic title="Unique Domains Count" value={distinctDomains} />
+                <Statistic title="Unique Isps Count" value={distinctIsps.count} />
+              </Card>
             </Col>
           </Row>
         </Card>
@@ -297,8 +294,8 @@ export default function admin(props) {
             onFocus={onFocus}
             onBlur={onBlur}
           >
-            {contentType.map((item) => (
-              <Option value={item.id}>{item.descr}</Option>
+            {averageTiming.map((item) => (
+              <Option value={item.contentType?.trim()}>{item.contentType}</Option>
             ))}
           </Select>
           <Select
@@ -325,8 +322,8 @@ export default function admin(props) {
             onFocus={onFocus}
             onBlur={onBlur}
           >
-            {Methods.map((item) => (
-              <Option value={item.id}>{item.descr}</Option>
+            {method.map((item) => (
+              <Option value={item.method}>{item.method}</Option>
             ))}
           </Select>
           <Select
@@ -339,8 +336,8 @@ export default function admin(props) {
             onFocus={onFocus}
             onBlur={onBlur}
           >
-            {Provider.map((item) => (
-              <Option value={item.id}>{item.descr}</Option>
+            {distinctIsps.unique.map((item) => (
+              <Option value={item}>{item}</Option>
             ))}
           </Select>
           {/* <Button icon={<ReloadOutlined />} onClick={updateDiagram} /> */}
