@@ -24,10 +24,10 @@ export default function CustomLayout({ children }) {
 
   return (
     <Layout className="layout">
-      <Header>
+      <Header style={{ backgroundColor: '#315f72' }}>
         {cook && (
           <>
-            <Menu theme="dark" mode="horizontal">
+            <Menu style={{ backgroundColor: '#315f72' }} theme="dark" mode="horizontal">
               <Menu.Item>
                 <Link href="/uploadFile">
                   <a href="/uploadFile">Home</a>
@@ -52,9 +52,11 @@ export default function CustomLayout({ children }) {
           </>
         )}
       </Header>
-      <Content style={{ padding: '0 50px' }}>
+      <Content style={{ padding: '0 50px', backgroundColor: '#a7beae' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <div className="site-layout-content">{children}</div>
+          <div className="site-layout-content">
+            {children}
+          </div>
         </Breadcrumb>
       </Content>
       <Footer style={{ textAlign: 'center' }}>WEB ©2021 Created by CEID students</Footer>
