@@ -48,7 +48,6 @@ export default function Diagram({ data }) {
     { id: 5, descr: 'Friday' },
     { id: 6, descr: 'Saturday' },
     { id: 0, descr: 'Sunday' },
-    { id: null, descr: 'No option' },
   ];
   function onChangeType(value) {
     console.log(`selected ${value}`);

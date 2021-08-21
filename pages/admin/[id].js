@@ -3,10 +3,12 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card } from 'antd';
+import {
+  Row, Col, Card, Space,
+} from 'antd';
 import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
-
+import Histogram from '../../components/Histogram';
 import AdminStatistics from '../../components/AdminStatistics';
 import Diagram from '../../components/Diagram';
 
@@ -34,7 +36,7 @@ export async function getServerSideProps() {
       console.log(error.response);
     });
   const histogram = await axios
-    .post('http://localhost:3000/api/getHistogram', {})
+    .post('http://localhost:3000/api/getHistogram', { histogramFilter: [] })
     .then((response) => {
       if (response.status === 200) {
         // console.log(response.data);
@@ -71,7 +73,7 @@ export default function admin(props) {
     distinctIsps,
   };
   const [diagram, setDiagram] = useState(props.diagram);
-  const [histogram] = useState(props.histogram);
+  const [histogram, setHistogram] = useState(props.histogram);
   const [filter, setFilter] = useState({
     contentType: null,
     weekDay: null,
@@ -86,50 +88,26 @@ export default function admin(props) {
     averageTiming,
     method,
   };
-
-  const labelData = [];
-  const diagramData = [];
-  diagram.map((item) => {
-    labelData.push(`${item.id}:00`);
-    diagramData.push(item.averageTime);
-  });
-  const bucketSize = (histogram[0].response.headers.maxAge
-      - histogram[histogram.length - 1].response.headers.maxAge)
-    / 10;
-  const bucketRange = [{ low: 0, high: 0, count: 0 }];
-  const bucketLabel = [];
-  for (let i = 0; i < 10; i++) {
-    const temp = parseInt(bucketRange[i].high);
-    const curr = parseInt(temp + bucketSize);
-    bucketRange.push({ low: temp, high: curr, count: 0 });
-    bucketLabel.push(`${temp}-${curr}`);
-  }
-  bucketRange.shift();
-  const bucketData = [];
-  histogram.map((item) => {
-    const maxAge = parseInt(item.response.headers.maxAge);
-    bucketRange.map((buck) => {
-      if (maxAge >= buck.low && maxAge < buck.high) {
-        buck.count += 1;
-      }
-    });
-  });
-  bucketRange.map((item) => {
-    bucketData.push(item.count);
-  });
-
-  const dataHistogram = {
-    labels: bucketLabel,
-    datasets: [
-      {
-        label: 'distribution of Max Age',
-        data: bucketData,
-        backgroundColor: ['rgba(54, 162, 235, 0.2)'],
-        borderColor: ['rgba(54, 162, 235, 1)'],
-        borderWidth: 1,
-      },
-    ],
+  const [histogramFilter, setHistogramFilter] = useState([]);
+  const histogramStats = {
+    histogram,
+    averageTiming,
+    histogramFilter,
+    setHistogramFilter,
   };
+
+  useEffect(async () => {
+    console.log('client', histogramFilter);
+    await axios
+      .post('http://localhost:3000/api/getHistogram', { histogramFilter })
+      .then((response) => {
+        if (response.status === 200) {
+          // console.log(response.data);
+          setHistogram(response.data);
+          return response.data;
+        }
+      });
+  }, [histogramFilter]);
 
   useEffect(async () => {
     await axios
@@ -149,29 +127,18 @@ export default function admin(props) {
   }, [filter]);
   return (
     <div>
-      <Row>
-        <Col span={11}>
-          <Card
-            title="Statistics"
-            extra={<a href="/user">Report a problem</a>}
-            style={{ width: 700 }}
-          >
-            <Bar
-              data={dataHistogram}
-              width={600}
-              height={371}
-              options={{
-                maintainAspectRatio: false,
-              }}
-            />
-          </Card>
-        </Col>
-        <Col span={2} />
-        <Col span={11}>
-          <Diagram data={diagramStats} />
-        </Col>
-      </Row>
-      <AdminStatistics data={adminStats} />
+      <Space direction="vertical">
+        <Row>
+          <Col span={11}>
+            <Histogram data={histogramStats} />
+          </Col>
+          <Col span={2} />
+          <Col span={11}>
+            <Diagram data={diagramStats} />
+          </Col>
+        </Row>
+        <AdminStatistics data={adminStats} />
+      </Space>
     </div>
   );
 }
