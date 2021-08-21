@@ -129,7 +129,11 @@ export default function FileUploader() {
           {fileInfo.name && (
             <Card size="small" title="File" style={{ width: 150 }}>
               <Statistic title="Name" value={fileInfo.name} precision={2} />
-              <Statistic title="size" value={fileInfo.size} precision={2} />
+              <Statistic
+                title="size"
+                value={`${(fileInfo.size / 1024 / 1024).toFixed(2)} mb`}
+                precision={2}
+              />
             </Card>
           )}
           {LoadingFlag && !data && <Spin indicator={antIcon} />}
