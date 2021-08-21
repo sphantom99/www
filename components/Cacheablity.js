@@ -49,8 +49,14 @@ export default function Cacheability({ data }) {
     console.log('focus');
   }
   return (
-    <Card title="Statistics" extra={<a href="/user">Report a problem</a>} style={{ width: 700 }}>
-      <Table columns={columnsCacheability} dataSource={stats} />
+    <Card title="Statistics" extra={<a href="/user">Report a problem</a>} style={{ width: 400 }}>
+      <Table
+        columns={columnsCacheability}
+        dataSource={stats}
+        pagination={{
+          defaultPageSize: 3,
+        }}
+      />
       <Select
         style={{ width: 200 }}
         allowClear
