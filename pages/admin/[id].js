@@ -9,6 +9,7 @@ import Histogram from '../../components/Histogram';
 import AdminStatistics from '../../components/AdminStatistics';
 import Diagram from '../../components/Diagram';
 import MinMax from '../../components/MinMax';
+import Cacheability from '../../components/Cacheablity';
 
 export async function getServerSideProps() {
   const info = await axios
@@ -44,6 +45,17 @@ export async function getServerSideProps() {
     .catch((error) => {
       console.log(error.response);
     });
+  const cache = await axios
+    .post('http://localhost:3000/api/getCacheability', { cacheabilityFilter: [] })
+    .then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        return response.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
   const minMaxData = await axios
     .post('http://localhost:3000/api/getMinMax', { minMaxFilter: [] })
     .then((response) => {
@@ -58,6 +70,7 @@ export async function getServerSideProps() {
   return {
     props: {
       histogram,
+      cache,
       diagram,
       minMaxData,
       method: info.entryPerMethod,
@@ -72,8 +85,16 @@ export async function getServerSideProps() {
 
 export default function admin(props) {
   const {
-    method, status, usersCount, distinctDomains, averageTiming, distinctIsps, minMaxData,
+    method,
+    status,
+    usersCount,
+    distinctDomains,
+    averageTiming,
+    distinctIsps,
+    minMaxData,
+    cache,
   } = props;
+  console.log(cache);
   const adminStats = {
     method,
     status,
@@ -114,6 +135,27 @@ export default function admin(props) {
     minMax,
     averageTiming,
   };
+
+  const [cacheability, setCacheability] = useState(cache);
+  const [cacheabilityFilter, setCacheabilityFilter] = useState([]);
+  const cacheabilityStats = {
+    cacheabilityFilter,
+    setCacheabilityFilter,
+    cacheability,
+    averageTiming,
+  };
+
+  useEffect(async () => {
+    await axios
+      .post('http://localhost:3000/api/getCacheability', { cacheabilityFilter })
+      .then((response) => {
+        if (response.status === 200) {
+          // console.log(response.data);
+          setCacheability(response.data);
+          return response.data;
+        }
+      });
+  }, [cacheabilityFilter]);
 
   useEffect(async () => {
     console.log('client', histogramFilter);
@@ -167,7 +209,10 @@ export default function admin(props) {
           </Col>
         </Row>
         <AdminStatistics data={adminStats} />
-        <MinMax data={minMaxStats} />
+        <Row>
+          <MinMax data={minMaxStats} />
+          <Cacheability data={cacheabilityStats} />
+        </Row>
       </Space>
     </div>
   );

@@ -21,11 +21,11 @@ export default function MinMax({ data }) {
   const stats = [
     {
       directive: 'Max-Stale',
-      count: minMax.max / minMax.all.toFixed(4),
+      count: (minMax.max / minMax.all).toFixed(4),
     },
     {
       directive: 'Min-Fresh',
-      count: minMax.min / minMax.all.toFixed(4),
+      count: (minMax.min / minMax.all).toFixed(4),
     },
   ];
   function onChangeType(value) {
