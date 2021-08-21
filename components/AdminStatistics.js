@@ -113,9 +113,6 @@ export default function AdminStatistics({ data }) {
           <Table
             columns={columnsStats}
             dataSource={stats}
-            pagination={{
-              defaultPageSize: 3,
-            }}
           />
         </Col>
       </Row>

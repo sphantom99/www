@@ -1,5 +1,5 @@
 import {
-  Layout, Menu, Breadcrumb, Button,
+  Layout, Menu, Breadcrumb, Button, Typography,
 } from 'antd';
 
 import React from 'react';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
 
+const { Text } = Typography;
 const { Header, Content, Footer } = Layout;
 
 export default function CustomLayout({ children }) {
@@ -21,10 +22,18 @@ export default function CustomLayout({ children }) {
   console.log(cookieTemp);
   // const username = cookieTemp[0] ? cookieTemp[0] : '';
   // const isAdmin = cookieTemp[1] ? cookieTemp[1] : '';
-
+  const path = router.asPath === '/uploadFile';
+  console.log(path);
   return (
     <Layout className="layout">
-      <Header style={{ backgroundColor: '#315f72' }}>
+      <Header
+        style={{
+          backgroundColor: '#315f72',
+          position: 'fixed',
+          zIndex: 1,
+          width: '100%',
+        }}
+      >
         {cook && (
           <>
             <Menu style={{ backgroundColor: '#315f72' }} theme="dark" mode="horizontal">
@@ -44,22 +53,48 @@ export default function CustomLayout({ children }) {
                   </Link>
                 )}
               </Menu.Item>
-              <Menu.Item>
-                <Button onClick={logout}>Logout</Button>
+              <Menu.Item style={{ float: 'right' }} disabled>
+                <Text strong style={{ color: '#ffffff' }} copyable>
+                  {cookieTemp[0]}
+                </Text>
               </Menu.Item>
-              <Menu.Item disabled>{cookieTemp[0]}</Menu.Item>
+              <Menu.Item style={{ float: 'right', color: '#ffffff' }}>
+                <Button shape="round" onClick={logout}>
+                  Logout
+                </Button>
+              </Menu.Item>
             </Menu>
           </>
         )}
       </Header>
-      <Content style={{ padding: '0 50px', backgroundColor: '#a7beae' }}>
+      <Content
+        className="site-layout"
+        style={{
+          padding: '0 50px',
+          backgroundColor: '#a7beae',
+          marginTop: 64,
+          height: path ? '100vh' : null,
+        }}
+      >
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <div className="site-layout-content">
+          <div className="site-layout-content" style={{ padding: 24, minHeight: 380 }}>
             {children}
           </div>
         </Breadcrumb>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>WEB ©2021 Created by CEID students</Footer>
+      <Footer
+        style={{
+          textAlign: 'center',
+          // position: 'fixed',
+          // bottom: '0',
+          // width: '100%',
+          backgroundColor: '#315f72',
+        }}
+      >
+        <Text strong style={{ color: '#ffffff' }}>
+          WEB ©2021 Created by CEID students
+        </Text>
+      </Footer>
     </Layout>
   );
 }

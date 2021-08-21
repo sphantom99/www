@@ -82,8 +82,8 @@ export default function Histogram({ data }) {
           onFocus={onFocus}
           onBlur={onBlur}
         >
-          {averageTiming.map((item) => (
-            <Option value={item.contentType?.trim()}>{item.contentType}</Option>
+          {averageTiming.map((item, i) => (
+            <Option key={i++} value={item.contentType?.trim()}>{item.contentType}</Option>
           ))}
         </Select>
       </Card>

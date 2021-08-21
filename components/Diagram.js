@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
 import { Select, Card } from 'antd';
 import React from 'react';
@@ -96,8 +98,10 @@ export default function Diagram({ data }) {
           onFocus={onFocus}
           onBlur={onBlur}
         >
-          {data.averageTiming.map((item) => (
-            <Option value={item.contentType?.trim()}>{item.contentType}</Option>
+          {data.averageTiming.map((item, i) => (
+            <Option key={i++} value={item.contentType?.trim()}>
+              {item.contentType}
+            </Option>
           ))}
         </Select>
         <Select
@@ -110,8 +114,10 @@ export default function Diagram({ data }) {
           onFocus={onFocus}
           onBlur={onBlur}
         >
-          {WeekDay.map((item) => (
-            <Option value={item.id}>{item.descr}</Option>
+          {WeekDay.map((item, i) => (
+            <Option key={i++} value={item.id}>
+              {item.descr}
+            </Option>
           ))}
         </Select>
         <Select
@@ -124,8 +130,10 @@ export default function Diagram({ data }) {
           onFocus={onFocus}
           onBlur={onBlur}
         >
-          {data.method.map((item) => (
-            <Option value={item.method}>{item.method}</Option>
+          {data.method.map((item, i) => (
+            <Option key={i++} value={item.method}>
+              {item.method}
+            </Option>
           ))}
         </Select>
         <Select
@@ -138,8 +146,10 @@ export default function Diagram({ data }) {
           onFocus={onFocus}
           onBlur={onBlur}
         >
-          {data.distinctIsps.unique.map((item) => (
-            <Option value={item}>{item}</Option>
+          {data.distinctIsps.unique.map((item, i) => (
+            <Option key={i++} value={item}>
+              {item}
+            </Option>
           ))}
         </Select>
         {/* <Button icon={<ReloadOutlined />} onClick={updateDiagram} /> */}

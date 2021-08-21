@@ -3,14 +3,12 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
-import {
-  Row, Col, Card, Space,
-} from 'antd';
-import { Bar } from 'react-chartjs-2';
+import { Row, Col, Space } from 'antd';
 import axios from 'axios';
 import Histogram from '../../components/Histogram';
 import AdminStatistics from '../../components/AdminStatistics';
 import Diagram from '../../components/Diagram';
+import MinMax from '../../components/MinMax';
 
 export async function getServerSideProps() {
   const info = await axios
@@ -46,10 +44,22 @@ export async function getServerSideProps() {
     .catch((error) => {
       console.log(error.response);
     });
+  const minMaxData = await axios
+    .post('http://localhost:3000/api/getMinMax', { minMaxFilter: [] })
+    .then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        return response.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
   return {
     props: {
       histogram,
       diagram,
+      minMaxData,
       method: info.entryPerMethod,
       status: info.entryPerStatus,
       usersCount: info.usersCount,
@@ -62,7 +72,7 @@ export async function getServerSideProps() {
 
 export default function admin(props) {
   const {
-    method, status, usersCount, distinctDomains, averageTiming, distinctIsps,
+    method, status, usersCount, distinctDomains, averageTiming, distinctIsps, minMaxData,
   } = props;
   const adminStats = {
     method,
@@ -96,6 +106,15 @@ export default function admin(props) {
     setHistogramFilter,
   };
 
+  const [minMaxFilter, setMinMaxFilter] = useState([]);
+  const [minMax, setMinMax] = useState(minMaxData);
+  const minMaxStats = {
+    minMaxFilter,
+    setMinMaxFilter,
+    minMax,
+    averageTiming,
+  };
+
   useEffect(async () => {
     console.log('client', histogramFilter);
     await axios
@@ -125,6 +144,16 @@ export default function admin(props) {
         console.log(error.response);
       });
   }, [filter]);
+
+  useEffect(async () => {
+    await axios.post('http://localhost:3000/api/getMinMax', { minMaxFilter }).then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        setMinMax(response.data);
+        return response.data;
+      }
+    });
+  }, [minMaxFilter]);
   return (
     <div>
       <Space direction="vertical">
@@ -138,6 +167,7 @@ export default function admin(props) {
           </Col>
         </Row>
         <AdminStatistics data={adminStats} />
+        <MinMax data={minMaxStats} />
       </Space>
     </div>
   );
