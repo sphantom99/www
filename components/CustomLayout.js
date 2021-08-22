@@ -39,17 +39,29 @@ export default function CustomLayout({ children }) {
             <Menu style={{ backgroundColor: '#315f72' }} theme="dark" mode="horizontal">
               <Menu.Item>
                 <Link href="/uploadFile">
-                  <a href="/uploadFile">Home</a>
+                  <a href="/uploadFile">
+                    <Text strong style={{ color: '#ffffff' }}>
+                      Upload File
+                    </Text>
+                  </a>
                 </Link>
               </Menu.Item>
               <Menu.Item>
                 {cookieTemp[1] === 'true' ? (
                   <Link href={`/admin/${cookieTemp[0]}`}>
-                    <a href={`/admin/${cookieTemp[0]}`}>Profile</a>
+                    <a href={`/admin/${cookieTemp[0]}`}>
+                      <Text strong style={{ color: '#ffffff' }}>
+                        Profile
+                      </Text>
+                    </a>
                   </Link>
                 ) : (
-                  <Link href="/user">
-                    <a href="/user">Profile</a>
+                  <Link href={`/user/${cookieTemp[0]}`}>
+                    <a href={`/user/${cookieTemp[0]}`}>
+                      <Text strong style={{ color: '#ffffff' }}>
+                        Profile
+                      </Text>
+                    </a>
                   </Link>
                 )}
               </Menu.Item>

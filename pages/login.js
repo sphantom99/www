@@ -17,7 +17,7 @@ export default function Login() {
         if (response.data !== undefined && response.data !== '') {
           console.log(response.data);
           if (response.data.is_admin) router.push(`/admin/${response.data.username}`);
-          else router.push('/user');
+          else router.push(`/user/${response.data.username}`);
           cookie.set(
             'secret',
             `${response.data.username},${response.data.is_admin}`,
