@@ -87,7 +87,7 @@ export default function Diagram({ data }) {
           }}
         />
       </Card>
-      <Card title="Options" style={{ width: 600 }}>
+      <Card title="Options" style={{ width: 600, height: 310 }}>
         <Select
           style={{ width: 200 }}
           allowClear

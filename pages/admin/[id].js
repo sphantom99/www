@@ -35,7 +35,7 @@ export async function getServerSideProps() {
       console.log(error.response);
     });
   const histogram = await axios
-    .post('http://localhost:3000/api/getHistogram', { histogramFilter: [] })
+    .post('http://localhost:3000/api/getHistogram', { histogramFilter: {} })
     .then((response) => {
       if (response.status === 200) {
         // console.log(response.data);
@@ -94,7 +94,7 @@ export default function admin(props) {
     minMaxData,
     cache,
   } = props;
-  console.log(cache);
+
   const adminStats = {
     method,
     status,
@@ -119,11 +119,12 @@ export default function admin(props) {
     averageTiming,
     method,
   };
-  const [histogramFilter, setHistogramFilter] = useState([]);
+  const [histogramFilter, setHistogramFilter] = useState({ contentType: [], isp: [] });
   const histogramStats = {
     histogram,
     averageTiming,
     histogramFilter,
+    distinctIsps,
     setHistogramFilter,
   };
 

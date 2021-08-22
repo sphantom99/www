@@ -8,7 +8,9 @@ import { Bar } from 'react-chartjs-2';
 
 const { Option } = Select;
 export default function Histogram({ data }) {
-  const { histogram, averageTiming, setHistogramFilter } = data;
+  const {
+    histogram, averageTiming, setHistogramFilter, histogramFilter, distinctIsps,
+  } = data;
   let bucketSize = 0;
   let bucketRange = [];
   let bucketLabel = [];
@@ -53,8 +55,10 @@ export default function Histogram({ data }) {
     ],
   };
   function onChangeType(value) {
-    console.log(`selected ${value}`);
-    setHistogramFilter(value);
+    setHistogramFilter({ ...histogramFilter, contentType: value });
+  }
+  function onChangeIsp(value) {
+    setHistogramFilter({ ...histogramFilter, isp: value });
   }
 
   function onBlur() {
@@ -90,6 +94,22 @@ export default function Histogram({ data }) {
           {averageTiming.map((item, i) => (
             <Option key={i++} value={item.contentType?.trim()}>
               {item.contentType}
+            </Option>
+          ))}
+        </Select>
+        <Select
+          style={{ width: 200 }}
+          allowClear
+          mode="multiple"
+          placeholder="Provider"
+          optionFilterProp="children"
+          onChange={onChangeIsp}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        >
+          {distinctIsps.unique.map((item, i) => (
+            <Option key={i++} value={item}>
+              {item}
             </Option>
           ))}
         </Select>
