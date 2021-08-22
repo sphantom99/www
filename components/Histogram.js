@@ -9,31 +9,36 @@ import { Bar } from 'react-chartjs-2';
 const { Option } = Select;
 export default function Histogram({ data }) {
   const { histogram, averageTiming, setHistogramFilter } = data;
-
-  const bucketSize = (histogram[0].response.headers.maxAge
-      - histogram[histogram.length - 1].response.headers.maxAge)
-    / 10;
-  const bucketRange = [{ low: 0, high: 0, count: 0 }];
-  const bucketLabel = [];
-  for (let i = 0; i < 10; i++) {
-    const temp = parseInt(bucketRange[i].high);
-    const curr = parseInt(temp + bucketSize);
-    bucketRange.push({ low: temp, high: curr, count: 0 });
-    bucketLabel.push(`${temp}-${curr}`);
-  }
-  bucketRange.shift();
-  const bucketData = [];
-  histogram.map((item) => {
-    const maxAge = parseInt(item.response.headers.maxAge);
-    bucketRange.map((buck) => {
-      if (maxAge >= buck.low && maxAge < buck.high) {
-        buck.count += 1;
-      }
+  let bucketSize = 0;
+  let bucketRange = [];
+  let bucketLabel = [];
+  let bucketData = [];
+  if (histogram.length !== 0) {
+    bucketSize = (histogram[0].response.headers.maxAge
+        - histogram[histogram.length - 1].response.headers.maxAge)
+      / 10;
+    bucketRange = [{ low: 0, high: 0, count: 0 }];
+    bucketLabel = [];
+    for (let i = 0; i < 10; i++) {
+      const temp = parseInt(bucketRange[i].high);
+      const curr = parseInt(temp + bucketSize);
+      bucketRange.push({ low: temp, high: curr, count: 0 });
+      bucketLabel.push(`${temp}-${curr}`);
+    }
+    bucketRange.shift();
+    bucketData = [];
+    histogram.map((item) => {
+      const maxAge = parseInt(item.response.headers.maxAge);
+      bucketRange.map((buck) => {
+        if (maxAge >= buck.low && maxAge < buck.high) {
+          buck.count += 1;
+        }
+      });
     });
-  });
-  bucketRange.map((item) => {
-    bucketData.push(item.count);
-  });
+    bucketRange.map((item) => {
+      bucketData.push(item.count);
+    });
+  }
 
   const dataHistogram = {
     labels: bucketLabel,
@@ -83,7 +88,9 @@ export default function Histogram({ data }) {
           onBlur={onBlur}
         >
           {averageTiming.map((item, i) => (
-            <Option key={i++} value={item.contentType?.trim()}>{item.contentType}</Option>
+            <Option key={i++} value={item.contentType?.trim()}>
+              {item.contentType}
+            </Option>
           ))}
         </Select>
       </Card>

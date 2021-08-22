@@ -54,7 +54,7 @@ export default function Cacheability({ data }) {
         columns={columnsCacheability}
         dataSource={stats}
         pagination={{
-          defaultPageSize: 3,
+          defaultPageSize: 2,
         }}
       />
       <Select
