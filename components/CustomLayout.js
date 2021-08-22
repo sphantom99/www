@@ -19,11 +19,7 @@ export default function CustomLayout({ children }) {
     router.push('/login');
   }
   const cookieTemp = cook?.split(',');
-  console.log(cookieTemp);
-  // const username = cookieTemp[0] ? cookieTemp[0] : '';
-  // const isAdmin = cookieTemp[1] ? cookieTemp[1] : '';
-  const path = router.asPath === '/uploadFile';
-  console.log(path);
+  const path = router.asPath.split('/')[1] === 'admin';
   return (
     <Layout className="layout">
       <Header
@@ -85,7 +81,7 @@ export default function CustomLayout({ children }) {
           padding: '0 50px',
           backgroundColor: '#a7beae',
           marginTop: 64,
-          height: '100vh',
+          height: path ? null : '100vh',
         }}
       >
         <Breadcrumb style={{ margin: '16px 0' }}>
