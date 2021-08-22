@@ -1,36 +1,43 @@
-import React from 'react';
+/* eslint-disable react/prefer-stateless-function */
+import React, { useState, useEffect } from 'react';
 import {
-  ComposableMap, Geographies, Geography, Annotation,
-} from 'react-simple-maps';
-
-const geoUrl = 'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json';
+  MapContainer, TileLayer, Marker, Popup,
+} from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { Card } from 'antd';
 
 export default function MapChart() {
+  const [isBrowser, setIsBrowser] = useState(false);
+  useEffect(() => {
+    setIsBrowser(true);
+  }, []);
+
+  if (!isBrowser) {
+    return null;
+  }
+
   return (
-    <ComposableMap
-      projection="geoAzimuthalEqualArea"
-      projectionConfig={{
-        rotate: [-20.0, -52.0, 0],
-        scale: 700,
-      }}
-    >
-      <Geographies geography={geoUrl} fill="#d4b577" stroke="#6a9dcc" strokeWidth={0.5}>
-        {({ geographies }) => geographies.map((geo) => <Geography key={geo.rsmKey} geography={geo} />)}
-      </Geographies>
-      <Annotation
-        subject={[2.3522, 48.8566]}
-        dx={-90}
-        dy={-30}
-        connectorProps={{
-          stroke: '#FF5533',
-          strokeWidth: 3,
-          strokeLinecap: 'round',
-        }}
+    <Card title="Statistics" extra={<a href="/user">Report a problem</a>} style={{ width: 800 }}>
+      <MapContainer
+        center={[51.505, -0.09]}
+        zoom={10}
+        scrollWheelZoom={false}
+        style={{ height: 600, width: 700 }}
       >
-        <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="#F53">
-          Paris
-        </text>
-      </Annotation>
-    </ComposableMap>
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[51.505, -0.09]}>
+          <Popup>
+            A pretty CSS3 popup.
+            {' '}
+            <br />
+            {' '}
+            Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
+    </Card>
   );
 }

@@ -73,7 +73,7 @@ export default function CustomLayout({ children }) {
           padding: '0 50px',
           backgroundColor: '#a7beae',
           marginTop: 64,
-          height: path ? '100vh' : null,
+          height: '100vh',
         }}
       >
         <Breadcrumb style={{ margin: '16px 0' }}>
