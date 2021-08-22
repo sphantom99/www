@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Card, Row, Col, Form, Input, Button, Statistic, notification,
 } from 'antd';
 import Link from 'next/link';
 import cookie from 'js-cookie';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 
 export async function getServerSideProps(context) {
   const username = context.params.id;
@@ -45,10 +44,7 @@ export async function getServerSideProps(context) {
 export default function User(props) {
   const { stats, info } = props;
   console.log(info);
-  const [count, setCount] = useState(stats.count);
-  const [lastUpload, setLastUpload] = useState(stats.lastUpload);
   const username = cookie.get('secret')?.split(',')[0];
-  const router = useRouter();
 
   const openNotification = (title, message) => {
     notification.open({
@@ -137,11 +133,11 @@ export default function User(props) {
           >
             <Row>
               <Col xs={10}>
-                <Statistic title="Last upload" value={lastUpload} />
+                <Statistic title="Last upload" value={stats.lastUpload} />
               </Col>
               <Col xs={4} />
               <Col xs={10}>
-                <Statistic title="Files uploaded" value={count} />
+                <Statistic title="Files uploaded" value={stats.count} />
               </Col>
             </Row>
           </Card>
