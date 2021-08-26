@@ -24,15 +24,20 @@ export async function getServerSideProps(context) {
     .post('http://localhost:3000/api/getUserStatistics', { username })
     .then((response) => {
       if (response.status === 200) {
+        console.log('server side props', response.data);
         return {
           count: response.data.count,
-          lastUpload: response.data.date[0].last_upload_data,
+          lastUpload:
+            response.data.date[0]?.last_upload_data.length !== undefined
+              ? response.data.date[0].last_upload_data
+              : [],
         };
       }
     })
     .catch((error) => {
       console.log(error.response);
     });
+  console.log('stats:', stats);
   return {
     props: {
       info,
@@ -111,7 +116,24 @@ export default function User(props) {
               <Form.Item
                 label=" New Password"
                 name="passwordNew"
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your password!',
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (
+                        value.match(
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/g,
+                        )
+                      ) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('Password must contain atleast 8 characters, \n one capital letter, \n one number \n and atleast one of [#$*&@]'));
+                    },
+                  }),
+                ]}
               >
                 <Input.Password autoComplete="off" />
               </Form.Item>
@@ -133,11 +155,11 @@ export default function User(props) {
           >
             <Row>
               <Col xs={10}>
-                <Statistic title="Last upload" value={stats.lastUpload} />
+                <Statistic title="Last upload" value={stats?.lastUpload} />
               </Col>
               <Col xs={4} />
               <Col xs={10}>
-                <Statistic title="Files uploaded" value={stats.count} />
+                <Statistic title="Files uploaded" value={stats?.count} />
               </Col>
             </Row>
           </Card>

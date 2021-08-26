@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  Form, Input, Button, Row, Col,
+  Form, Input, Button, Row, Col, Typography,
 } from 'antd';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import cookie from 'js-cookie';
 
+const { Text, Link } = Typography;
 export default function Login() {
   const router = useRouter();
 
@@ -18,11 +19,9 @@ export default function Login() {
           console.log(response.data);
           if (response.data.is_admin) router.push(`/admin/${response.data.username}`);
           else router.push(`/user/${response.data.username}`);
-          cookie.set(
-            'secret',
-            `${response.data.username},${response.data.is_admin}`,
-            { expires: 1 },
-          );
+          cookie.set('secret', `${response.data.username},${response.data.is_admin}`, {
+            expires: 1,
+          });
         }
       })
       .catch((error) => {
@@ -68,6 +67,15 @@ export default function Login() {
               <Button type="primary" htmlType="submit">
                 Login
               </Button>
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+              Or
+              {' '}
+              <Link href="/register">
+                <Text underline strong style={{ color: '#ffffff' }}>
+                  register now!
+                </Text>
+              </Link>
             </Form.Item>
           </Form>
         </Col>
