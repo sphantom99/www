@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
@@ -130,7 +131,11 @@ export default function User(props) {
                       ) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error('Password must contain atleast 8 characters, \n one capital letter, \n one number \n and atleast one of [#$*&@]'));
+                      return Promise.reject(
+                        new Error(
+                          'Password must contain atleast 8 characters, \n one capital letter, \n one number \n and atleast one of [#$*&@]',
+                        ),
+                      );
                     },
                   }),
                 ]}

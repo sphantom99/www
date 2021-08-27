@@ -24,6 +24,7 @@
     "heatmap.js": "^2.0.5",
     "js-cookie": "^3.0.0",
     "leaflet": "^1.7.1",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongodb": "^4.1.0",
     "next": "latest",
@@ -35,6 +36,8 @@
     "react-dom": "^17.0.2",
     "react-leaflet": "^3.2.1",
     "react-leaflet-heatmap-layer": "^2.0.0",
+    "react-map-gl": "^6.1.16",
+    "react-map-gl-heatmap-overlay": "^1.1.4",
     "react-simple-maps": "^2.3.0"
   },
   "browser": {
