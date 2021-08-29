@@ -3,7 +3,9 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Space } from 'antd';
+import {
+  Row, Col, Space, Button,
+} from 'antd';
 import axios from 'axios';
 import Histogram from '../../components/Histogram';
 import AdminStatistics from '../../components/AdminStatistics';
@@ -213,6 +215,9 @@ export default function admin(props) {
         <Row>
           <MinMax data={minMaxStats} />
           <Cacheability data={cacheabilityStats} />
+          <Button type="primary" block>
+            <a href="/map">Map</a>
+          </Button>
         </Row>
       </Space>
     </div>

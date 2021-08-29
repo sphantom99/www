@@ -1,12 +1,17 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
+/* eslint-disable array-callback-return */
 /* eslint-disable react/jsx-props-no-spreading */
 import { Row, Col } from 'antd';
-import React, { useEffect, useState, useMemo } from 'react';
+import React from 'react';
 // import ReactDOM from 'react-dom';
 
 import ReactMapGL, { Source, Layer, SVGOverlay } from 'react-map-gl';
 
-const mapBoxToken =
-  'pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ';
+const normalize = require('normalize-number');
+
+const mapBoxToken = 'pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ';
 
 const lineData1 = {
   type: 'Feature',
@@ -28,7 +33,7 @@ const lineData2 = {
   properties: {
     id: 'line2',
     value: 10,
-    lineWidth: 10,
+    lineWidth: 30,
   },
   geometry: {
     type: 'LineString',
@@ -38,26 +43,42 @@ const lineData2 = {
     ],
   },
 };
-const multipleLines = {
-  type: 'FeatureCollection',
-  features: [lineData1, lineData2],
-};
+// const makeGeoJSON = (data) => ({
+//   type: 'FeatureCollection',
+//   features: data.map((feature) => ({
+//     type: 'Feature',
+//     properties: {
+//       id: feature.name,
+//       value: feature.value,
+//     },
+//     geometry: {
+//       type: 'Point',
+//       coordinates: [feature.latitude, feature.longitude],
+//     },
+//   })),
+// });
 const makeGeoJSON = (data) => ({
   type: 'FeatureCollection',
-  features: data.map((feature) => ({
-    type: 'Feature',
-    properties: {
-      id: feature.name,
-      value: feature.value,
-    },
-    geometry: {
-      type: 'Point',
-      coordinates: [feature.latitude, feature.longitude],
-    },
-  })),
+  features: data.map((client) => {
+    client.ipCount.map((item) => ({
+      type: 'Feature',
+      properties: {
+        id: client.lat,
+        value: client.lat,
+        lineWidth: item.width,
+      },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [client.long, client.lat],
+          [item.coordinates.long, item.coordinates.lat],
+        ],
+      },
+    }));
+  }),
 });
 
-export default function MapChart() {
+export default function MapChart({ data }) {
   // const [isBrowser, setIsBrowser] = useState(false);
   // useEffect(() => {
   //   setIsBrowser(true);
@@ -81,7 +102,6 @@ export default function MapChart() {
   //   },
   // ];
 
-  // const myGeoJSONData = makeGeoJSON(rawData);
   // console.log('json structure:', myGeoJSONData);
 
   // const [viewport, setViewport] = useState({
@@ -91,11 +111,71 @@ export default function MapChart() {
   //   longitude: 23.7275,
   //   zoom: 8,
   // });
+  const { countWithIps, ipCoordinates } = data;
+  console.log('this is ip count', countWithIps);
+  const clearCoordinates = ipCoordinates.map((item) => ({
+    ip: item.query,
+    lat: item.lat,
+    long: item.lon,
+  }));
+  console.log('clear coo', clearCoordinates);
+  countWithIps.map((client) => client.ipCount.map((item) => {
+    const { lat, long } = clearCoordinates.filter((ipIter) => ipIter.ip === item.ip)[0];
+    item.coordinates = { lat, long };
+    item.width = normalize([0, 20], item.count);
+  }));
+
+  console.log(countWithIps);
   const [viewport, setViewport] = React.useState({
     latitude: 21.823189401709563,
     longitude: 38.31372289601443,
     zoom: 2,
   });
+  // const myGeoJSONData = makeGeoJSON(countWithIps);
+  // console.log(myGeoJSONData);
+  const lineArray = [];
+  countWithIps.map((clientItter) => {
+    clientItter.ipCount.map((item) => {
+      lineArray.push({
+        type: 'Feature',
+        properties: {
+          id: clientItter.lat,
+          value: clientItter.lat,
+          lineWidth: item.width,
+        },
+        geometry: {
+          type: 'LineString',
+          coordinates: [
+            [clientItter.client.long, clientItter.client.lat],
+            [item.coordinates.long, item.coordinates.lat],
+          ],
+        },
+      });
+    });
+  });
+  console.log(lineArray);
+  const multipleLines = {
+    type: 'FeatureCollection',
+    features: lineArray,
+  };
+  // const temp = countWithIps[0].map((client) => {
+  //   client.ipCount.map((item) => ({
+  //     type: 'Feature',
+  //     properties: {
+  //       id: client.ip,
+  //       value: client.ip,
+  //       lineWidth: item.width,
+  //     },
+  //     geometry: {
+  //       type: 'LineString',
+  //       coordinates: [
+  //         [client.long, client.lat],
+  //         [item.coordinates.long, item.coordinates.lat],
+  //       ],
+  //     },
+  //   }));
+  // });
+  // console.log(temp);
   return (
     <Row type="flex" justify="center" align="middle">
       <Col>

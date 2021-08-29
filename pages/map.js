@@ -1,10 +1,29 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 // import dynamic from 'next/dynamic';
-
+import axios from 'axios';
 import MapChart from '../components/MapChart';
 
-export default function map() {
+export async function getServerSideProps() {
+  const info = await axios
+    .get('http://localhost:3000/api/getDistinctIps')
+    .then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        return response.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+  return {
+    props: {
+      info,
+    },
+  };
+}
+
+export default function map(props) {
   // const Map = dynamic(
   //   () => import('../components/MapChart'),
   //   {
@@ -13,5 +32,6 @@ export default function map() {
   //   },
   // );
   // return <Map />;
-  return <MapChart />;
+
+  return <MapChart data={props.info} />;
 }
