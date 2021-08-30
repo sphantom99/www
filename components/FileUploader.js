@@ -126,7 +126,7 @@ export default function FileUploader() {
               other band files
             </p>
           </Dragger>
-          {fileInfo.name && (
+          {/* {fileInfo.name && (
             <Card size="small" title="File" style={{ width: 150 }}>
               <Statistic title="Name" value={fileInfo.name} precision={2} />
               <Statistic
@@ -135,21 +135,31 @@ export default function FileUploader() {
                 precision={2}
               />
             </Card>
-          )}
+          )} */}
           {LoadingFlag && !data && <Spin indicator={antIcon} />}
           {data && (
             <Row justify="space-around">
               <Col>
-                <Button type="primary" icon={<DownloadOutlined />}>
-                  <a href={info.ref} download={info.name} style={{ color: '#FFF' }}>
+                <Card size="small" title="File Information" style={{ width: 150 }}>
+                  <Statistic title="Name" value={fileInfo.name} precision={2} />
+                  <Statistic
+                    title="size"
+                    value={`${(fileInfo.size / 1024 / 1024).toFixed(2)} mb`}
+                    precision={2}
+                  />
+                </Card>
+              </Col>
+              <Col>
+                <Button shape="round" icon={<DownloadOutlined />}>
+                  <a href={info.ref} download={info.name}>
                     Download processed file
                   </a>
                 </Button>
               </Col>
               <Col />
               <Col>
-                <Button type="primary" icon={<UploadOutlined />} onClick={lastUploadDate}>
-                  <a style={{ color: '#FFF' }}>Upload processed file</a>
+                <Button shape="round" F icon={<UploadOutlined />} onClick={lastUploadDate}>
+                  <a>Upload processed file</a>
                 </Button>
               </Col>
             </Row>

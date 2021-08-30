@@ -1,8 +1,8 @@
 import {
-  Layout, Menu, Breadcrumb, Button, Typography,
+  Layout, Menu, Breadcrumb, Button, Typography, Drawer, Space,
 } from 'antd';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
@@ -13,6 +13,13 @@ const { Header, Content, Footer } = Layout;
 export default function CustomLayout({ children }) {
   const router = useRouter();
   const cook = cookie.get('secret');
+  const [visible, setVisible] = useState(false);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
   async function logout() {
     console.log('loggin gout ');
     cookie.remove('secret');
@@ -20,11 +27,14 @@ export default function CustomLayout({ children }) {
   }
   const cookieTemp = cook?.split(',');
   const path = router.asPath.split('/')[1] === 'admin';
+
+  async function deleteEntries() {}
+  async function deleteUsers() {}
   return (
     <Layout className="layout">
       <Header
         style={{
-          backgroundColor: '#315f72',
+          backgroundColor: '#363636',
           position: 'fixed',
           zIndex: 1,
           width: '100%',
@@ -32,7 +42,7 @@ export default function CustomLayout({ children }) {
       >
         {cook && (
           <>
-            <Menu style={{ backgroundColor: '#315f72' }} theme="dark" mode="horizontal">
+            <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
               <Menu.Item>
                 <Link href="/uploadFile">
                   <a href="/uploadFile">
@@ -71,6 +81,13 @@ export default function CustomLayout({ children }) {
                   Logout
                 </Button>
               </Menu.Item>
+              {cookieTemp[1] === 'true' ? (
+                <Menu.Item style={{ float: 'right', color: '#ffffff' }}>
+                  <Button shape="round" onClick={showDrawer}>
+                    special actions
+                  </Button>
+                </Menu.Item>
+              ) : null}
             </Menu>
           </>
         )}
@@ -79,7 +96,7 @@ export default function CustomLayout({ children }) {
         className="site-layout"
         style={{
           padding: '0 50px',
-          backgroundColor: '#a7beae',
+          backgroundColor: '#CC527A',
           marginTop: 64,
           height: path ? null : '100vh',
         }}
@@ -87,6 +104,23 @@ export default function CustomLayout({ children }) {
         <Breadcrumb style={{ margin: '16px 0' }}>
           <div className="site-layout-content" style={{ padding: 24, minHeight: 380 }}>
             {children}
+            <Drawer
+              title="Basic Drawer"
+              placement="right"
+              closable={false}
+              onClose={onClose}
+              visible={visible}
+            >
+              <Space direction="vertical">
+                <Button type="primary" danger onClick={deleteEntries}>
+                  Delete all entries
+                </Button>
+
+                <Button type="primary" danger onClick={deleteUsers}>
+                  Delete all users
+                </Button>
+              </Space>
+            </Drawer>
           </div>
         </Breadcrumb>
       </Content>
@@ -96,7 +130,7 @@ export default function CustomLayout({ children }) {
           // position: 'fixed',
           // bottom: '0',
           // width: '100%',
-          backgroundColor: '#315f72',
+          backgroundColor: '#363636',
         }}
       >
         <Text strong style={{ color: '#ffffff' }}>
