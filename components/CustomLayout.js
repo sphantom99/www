@@ -1,7 +1,7 @@
 import {
   Layout, Menu, Breadcrumb, Button, Typography, Drawer, Space,
 } from 'antd';
-
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
@@ -28,8 +28,13 @@ export default function CustomLayout({ children }) {
   const cookieTemp = cook?.split(',');
   const path = router.asPath.split('/')[1] === 'admin';
 
-  async function deleteEntries() {}
-  async function deleteUsers() {}
+  async function deleteEntries() {
+    await axios.get('http://localhost:3000/api/deleteEntries').then((response) => {
+      if (response.status === 200) {
+        return response.data;
+      }
+    });
+  }
   return (
     <Layout className="layout">
       <Header
@@ -114,10 +119,6 @@ export default function CustomLayout({ children }) {
               <Space direction="vertical">
                 <Button type="primary" danger onClick={deleteEntries}>
                   Delete all entries
-                </Button>
-
-                <Button type="primary" danger onClick={deleteUsers}>
-                  Delete all users
                 </Button>
               </Space>
             </Drawer>
