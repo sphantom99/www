@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
-  Form, Input, Row, Col, Button,
+  Form, Input, Row, Col, Button, notification,
 } from 'antd';
 import axios from 'axios';
 
@@ -37,8 +37,19 @@ export default function register(props) {
       sm: { span: 16 },
     },
   };
+  const openNotification = () => {
+    notification.open({
+      message: 'Notification Title',
+      description:
+        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+    });
+  };
   const onFinish = (values) => {
     console.log('Success:', values);
+    openNotification();
     axios
       .post('./api/insertUser', { creds: values })
       .then((response) => {
@@ -67,139 +78,153 @@ export default function register(props) {
       },
     },
   };
+
   return (
     <>
-      <Row type="flex" justify="center" align="middle">
+      {/* <Row type="flex" justify="center" align="middle">
         <Col>
           <h2>Register here</h2>
         </Col>
-      </Row>
+      </Row> */}
       <Row type="flex" justify="center" align="middle">
         <Col>
-          <Form
-            {...formItemLayout}
-            name="register"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            scrollToFirstError
-            wrapperCol={{ span: 24 }}
-          >
-            <Form.Item
-              showSearch={false}
-              labelCol={{ span: 24 }}
-              name="username"
-              label="Username"
-              tooltip="What do you want others to call you?"
-              rules={[
-                { required: true, message: 'Please input your nickname!', whitespace: true },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!canNotUseTheseUsername.includes(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error('Username exists'));
+          <div className="login-box">
+            <h2>Register</h2>
+            <Form
+              {...formItemLayout}
+              name="register"
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+              scrollToFirstError
+              wrapperCol={{ span: 24 }}
+            >
+              <Form.Item
+                showSearch={false}
+                labelCol={{ span: 24 }}
+                name="username"
+                tooltip="What do you want others to call you?"
+                rules={[
+                  { required: true, message: 'Please input your nickname!', whitespace: true },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!canNotUseTheseUsername.includes(value)) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('Username exists'));
+                    },
+                  }),
+                ]}
+              >
+                <div className="user-box">
+                  <input className="reset-this" placeholder="Username" />
+                </div>
+              </Form.Item>
+              {/* <Form.Item
+                labelCol={{ span: 24 }}
+                name="firstName"
+                tooltip="What do you want others to call you?"
+                rules={[
+                  { required: true, message: 'Please input your first name!', whitespace: true },
+                ]}
+              >
+                <div className="user-box">
+                  <Input placeholder="First Name" />
+                </div>
+              </Form.Item>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                name="lastName"
+                tooltip="What do you want others to call you?"
+                rules={[
+                  { required: true, message: 'Please input your last name!', whitespace: true },
+                ]}
+              >
+                <div className="user-box">
+                  <Input placeholder="Last Name" />
+                </div>
+              </Form.Item> */}
+              <Form.Item
+                labelCol={{ span: 24 }}
+                name="email"
+                rules={[
+                  {
+                    type: 'email',
+                    message: 'The input is not valid E-mail!',
                   },
-                }),
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              labelCol={{ span: 24 }}
-              name="firstName"
-              label="First Name"
-              tooltip="What do you want others to call you?"
-              rules={[
-                { required: true, message: 'Please input your first name!', whitespace: true },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              labelCol={{ span: 24 }}
-              name="lastName"
-              label="Last Name"
-              tooltip="What do you want others to call you?"
-              rules={[
-                { required: true, message: 'Please input your last name!', whitespace: true },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              labelCol={{ span: 24 }}
-              name="email"
-              label="E-mail"
-              rules={[
-                {
-                  type: 'email',
-                  message: 'The input is not valid E-mail!',
-                },
-                {
-                  required: true,
-                  message: 'Please input your E-mail!',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+                  {
+                    required: true,
+                    message: 'Please input your E-mail!',
+                  },
+                ]}
+              >
+                <div className="user-box">
+                  <input placeholder="E-mail" />
+                </div>
+              </Form.Item>
 
-            <Form.Item
-              labelCol={{ span: 24 }}
-              name="password"
-              label="Password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your password!',
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (
-                      value.match(
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/g,
-                      )
-                    ) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error('Password must contain atleast 8 characters, \n one capital letter, \n one number \n and atleast one of [#$*&@]'));
+              <Form.Item
+                labelCol={{ span: 24 }}
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your password!',
                   },
-                }),
-              ]}
-              hasFeedback
-            >
-              <Input.Password />
-            </Form.Item>
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (
+                        value.match(
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/g,
+                        )
+                      ) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error(
+                          'Password must contain atleast 8 characters, \n one capital letter, \n one number \n and atleast one of [#$*&@]',
+                        ),
+                      );
+                    },
+                  }),
+                ]}
+                hasFeedback
+              >
+                <div className="user-box">
+                  <input placeholder="Password" type="password" />
+                </div>
+              </Form.Item>
 
-            <Form.Item
-              name="confirm"
-              label="Confirm Password"
-              dependencies={['password']}
-              labelCol={{ span: 24 }}
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: 'Please confirm your password!',
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue('password') === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error('Passwords dont match!'));
+              <Form.Item
+                name="confirm"
+                dependencies={['password']}
+                labelCol={{ span: 24 }}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please confirm your password!',
                   },
-                }),
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
-            <Form.Item {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit">
-                Register
-              </Button>
-            </Form.Item>
-          </Form>
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('Passwords dont match!'));
+                    },
+                  }),
+                ]}
+              >
+                <div className="user-box">
+                  <input placeholder=" Confirm Password" type="password" />
+                </div>
+              </Form.Item>
+              <Form.Item {...tailFormItemLayout}>
+                <Button type="primary" htmlType="submit">
+                  Register
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
         </Col>
       </Row>
     </>
