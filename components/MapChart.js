@@ -112,20 +112,20 @@ export default function MapChart({ data }) {
   //   zoom: 8,
   // });
   const { countWithIps, ipCoordinates } = data;
-  console.log('this is ip count', countWithIps);
+  // console.log('this is ip count', countWithIps);
   const clearCoordinates = ipCoordinates.map((item) => ({
     ip: item.query,
     lat: item.lat,
     long: item.lon,
   }));
-  console.log('clear coo', clearCoordinates);
+  // console.log('clear coo', clearCoordinates);
   countWithIps.map((client) => client.ipCount.map((item) => {
     const { lat, long } = clearCoordinates.filter((ipIter) => ipIter.ip === item.ip)[0];
     item.coordinates = { lat, long };
     item.width = normalize([0, 20], item.count);
   }));
 
-  console.log(countWithIps);
+  // console.log(countWithIps);
   const [viewport, setViewport] = React.useState({
     latitude: 21.823189401709563,
     longitude: 38.31372289601443,
@@ -153,7 +153,7 @@ export default function MapChart({ data }) {
       });
     });
   });
-  console.log(lineArray);
+  // console.log(lineArray);
   const multipleLines = {
     type: 'FeatureCollection',
     features: lineArray,
