@@ -140,13 +140,14 @@ export default function admin(props) {
     distinctIsps,
   };
 
-  const [cacheability, setCacheability] = useState(cache);
+  const [cacheability, setCacheability] = useState({ contentType: [], isp: [] });
   const [cacheabilityFilter, setCacheabilityFilter] = useState([]);
   const cacheabilityStats = {
     cacheabilityFilter,
     setCacheabilityFilter,
     cacheability,
     averageTiming,
+    distinctIsps,
   };
 
   useEffect(async () => {

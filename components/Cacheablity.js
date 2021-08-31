@@ -5,7 +5,9 @@ import { Card, Table, Select } from 'antd';
 
 const { Option } = Select;
 export default function Cacheability({ data }) {
-  const { cacheability, setCacheabilityFilter, averageTiming } = data;
+  const {
+    cacheability, setCacheabilityFilter, averageTiming, distinctIsps, cacheabilityFilter,
+  } = data;
   const columnsCacheability = [
     {
       title: 'Cacheability',
@@ -38,7 +40,11 @@ export default function Cacheability({ data }) {
   ];
   function onChangeType(value) {
     console.log(`selected ${value}`);
-    setCacheabilityFilter(value);
+    setCacheabilityFilter({ ...cacheabilityFilter, contentType: value });
+  }
+  function onChangeIsp(value) {
+    console.log(`selected ${value}`);
+    setCacheabilityFilter({ ...cacheabilityFilter, isp: value });
   }
 
   function onBlur() {
@@ -70,6 +76,22 @@ export default function Cacheability({ data }) {
         {averageTiming.map((item, i) => (
           <Option key={i++} value={item.contentType?.trim()}>
             {item.contentType}
+          </Option>
+        ))}
+      </Select>
+      <Select
+        style={{ width: 200 }}
+        allowClear
+        mode="multiple"
+        placeholder="Provider"
+        optionFilterProp="children"
+        onChange={onChangeIsp}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      >
+        {distinctIsps.unique.map((item, i) => (
+          <Option key={i++} value={item}>
+            {item}
           </Option>
         ))}
       </Select>
