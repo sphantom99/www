@@ -2,6 +2,7 @@
 import 'antd/dist/antd.css';
 import '../styles/vars.css';
 import '../styles/global.css';
+import '../styles/login.css';
 import React from 'react';
 import CustomLayout from '../components/CustomLayout';
 
