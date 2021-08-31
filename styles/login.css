@@ -8,6 +8,10 @@ body {
   background: linear-gradient(#141e30, #243b55);
 }
 
+.ant-menu-item-selected {
+  background-color: #363636 !important;
+}
+
 .login-box {
   position: absolute;
   top: 350px;

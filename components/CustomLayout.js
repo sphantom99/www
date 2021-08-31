@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
   Layout, Menu, Breadcrumb, Button, Typography, Drawer, Space,
 } from 'antd';
@@ -82,15 +85,19 @@ export default function CustomLayout({ children }) {
                 </Text>
               </Menu.Item>
               <Menu.Item style={{ float: 'right', color: '#ffffff' }}>
-                <Button shape="round" onClick={logout}>
-                  Logout
-                </Button>
+                <a onClick={logout}>
+                  <Text strong style={{ color: '#ffffff' }}>
+                    Logout
+                  </Text>
+                </a>
               </Menu.Item>
               {cookieTemp[1] === 'true' ? (
-                <Menu.Item style={{ float: 'right', color: '#ffffff' }}>
-                  <Button shape="round" onClick={showDrawer}>
-                    special actions
-                  </Button>
+                <Menu.Item style={{ float: 'right' }} className="customclass">
+                  <a onClick={showDrawer}>
+                    <Text strong style={{ color: '#ffffff' }}>
+                      Special Actions
+                    </Text>
+                  </a>
                 </Menu.Item>
               ) : null}
             </Menu>
@@ -101,7 +108,7 @@ export default function CustomLayout({ children }) {
         className="site-layout"
         style={{
           padding: '0 50px',
-          backgroundColor: '#CC527A',
+          // backgroundColor: '#CC527A',
           marginTop: 64,
           height: path ? null : '100vh',
         }}

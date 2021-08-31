@@ -4,7 +4,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import {
-  Upload, message, Button, Row, Col, notification, Spin, Card, Statistic,
+  Upload,
+  message,
+  Button,
+  Row,
+  Col,
+  notification,
+  Spin,
+  Card,
+  Statistic,
+  Space,
 } from 'antd';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -13,9 +22,11 @@ import {
   LoadingOutlined,
   DownloadOutlined,
   UploadOutlined,
+  ClearOutlined,
 } from '@ant-design/icons';
 import { Router } from 'next/dist/client/router';
 import cookie from 'js-cookie';
+import Image from 'next/image';
 import cleanFile from '../lib/cleanFile';
 
 const { Dragger } = Upload;
@@ -45,16 +56,21 @@ export default function FileUploader() {
       'Notification was closed. Either the close button was clicked or duration time elapsed.',
     );
   };
-  const openNotification = () => {
+  const openNotification = (errorTitle, errorMessage) => {
     const key = `open${Date.now()}`;
     const btn = (
-      <Button type="primary" size="small" onClick={() => notification.close(key)}>
+      <Button
+        type="primary"
+        size="small"
+        onClick={() => notification.close(key)}
+        style={{ backgroundColor: errorTitle === 'Success' ? '#43c333' : '#ee3737' }}
+      >
         Confirm
       </Button>
     );
     notification.open({
-      message: 'Notification Title',
-      description: 'Something went wrong. Please check your file or try again later',
+      message: errorTitle,
+      description: errorMessage,
       btn,
       key,
       onClose: close,
@@ -92,6 +108,7 @@ export default function FileUploader() {
           <Dragger
             {...props}
             accept=".har"
+            showUploadList={false}
             maxCount={1}
             beforeUpload={(file) => {
               const reader = new FileReader();
@@ -108,8 +125,13 @@ export default function FileUploader() {
                   setInfo({ ...info, ref: tempInfo.ref, name: tempInfo.name });
                   setData(tempInfo.cleanJSON);
                   setFileInfo({ ...fileInfo, name: file.name, size: file.size });
+                  openNotification('Success', 'Your file has been uploaded to our servers');
                 } catch (e) {
-                  openNotification();
+                  openNotification(
+                    'Error',
+                    'Something went wrong. Please check your file or try again later',
+                  );
+                  setLoadingFlag(false);
                 }
               };
               reader.readAsText(file);
@@ -138,31 +160,56 @@ export default function FileUploader() {
           )} */}
           {LoadingFlag && !data && <Spin indicator={antIcon} />}
           {data && (
-            <Row justify="space-around">
-              <Col>
-                <Card size="small" title="File Information" style={{ width: 150 }}>
-                  <Statistic title="Name" value={fileInfo.name} precision={2} />
-                  <Statistic
-                    title="size"
-                    value={`${(fileInfo.size / 1024 / 1024).toFixed(2)} mb`}
-                    precision={2}
-                  />
-                </Card>
-              </Col>
-              <Col>
-                <Button shape="round" icon={<DownloadOutlined />}>
-                  <a href={info.ref} download={info.name}>
-                    Download processed file
-                  </a>
-                </Button>
-              </Col>
-              <Col />
-              <Col>
-                <Button shape="round" F icon={<UploadOutlined />} onClick={lastUploadDate}>
-                  <a>Upload processed file</a>
-                </Button>
-              </Col>
-            </Row>
+            <>
+              <Row justify="space-around">
+                <Col xs={12}>
+                  <Card size="small" title="File Information" style={{ width: 150 }}>
+                    <Statistic title="Name" value={fileInfo.name} precision={2} />
+                    <Statistic
+                      title="size"
+                      value={`${(fileInfo.size / 1024 / 1024).toFixed(2)} mb`}
+                      precision={2}
+                    />
+                  </Card>
+                </Col>
+                <Col xs={12}>
+                  <Space direction="vertical">
+                    <span />
+                    <Button
+                      shape="round"
+                      F
+                      icon={<UploadOutlined />}
+                      onClick={lastUploadDate}
+                    >
+                      <a>Upload processed file</a>
+                    </Button>
+                    <span />
+                    <span />
+                    <span />
+                    <Button shape="round" icon={<DownloadOutlined />}>
+                      <a href={info.ref} download={info.name}>
+                        Download processed file
+                      </a>
+                    </Button>
+                    <span />
+                    <span />
+                    <span />
+                    <Button
+                      shape="round"
+                      F
+                      danger
+                      icon={<ClearOutlined />}
+                      onClick={() => {
+                        setData(null);
+                        setLoadingFlag(false);
+                      }}
+                    >
+                      Clear Upload
+                    </Button>
+                  </Space>
+                </Col>
+              </Row>
+            </>
           )}
         </Col>
       </Row>
