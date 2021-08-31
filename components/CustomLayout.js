@@ -91,15 +91,14 @@ export default function CustomLayout({ children }) {
                   </Text>
                 </a>
               </Menu.Item>
-              {cookieTemp[1] === 'true' ? (
-                <Menu.Item style={{ float: 'right' }} className="customclass">
-                  <a onClick={showDrawer}>
-                    <Text strong style={{ color: '#ffffff' }}>
-                      Special Actions
-                    </Text>
-                  </a>
-                </Menu.Item>
-              ) : null}
+
+              <Menu.Item style={{ float: 'right' }} className="customclass">
+                <a onClick={showDrawer}>
+                  <Text strong style={{ color: '#ffffff' }}>
+                    Special Actions
+                  </Text>
+                </a>
+              </Menu.Item>
             </Menu>
           </>
         )}
