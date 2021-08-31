@@ -5,7 +5,9 @@ import { Card, Table, Select } from 'antd';
 
 const { Option } = Select;
 export default function MinMax({ data }) {
-  const { minMax, setMinMaxFilter, averageTiming } = data;
+  const {
+    minMax, setMinMaxFilter, averageTiming, distinctIsps,
+  } = data;
   const columnsDirective = [
     {
       title: 'Directive',
@@ -30,7 +32,11 @@ export default function MinMax({ data }) {
   ];
   function onChangeType(value) {
     console.log(`selected ${value}`);
-    setMinMaxFilter(value);
+    setMinMaxFilter({ ...setMinMaxFilter, contentType: value });
+  }
+  function onChangeIsp(value) {
+    console.log(`selected ${value}`);
+    setMinMaxFilter({ ...setMinMaxFilter, isp: value });
   }
 
   function onBlur() {
@@ -56,6 +62,22 @@ export default function MinMax({ data }) {
         {averageTiming.map((item, i) => (
           <Option key={i++} value={item.contentType?.trim()}>
             {item.contentType}
+          </Option>
+        ))}
+      </Select>
+      <Select
+        style={{ width: 200 }}
+        allowClear
+        mode="multiple"
+        placeholder="Provider"
+        optionFilterProp="children"
+        onChange={onChangeIsp}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      >
+        {distinctIsps.unique.map((item, i) => (
+          <Option key={i++} value={item}>
+            {item}
           </Option>
         ))}
       </Select>

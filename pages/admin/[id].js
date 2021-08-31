@@ -130,13 +130,14 @@ export default function admin(props) {
     setHistogramFilter,
   };
 
-  const [minMaxFilter, setMinMaxFilter] = useState([]);
+  const [minMaxFilter, setMinMaxFilter] = useState({ contentType: [], isp: [] });
   const [minMax, setMinMax] = useState(minMaxData);
   const minMaxStats = {
     minMaxFilter,
     setMinMaxFilter,
     minMax,
     averageTiming,
+    distinctIsps,
   };
 
   const [cacheability, setCacheability] = useState(cache);
