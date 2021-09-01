@@ -4,7 +4,7 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
 import {
-  Row, Col, Space, Button,
+  Row, Col, Space, Button, Divider, Typography,
 } from 'antd';
 import axios from 'axios';
 import Histogram from '../../components/Histogram';
@@ -13,6 +13,7 @@ import Diagram from '../../components/Diagram';
 import MinMax from '../../components/MinMax';
 import Cacheability from '../../components/Cacheablity';
 
+const { Paragraph, Text, Title } = Typography;
 export async function getServerSideProps() {
   const info = await axios
     .get('http://localhost:3000/api/getAdminStatistics')
@@ -205,15 +206,67 @@ export default function admin(props) {
     <div>
       <Space direction="vertical">
         <Row>
-          <Col span={11}>
+          <Col span={24}>
+            <AdminStatistics data={adminStats} />
+          </Col>
+          <Divider style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }} />
+          <Col span={12}>
             <Histogram data={histogramStats} />
           </Col>
-          <Col span={2} />
+          <Col span={1}>
+            {/* <Divider
+              type="vertical"
+              style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }}
+            /> */}
+          </Col>
+          <Col span={11}>
+            <div
+              style={{
+                background: '#fff',
+                height: '100%',
+                // display: 'flex',
+                // 'vertical-align': 'middle',
+              }}
+            >
+              <Title level={3}>Histogram Information</Title>
+              <Paragraph>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum
+              </Paragraph>
+            </div>
+          </Col>
+          <Divider style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }} />
           <Col span={11}>
             <Diagram data={diagramStats} />
           </Col>
+          <Col span={1} />
+          <Col span={12}>
+            <div
+              style={{
+                background: '#fff',
+                height: '100%',
+                // display: 'flex',
+                // 'vertical-align': 'middle',
+              }}
+            >
+              <Title level={3}>Diagram Information</Title>
+              <Paragraph>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum
+              </Paragraph>
+            </div>
+          </Col>
         </Row>
-        <AdminStatistics data={adminStats} />
+        <Divider style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }} />
+
         <Row>
           <MinMax data={minMaxStats} />
           <Cacheability data={cacheabilityStats} />

@@ -77,7 +77,7 @@ export default function Diagram({ data }) {
   }
   return (
     <div>
-      <Card title="Statistics" extra={<a href="/user">Report a problem</a>} style={{ width: 600 }}>
+      <Card title="Diagram" extra={<a href="/reportProblem">Report a problem</a>}>
         <Bar
           data={FormattedData}
           width={500}
@@ -87,7 +87,7 @@ export default function Diagram({ data }) {
           }}
         />
       </Card>
-      <Card title="Options" style={{ width: 600, height: 310 }}>
+      <Card title="Options" >
         <Select
           style={{ width: 200 }}
           allowClear

@@ -14,7 +14,9 @@ body {
 .logo {
   border-radius: 10%;
 }
-
+.ant-divider{
+  background-color: white;
+}
 .login-box {
   position: absolute;
   top: 350px;
