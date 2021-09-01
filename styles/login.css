@@ -11,6 +11,9 @@ body {
 .ant-menu-item-selected {
   background-color: #363636 !important;
 }
+.logo {
+  border-radius: 10%;
+}
 
 .login-box {
   position: absolute;
