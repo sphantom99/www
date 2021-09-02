@@ -6,6 +6,9 @@ import { Typography } from 'antd';
 const { Title } = Typography;
 const content = {
   marginTop: '100px',
+  width: '80%',
+  margin: '0 auto',
+  padding: '20px',
 };
 
 export default function Home() {

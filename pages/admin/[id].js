@@ -7,13 +7,16 @@ import {
   Row, Col, Space, Button, Divider, Typography,
 } from 'antd';
 import axios from 'axios';
+import Image from 'next/image';
 import Histogram from '../../components/Histogram';
 import AdminStatistics from '../../components/AdminStatistics';
 import Diagram from '../../components/Diagram';
 import MinMax from '../../components/MinMax';
 import Cacheability from '../../components/Cacheablity';
 
-const { Paragraph, Text, Title } = Typography;
+const {
+  Paragraph, Text, Title, Link,
+} = Typography;
 export async function getServerSideProps() {
   const info = await axios
     .get('http://localhost:3000/api/getAdminStatistics')
@@ -141,8 +144,8 @@ export default function admin(props) {
     distinctIsps,
   };
 
-  const [cacheability, setCacheability] = useState({ contentType: [], isp: [] });
-  const [cacheabilityFilter, setCacheabilityFilter] = useState([]);
+  const [cacheability, setCacheability] = useState(cache);
+  const [cacheabilityFilter, setCacheabilityFilter] = useState({ contentType: [], isp: [] });
   const cacheabilityStats = {
     cacheabilityFilter,
     setCacheabilityFilter,
@@ -230,12 +233,39 @@ export default function admin(props) {
             >
               <Title level={3}>Histogram Information</Title>
               <Paragraph>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum
+                Here you can see the distribution histogram of the TTL in the response.
+                <br />
+                The filters which can be applied are: Content-Type and Isp
+                <br />
+                <br />
+                <br />
+                <Text strong>Time to live (TTL)</Text>
+                {' '}
+                or
+                <Text strong> hop limit </Text>
+                {' '}
+                is a mechanism which limits the lifespan or lifetime
+                of data in a computer or network. TTL may be implemented as a counter or timestamp
+                attached to or embedded in the data. Once the prescribed event count or timespan has
+                elapsed, data is discarded or revalidated. In computer networking, TTL prevents a
+                data packet from circulating indefinitely. In computing applications, TTL is
+                commonly used to improve the performance and manage the caching of data
+                <br />
+                <br />
+                If you want to learn more
+                {' '}
+                <Link href="https://en.wikipedia.org/wiki/Time_to_live" target="_blank">
+                  Click Here..
+                </Link>
+                <br />
+                <br />
+                <Image
+                  src="/TTL.png"
+                  className="logo"
+                  height="265"
+                  width="450"
+                  alt="Picture of the author"
+                />
               </Paragraph>
             </div>
           </Col>
@@ -255,12 +285,33 @@ export default function admin(props) {
             >
               <Title level={3}>Diagram Information</Title>
               <Paragraph>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum
+                Here you can see a diagram with the Y-axis representing the average response time
+                and the X-axis representing the hours of the day.
+                <br />
+                The filters which can be applied are: Content-Type and Isp, WeekDay and HTTP Method.
+                <br />
+                <br />
+                <Text strong>Response time</Text>
+                {' '}
+                Response time is the total amount of time it takes
+                to respond to a request for service. That service can be anything from a memory
+                fetch, to a disk IO, to a complex database query, or loading a full web page.
+                <br />
+                <br />
+                If you want to learn more
+                {' '}
+                <Link href="https://en.wikipedia.org/wiki/Response_time_(technology)" target="_blank">
+                  Click Here..
+                </Link>
+                <br />
+                <br />
+                <Image
+                  src="/timings.webp"
+                  className="logo"
+                  height="195"
+                  width="450"
+                  alt="Picture of the author"
+                />
               </Paragraph>
             </div>
           </Col>
