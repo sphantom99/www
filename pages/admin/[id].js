@@ -17,6 +17,14 @@ import Cacheability from '../../components/Cacheablity';
 const {
   Paragraph, Text, Title, Link,
 } = Typography;
+
+const content = {
+  marginTop: '100px',
+  width: '80%',
+  margin: '0 auto',
+  padding: '20px',
+};
+
 export async function getServerSideProps() {
   const info = await axios
     .get('http://localhost:3000/api/getAdminStatistics')
@@ -300,7 +308,10 @@ export default function admin(props) {
                 <br />
                 If you want to learn more
                 {' '}
-                <Link href="https://en.wikipedia.org/wiki/Response_time_(technology)" target="_blank">
+                <Link
+                  href="https://en.wikipedia.org/wiki/Response_time_(technology)"
+                  target="_blank"
+                >
                   Click Here..
                 </Link>
                 <br />
@@ -319,11 +330,31 @@ export default function admin(props) {
         <Divider style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }} />
 
         <Row>
-          <MinMax data={minMaxStats} />
-          <Cacheability data={cacheabilityStats} />
-          <Button type="primary" block>
+          <Col span={8}>
+            <MinMax data={minMaxStats} />
+          </Col>
+          <Col span={8}>
+            <Cacheability data={cacheabilityStats} />
+          </Col>
+          <Col span={8}>
+            <div style={content}>
+              <Link href="/map">
+                Press here to visualize your data.
+                <a href="/map">
+                  <Image
+                    src="/mapLines.png"
+                    className="logo"
+                    height="299"
+                    width="455"
+                    alt="Picture of the author"
+                  />
+                </a>
+              </Link>
+            </div>
+          </Col>
+          {/* <Button type="primary" block>
             <a href="/map">Map</a>
-          </Button>
+          </Button> */}
         </Row>
       </Space>
     </div>
