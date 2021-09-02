@@ -177,9 +177,9 @@ export default function User(props) {
           </Card>
           <Card title="Heatmap" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 500 }}>
             <div style={content}>
-              <Link href="/heatmap">
+              <Link href={`/user/${username}/heatmap`}>
                 Press here to visualize your data.
-                <a href="/heatmap">
+                <a href={`/user/${username}/heatmap`}>
                   <Image
                     src="/mapHeatmap.jpg"
                     className="logo"

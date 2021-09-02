@@ -12,7 +12,7 @@ export default async function addUploadToDB(req, res) {
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '250mb',
+      sizeLimit: '400mb',
     },
   },
 };

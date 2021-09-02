@@ -7,7 +7,10 @@ import { Row, Col } from 'antd';
 import React from 'react';
 // import ReactDOM from 'react-dom';
 
-import ReactMapGL, { Source, Layer, SVGOverlay } from 'react-map-gl';
+import ReactMapGL, {
+  Source, Layer, SVGOverlay, Marker,
+} from 'react-map-gl';
+import Image from 'next/image';
 
 const normalize = require('normalize-number');
 
@@ -122,7 +125,7 @@ export default function MapChart({ data }) {
   countWithIps.map((client) => client.ipCount.map((item) => {
     const { lat, long } = clearCoordinates.filter((ipIter) => ipIter.ip === item.ip)[0];
     item.coordinates = { lat, long };
-    item.width = normalize([0, 20], item.count);
+    item.width = normalize([0, 30], item.count);
   }));
 
   // console.log(countWithIps);
@@ -202,6 +205,11 @@ export default function MapChart({ data }) {
               }}
             />
           </Source>
+          {clearCoordinates.map((item) => (
+            <Marker latitude={item.lat} longitude={item.long} offsetLeft={-14} offsetTop={-30}>
+              <Image src="/mapMarker.png" height={30} width={30} alt="Picture of the author" />
+            </Marker>
+          ))}
         </ReactMapGL>
       </Col>
     </Row>

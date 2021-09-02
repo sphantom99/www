@@ -8,7 +8,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import MapGL, { Source, Layer } from 'react-map-gl';
 import { uniq } from 'lodash';
-import { getUniqueIps } from '../lib/dao';
+import { getUniqueIps } from '../../../lib/dao';
 
 function filterFeaturesByDay(featureCollection, time) {
   const date = new Date(time);
@@ -61,8 +61,9 @@ const heatmapLayer = {
     'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0],
   },
 };
-export async function getServerSideProps() {
-  const uniqueIps = await getUniqueIps();
+export async function getServerSideProps(context) {
+  console.log(context.query.id);
+  const uniqueIps = await getUniqueIps(context.query.id);
   return {
     props: { uniqueIps },
   };
