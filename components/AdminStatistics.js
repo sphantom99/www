@@ -77,7 +77,7 @@ export default function AdminStatistics({ data }) {
     },
   ];
   return (
-    <Card title="Statistics" extra={<a href="/user">Report a problem</a>} style={{ width: 1321 }}>
+    <Card title="Basic Admin Statistics" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 1321 }}>
       <Row>
         <Col span={5}>
           <Table

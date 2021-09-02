@@ -47,7 +47,7 @@ export default function MinMax({ data }) {
     console.log('focus');
   }
   return (
-    <Card title="Statistics" extra={<a href="/user">Report a problem</a>} style={{ width: 400 }}>
+    <Card title="Statistics" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 400 }}>
       <Table columns={columnsDirective} dataSource={stats} />
       <Select
         style={{ width: 200 }}

@@ -3,7 +3,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable radix */
 import React from 'react';
-import { Card, Select } from 'antd';
+import { Card, Select, Divider } from 'antd';
 import { Bar } from 'react-chartjs-2';
 
 const { Option } = Select;
@@ -70,7 +70,7 @@ export default function Histogram({ data }) {
   }
   return (
     <div>
-      <Card title="Statistics" extra={<a href="/user">Report a problem</a>} style={{ width: 700 }}>
+      <Card title="Histogram" extra={<a href="/reportProblem">Report a problem</a>}>
         <Bar
           data={dataHistogram}
           width={600}
@@ -80,7 +80,7 @@ export default function Histogram({ data }) {
           }}
         />
       </Card>
-      <Card title="Options" style={{ width: 700 }}>
+      <Card title="Options">
         <Select
           style={{ width: 200 }}
           allowClear
