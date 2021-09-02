@@ -2,11 +2,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
-  Card, Row, Col, Form, Input, Button, Statistic, notification,
+  Card, Row, Col, Form, Input, Button, Statistic, notification, Typography,
 } from 'antd';
-import Link from 'next/link';
 import cookie from 'js-cookie';
 import axios from 'axios';
+import Image from 'next/image';
+
+const { Link } = Typography;
 
 export async function getServerSideProps(context) {
   const username = context.params.id;
@@ -46,7 +48,12 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
+const content = {
+  marginTop: '100px',
+  width: '80%',
+  margin: '0 auto',
+  padding: '20px',
+};
 export default function User(props) {
   const { stats, info } = props;
   console.log(info);
@@ -168,8 +175,21 @@ export default function User(props) {
               </Col>
             </Row>
           </Card>
-          <Card title="Heatmap" extra={<a href="/user">Report a problem</a>} style={{ width: 500 }}>
-            <Link href="/heatmap">Crowd Distribution</Link>
+          <Card title="Heatmap" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 500 }}>
+            <div style={content}>
+              <Link href="/heatmap">
+                Press here to visualize your data.
+                <a href="/heatmap">
+                  <Image
+                    src="/mapHeatmap.jpg"
+                    className="logo"
+                    height="300"
+                    width="300"
+                    alt="Picture of the author"
+                  />
+                </a>
+              </Link>
+            </div>
           </Card>
         </Col>
       </Row>
