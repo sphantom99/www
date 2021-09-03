@@ -3,7 +3,11 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable radix */
 import React from 'react';
-import { Card, Select, Divider } from 'antd';
+import {
+  Card,
+  Select,
+  // Divider
+} from 'antd';
 import { Bar } from 'react-chartjs-2';
 
 const { Option } = Select;

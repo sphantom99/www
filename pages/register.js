@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
-  Form, Input, Row, Col, Button, notification,
+  Form, Row, Col, Button, notification,
 } from 'antd';
 import axios from 'axios';
 
