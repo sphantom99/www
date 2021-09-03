@@ -86,9 +86,6 @@ export default function Cacheability({ data }) {
   };
   return (
     <>
-      <div className="header">
-        <h1 className="title">Polar Area Chart</h1>
-      </div>
       <PolarArea data={dataStat} />
       <Select
         style={{ width: 200 }}
