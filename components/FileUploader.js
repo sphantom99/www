@@ -30,10 +30,17 @@ import Image from 'next/image';
 import cleanFile from '../lib/cleanFile';
 
 const { Dragger } = Upload;
+const content = {
+  marginTop: '100px',
+  width: '80%',
+  margin: '0 auto',
+  padding: '20px',
+};
 
 export default function FileUploader() {
   const router = useRouter();
   const [LoadingFlag, setLoadingFlag] = useState(false);
+  const [uploadedFlag, setUploadedFlag] = useState(false);
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
   const cook = cookie.get('secret')?.split(',');
   const props = {
@@ -92,6 +99,7 @@ export default function FileUploader() {
       .then((response) => {
         // console.log(response);
         if (response.status === 200) {
+          setUploadedFlag(true);
           // console.log('date asdasd');
         }
       })
@@ -163,20 +171,29 @@ export default function FileUploader() {
             <>
               <Row justify="space-around">
                 <Col xs={12}>
-                  <Card size="small" title="File Information" style={{ width: 150 }}>
-                    <Statistic title="Name" value={fileInfo.name} precision={2} />
-                    <Statistic
-                      title="size"
-                      value={`${(fileInfo.size / 1024 / 1024).toFixed(2)} mb`}
-                      precision={2}
-                    />
-                  </Card>
+                  <div style={content}>
+                    <Card
+                      size="small"
+                      title="File Information"
+                      style={{ width: 150 }}
+                      // headStyle={{ backgroundColor: '#dfdfdf', border: 0 }}
+                      bodyStyle={{ backgroundColor: '#dfdfdf', border: 0 }}
+                    >
+                      <Statistic title="Name" value={fileInfo.name} precision={2} />
+                      <Statistic
+                        title="size"
+                        value={`${(fileInfo.size / 1024 / 1024).toFixed(2)} mb`}
+                        precision={2}
+                      />
+                    </Card>
+                  </div>
                 </Col>
                 <Col xs={12}>
                   <Space direction="vertical">
                     <span />
                     <Button
                       shape="round"
+                      disabled={uploadedFlag}
                       F
                       icon={<UploadOutlined />}
                       onClick={lastUploadDate}
@@ -202,6 +219,7 @@ export default function FileUploader() {
                       onClick={() => {
                         setData(null);
                         setLoadingFlag(false);
+                        setUploadedFlag(false);
                       }}
                     >
                       Clear Upload

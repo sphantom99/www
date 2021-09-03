@@ -1,33 +1,10 @@
 import React from 'react';
 import {
-  Carousel, Row, Col, Card, Divider,
+  Row, Col, Card, Divider,
 } from 'antd';
 import Image from 'next/image';
-import { makeStyles } from '@material-ui/core/styles';
 import FileUploader from '../components/FileUploader';
 
-const contentStyle = {
-  height: '220px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 'fit-content',
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.text.secondary,
-    '& svg': {
-      margin: theme.spacing(1.5),
-    },
-    '& hr': {
-      margin: theme.spacing(0, 0.5),
-    },
-  },
-}));
 export default function UploadFile() {
   return (
     <>
@@ -58,18 +35,3 @@ export default function UploadFile() {
     </>
   );
 }
-
-/* <Carousel autoplay>
-            <div>
-              <h3 style={contentStyle}>Communication</h3>
-            </div>
-            <div>
-              <Image height={200} width={600} src="/map.jpg" alt="Picture of the author" />
-            </div>
-            <div>
-              <h3 style={contentStyle}>Development</h3>
-            </div>
-            <div>
-              <Image height={200} width={600} src="/statistics.jpg" alt="Picture of the author" />
-            </div>
-          </Carousel> */
