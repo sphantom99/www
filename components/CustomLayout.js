@@ -48,6 +48,19 @@ export default function CustomLayout({ children }) {
           width: '100%',
         }}
       >
+        <div
+          style={{
+            height: '20px',
+            position: 'absolute',
+            zIndex: 2,
+            left: '500px',
+          }}
+        >
+          <h1>
+            <span>H</span>
+            <span>H</span>
+          </h1>
+        </div>
         {cook && (
           <>
             <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
