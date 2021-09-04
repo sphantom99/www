@@ -107,7 +107,7 @@ export default function CustomLayout({ children }) {
         className="site-layout"
         style={{
           padding: '0 50px',
-          // backgroundColor: '#CC527A',
+          backgroundColor: '##17181a',
           marginTop: 64,
           height: path ? null : '100vh',
         }}

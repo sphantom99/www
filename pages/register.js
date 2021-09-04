@@ -38,11 +38,10 @@ export default function register(props) {
       sm: { span: 16 },
     },
   };
-  const openNotification = () => {
+  const openNotification = (title, message) => {
     notification.open({
-      message: 'Notification Title',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+      message: title,
+      description: message,
       onClick: () => {
         console.log('Notification Clicked!');
       },
@@ -50,7 +49,7 @@ export default function register(props) {
   };
   const onFinish = (values) => {
     console.log('Success:', values);
-    openNotification();
+    openNotification('Successful Register', 'You have successfuly registered, you now may login.');
     axios
       .post('./api/insertUser', { creds: values })
       .then((response) => {
@@ -66,6 +65,7 @@ export default function register(props) {
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
+    openNotification('Unsuccessful Register', 'Something went wrong, please try again later.');
   };
   const tailFormItemLayout = {
     wrapperCol: {

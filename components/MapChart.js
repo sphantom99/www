@@ -125,7 +125,7 @@ export default function MapChart({ data }) {
   countWithIps.map((client) => client.ipCount.map((item) => {
     const { lat, long } = clearCoordinates.filter((ipIter) => ipIter.ip === item.ip)[0];
     item.coordinates = { lat, long };
-    item.width = normalize([0, 30], item.count);
+    item.width = normalize([0, 100], item.count);
   }));
 
   // console.log(countWithIps);

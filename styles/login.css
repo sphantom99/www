@@ -5,7 +5,38 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: linear-gradient(#141e30, #243b55);
+  /* background: linear-gradient(#141e30, #243b55); */
+}
+
+h1 {
+  color: #484848;
+  font-size: 50px;
+  font-weight: bold;
+  font-family: monospace;
+  letter-spacing: 7px;
+  cursor: pointer;
+}
+h1 span {
+  transition: 0.5s linear;
+}
+h1:hover span:nth-child(1) {
+  margin-right: 6px;
+}
+h1:hover span:nth-child(1):after {
+  content: "AR";
+}
+
+h1:hover span:nth-child(2) {
+  margin-left: 10px;
+}
+
+h1:hover span:nth-child(2):after {
+  content: "UB";
+}
+
+h1:hover span {
+  color: #fff;
+  text-shadow: 0 0 10px #17181a, 0 0 20px #17181a, 0 0 40px #17181a;
 }
 
 .ant-menu-item-selected {
@@ -14,7 +45,7 @@ body {
 .logo {
   border-radius: 10%;
 }
-.ant-divider{
+.ant-divider {
   background-color: white;
 }
 .login-box {
