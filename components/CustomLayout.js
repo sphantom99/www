@@ -56,10 +56,10 @@ export default function CustomLayout({ children }) {
             left: '500px',
           }}
         >
-          <h1>
+          {/* <h1>
             <span>H</span>
             <span>H</span>
-          </h1>
+          </h1> */}
         </div>
         {cook && (
           <>
@@ -120,7 +120,7 @@ export default function CustomLayout({ children }) {
         className="site-layout"
         style={{
           padding: '0 50px',
-          backgroundColor: '##17181a',
+          backgroundColor: '#17181a',
           marginTop: 64,
           height: path ? null : '100vh',
         }}

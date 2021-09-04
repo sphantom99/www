@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <div style={content}>
       <div className="text-center mb-5">
-        <Title>Welcome to</Title>
         <h1>
-          <span>H</span>
-          <span>H</span>
+          Welcome to
+          <br />
+          HARHUB
         </h1>
         <Link href="/login">
           <h2>

@@ -8,35 +8,47 @@ body {
   /* background: linear-gradient(#141e30, #243b55); */
 }
 
+.title {
+	font-family: "Montserrat";
+	text-align: center;
+	color: #FFF;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	letter-spacing: 1px;
+}
+
 h1 {
-  color: #484848;
-  font-size: 50px;
-  font-weight: bold;
-  font-family: monospace;
-  letter-spacing: 7px;
-  cursor: pointer;
+	background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
+	background-size: cover;
+	color: transparent;
+	-moz-background-clip: text;
+	-webkit-background-clip: text;
+	text-transform: uppercase;
+	font-size: 120px;
+	line-height: .75;
+	margin: 10px 0;
 }
-h1 span {
-  transition: 0.5s linear;
-}
-h1:hover span:nth-child(1) {
-  margin-right: 6px;
-}
-h1:hover span:nth-child(1):after {
-  content: "AR";
+/* styling my button */
+
+.white-mode {
+	text-decoration: none;
+	padding: 7px 10px;
+	background-color: #122;
+	border-radius: 3px;
+	color: #FFF;
+	transition: .35s ease-in-out;
+	position: absolute;
+	left: 15px;
+	bottom: 15px;
+	font-family: "Montserrat";
 }
 
-h1:hover span:nth-child(2) {
-  margin-left: 10px;
-}
-
-h1:hover span:nth-child(2):after {
-  content: "UB";
-}
-
-h1:hover span {
-  color: #fff;
-  text-shadow: 0 0 10px #17181a, 0 0 20px #17181a, 0 0 40px #17181a;
+.white-mode:hover {
+	background-color: #FFF;
+	color: #122;
 }
 
 .ant-menu-item-selected {
