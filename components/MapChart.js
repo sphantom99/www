@@ -65,6 +65,7 @@ export default function MapChart({ data }) {
         <ReactMapGL
           {...viewport}
           id="map"
+          mapStyle="mapbox://styles/mapbox/dark-v9"
           width="1300px"
           height="1000px"
           onViewportChange={setViewport}

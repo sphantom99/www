@@ -85,10 +85,10 @@ export default function Cacheability({ data }) {
     ],
   };
   return (
-    <>
+    <div style={{ borderRadius: '25px', background: '#fff' }}>
       <PolarArea data={dataStat} />
       <Select
-        style={{ width: 200 }}
+        style={{ width: 200, marginLeft: '20px' }}
         allowClear
         mode="multiple"
         placeholder="Content Type"
@@ -119,7 +119,7 @@ export default function Cacheability({ data }) {
           </Option>
         ))}
       </Select>
-    </>
+    </div>
     // <Card
     //   title="Statistics"
     //   extra={<a href="/reportProblem">Report a problem</a>}

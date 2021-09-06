@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Typography, Carousel } from 'antd';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const content = {
   marginTop: '100px',
   width: '80%',
@@ -22,7 +22,13 @@ export default function Home() {
         </h1>
         <Link href="/login">
           <h2>
-            <a href="/login">Press Here to procced</a>
+            <a href="/login">
+              <Text strong style={{ color: '#2596be' }}>
+                {' '}
+                Press me to procced
+                {' '}
+              </Text>
+            </a>
           </h2>
         </Link>
       </div>

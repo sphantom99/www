@@ -2,17 +2,18 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
-  Layout, Menu, Breadcrumb, Button, Typography, Drawer, Space,
+  Layout, Menu, Breadcrumb, Button, Typography, Drawer, Space, Switch,
 } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
+import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 const { Header, Content, Footer } = Layout;
-
+const { SubMenu } = Menu;
 export default function CustomLayout({ children }) {
   const router = useRouter();
   const cook = cookie.get('secret');
@@ -30,13 +31,21 @@ export default function CustomLayout({ children }) {
   }
   const cookieTemp = cook?.split(',');
   const path = router.asPath.split('/')[1] === 'admin';
-
+  const [mode, setMode] = useState('#111');
   async function deleteEntries() {
     await axios.get('http://localhost:3000/api/deleteEntries').then((response) => {
       if (response.status === 200) {
         return response.data;
       }
     });
+  }
+
+  function onChange(checked) {
+    if (checked) {
+      setMode('#111');
+    } else {
+      setMode('#fff');
+    }
   }
   return (
     <Layout className="layout">
@@ -61,7 +70,7 @@ export default function CustomLayout({ children }) {
             <span>H</span>
           </h1> */}
         </div>
-        {cook && (
+        {cook ? (
           <>
             <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
               <Menu.Item>
@@ -92,18 +101,33 @@ export default function CustomLayout({ children }) {
                   </Link>
                 )}
               </Menu.Item>
-              <Menu.Item style={{ float: 'right' }} disabled>
+              <SubMenu
+                key="SubMenu"
+                style={{ float: 'right', backgroundColor: '#363636' }}
+                icon={<SettingOutlined />}
+                title={(
+                  <Text strong style={{ color: '#ffffff' }}>
+                    {cookieTemp[0]}
+                  </Text>
+                )}
+              >
+                <Menu.Item key="setting:1" style={{ backgroundColor: '#363636' }}>
+                  Dark Mode
+                  <Switch defaultChecked onChange={onChange} />
+                </Menu.Item>
+                <Menu.Item style={{ float: 'right', color: '#ffffff' }}>
+                  <a onClick={logout}>
+                    <Text strong style={{ color: '#ffffff' }}>
+                      Logout
+                    </Text>
+                  </a>
+                </Menu.Item>
+              </SubMenu>
+              {/* <Menu.Item style={{ float: 'right' }} disabled>
                 <Text strong style={{ color: '#ffffff' }} copyable>
                   {cookieTemp[0]}
                 </Text>
-              </Menu.Item>
-              <Menu.Item style={{ float: 'right', color: '#ffffff' }}>
-                <a onClick={logout}>
-                  <Text strong style={{ color: '#ffffff' }}>
-                    Logout
-                  </Text>
-                </a>
-              </Menu.Item>
+              </Menu.Item> */}
 
               <Menu.Item style={{ float: 'right' }} className="customclass">
                 <a onClick={showDrawer}>
@@ -114,13 +138,23 @@ export default function CustomLayout({ children }) {
               </Menu.Item>
             </Menu>
           </>
+        ) : (
+          <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
+            <Menu.Item style={{ float: 'right' }} className="customclass">
+              <a onClick={showDrawer}>
+                <Text strong style={{ color: '#ffffff' }}>
+                  Special Actions
+                </Text>
+              </a>
+            </Menu.Item>
+          </Menu>
         )}
       </Header>
       <Content
         className="site-layout"
         style={{
           padding: '0 50px',
-          backgroundColor: '#17181a',
+          backgroundColor: mode,
           marginTop: 64,
           height: path ? null : '100vh',
         }}
@@ -136,9 +170,20 @@ export default function CustomLayout({ children }) {
               visible={visible}
             >
               <Space direction="vertical">
-                <Button type="primary" danger onClick={deleteEntries}>
-                  Delete all entries
-                </Button>
+                {cook ? (
+                  <>
+                    <Button type="primary" danger onClick={deleteEntries}>
+                      Delete all entries
+                    </Button>
+                    Dark Mode
+                    <Switch defaultChecked onChange={onChange} />
+                  </>
+                ) : (
+                  <>
+                    Dark Mode
+                    <Switch defaultChecked onChange={onChange} />
+                  </>
+                )}
               </Space>
             </Drawer>
           </div>
