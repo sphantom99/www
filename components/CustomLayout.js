@@ -78,7 +78,7 @@ export default function CustomLayout({ children }) {
         {cook ? (
           <>
             <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
-              <Menu.Item style={{ float: 'left' }}>
+              <Menu.Item>
                 <Link href="/uploadFile">
                   <a href="/uploadFile">
                     <Text strong style={{ color: '#ffffff' }}>
@@ -98,23 +98,24 @@ export default function CustomLayout({ children }) {
                 )}
               >
                 <Menu.Item>
+                  <Link href={`/user/${cookieTemp[0]}`}>
+                    <a href={`/user/${cookieTemp[0]}`}>
+                      <Text strong style={{ color: '#ffffff' }}>
+                        Profile
+                      </Text>
+                    </a>
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
                   {cookieTemp[1] === 'true' ? (
                     <Link href={`/admin/${cookieTemp[0]}`}>
                       <a href={`/admin/${cookieTemp[0]}`}>
                         <Text strong style={{ color: '#ffffff' }}>
-                          Profile
+                          Statistics
                         </Text>
                       </a>
                     </Link>
-                  ) : (
-                    <Link href={`/user/${cookieTemp[0]}`}>
-                      <a href={`/user/${cookieTemp[0]}`}>
-                        <Text strong style={{ color: '#ffffff' }}>
-                          Profile
-                        </Text>
-                      </a>
-                    </Link>
-                  )}
+                  ) : null}
                 </Menu.Item>
                 <Menu.Item style={{ float: 'left', color: '#ffffff' }}>
                   <a onClick={logout}>
@@ -124,12 +125,6 @@ export default function CustomLayout({ children }) {
                   </a>
                 </Menu.Item>
               </SubMenu>
-              {/* <Menu.Item style={{ float: 'right' }} disabled>
-                <Text strong style={{ color: '#ffffff' }} copyable>
-                  {cookieTemp[0]}
-                </Text>
-              </Menu.Item> */}
-
               <Menu.Item style={{ float: 'right' }} className="customclass">
                 <a onClick={showDrawer}>
                   <Text strong style={{ color: '#ffffff' }}>

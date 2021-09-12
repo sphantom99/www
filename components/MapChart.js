@@ -5,7 +5,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Row, Col } from 'antd';
 import React from 'react';
-// import ReactDOM from 'react-dom';
 
 import ReactMapGL, {
   Source, Layer, SVGOverlay, Marker,
@@ -14,16 +13,14 @@ import Image from 'next/image';
 
 const normalize = require('normalize-number');
 
-const mapBoxToken = 'pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ';
-
 export default function MapChart({ data }) {
-  const { countWithIps, ipCoordinates } = data;
-  const clearCoordinates = ipCoordinates.map((item) => ({
+  const { ipsPerClientCoordinatesWithCount, ipapiCoordinateResponse } = data;
+  const clearCoordinates = ipapiCoordinateResponse.map((item) => ({
     ip: item.query,
     lat: item.lat,
     long: item.lon,
   }));
-  countWithIps.map((client) => client.ipCount.map((item) => {
+  ipsPerClientCoordinatesWithCount.map((client) => client.ipCount.map((item) => {
     const { lat, long } = clearCoordinates.filter((ipIter) => ipIter.ip === item.ip)[0];
     item.coordinates = { lat, long };
     item.width = normalize([0, 100], item.count);
@@ -36,7 +33,7 @@ export default function MapChart({ data }) {
   });
 
   const lineArray = [];
-  countWithIps.map((clientItter) => {
+  ipsPerClientCoordinatesWithCount.map((clientItter) => {
     clientItter.ipCount.map((item) => {
       lineArray.push({
         type: 'Feature',
