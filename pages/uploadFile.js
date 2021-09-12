@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Row, Col, Card, Divider,
 } from 'antd';
 import Image from 'next/image';
 import FileUploader from '../components/FileUploader';
+import { MyContext } from './_app';
 
 export default function UploadFile() {
+  const context = useContext(MyContext);
   return (
     <>
-      <Card title="File Uploader" extra={<a href="/user">Report a problem</a>}>
+      <Card
+        style={{
+          borderRadius: '25px',
+          backgroundColor: context.darkMode ? '#333' : '#fff',
+        }}
+      >
         <Row>
           <Col xs={11}>
             <FileUploader />
@@ -19,16 +26,30 @@ export default function UploadFile() {
           </Col>
           <Col xs={11}>
             <div>
-              Here you can upload your har file, which will be proccessed and saved localy until you
-              make a choice. You will be given two choices. Download and Upload.
+              <p style={{ color: context.darkMode ? '#fff' : '#222' }}>
+                Here you can upload your har file, which will be proccessed and saved localy until
+                you make a choice. You will be given two choices. Download and Upload.
+              </p>
               <br />
+
+              <p style={{ color: context.darkMode ? '#fff' : '#222' }}>
+                With Download you can download the proccessed file.
+              </p>
               <br />
-              With Download you can download the proccessed file.
-              <br />
-              <br />
-              With Upload you can upload the proccessed file to our server for us to analyze.
+
+              <p style={{ color: context.darkMode ? '#fff' : '#222' }}>
+                With Upload you can upload the proccessed file to our server for us to analyze.
+              </p>
             </div>
-            <Image src="/file.jpg" height={215} width={250} alt="Picture of the author" />
+            <div style={{ borderRadius: '25px' }}>
+              <Image
+                src="/file.jpg"
+                style={{ borderRadius: '25px' }}
+                height={215}
+                width={250}
+                alt="Picture of the author"
+              />
+            </div>
           </Col>
         </Row>
       </Card>

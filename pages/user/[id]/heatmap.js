@@ -25,7 +25,7 @@ function filterFeaturesByDay(featureCollection, time) {
   });
   return { type: 'FeatureCollection', features };
 }
-const mapBoxToken = 'pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ';
+
 const heatmapLayer = {
   maxzoom: 9,
   type: 'heatmap',
@@ -162,7 +162,7 @@ export default function heatmap(props) {
           height="1000px"
           mapStyle="mapbox://styles/mapbox/dark-v9"
           onViewportChange={setViewport}
-          mapboxApiAccessToken={mapBoxToken}
+          mapboxApiAccessToken={process.env.NEXT_PUBLIC_REACT_MAP_GL}
         >
           {format && (
             <Source type="geojson" data={format}>

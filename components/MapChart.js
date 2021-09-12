@@ -69,7 +69,7 @@ export default function MapChart({ data }) {
           width="1300px"
           height="1000px"
           onViewportChange={setViewport}
-          mapboxApiAccessToken={mapBoxToken}
+          mapboxApiAccessToken={process.env.NEXT_PUBLIC_REACT_MAP_GL}
         >
           <Source id="polylineLayer" type="geojson" data={multipleLines}>
             <Layer

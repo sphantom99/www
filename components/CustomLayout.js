@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -5,16 +6,18 @@ import {
   Layout, Menu, Breadcrumb, Button, Typography, Drawer, Space, Switch,
 } from 'antd';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { MyContext } from '../pages/_app';
 
 const { Text } = Typography;
 const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 export default function CustomLayout({ children }) {
+  const context = useContext(MyContext);
   const router = useRouter();
   const cook = cookie.get('secret');
   const [visible, setVisible] = useState(false);
@@ -42,8 +45,10 @@ export default function CustomLayout({ children }) {
 
   function onChange(checked) {
     if (checked) {
+      context.setDarkMode(true);
       setMode('#111');
     } else {
+      context.setDarkMode(false);
       setMode('#fff');
     }
   }
@@ -73,7 +78,7 @@ export default function CustomLayout({ children }) {
         {cook ? (
           <>
             <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
-              <Menu.Item>
+              <Menu.Item style={{ float: 'left' }}>
                 <Link href="/uploadFile">
                   <a href="/uploadFile">
                     <Text strong style={{ color: '#ffffff' }}>
@@ -81,25 +86,6 @@ export default function CustomLayout({ children }) {
                     </Text>
                   </a>
                 </Link>
-              </Menu.Item>
-              <Menu.Item>
-                {cookieTemp[1] === 'true' ? (
-                  <Link href={`/admin/${cookieTemp[0]}`}>
-                    <a href={`/admin/${cookieTemp[0]}`}>
-                      <Text strong style={{ color: '#ffffff' }}>
-                        Profile
-                      </Text>
-                    </a>
-                  </Link>
-                ) : (
-                  <Link href={`/user/${cookieTemp[0]}`}>
-                    <a href={`/user/${cookieTemp[0]}`}>
-                      <Text strong style={{ color: '#ffffff' }}>
-                        Profile
-                      </Text>
-                    </a>
-                  </Link>
-                )}
               </Menu.Item>
               <SubMenu
                 key="SubMenu"
@@ -111,11 +97,26 @@ export default function CustomLayout({ children }) {
                   </Text>
                 )}
               >
-                <Menu.Item key="setting:1" style={{ backgroundColor: '#363636' }}>
-                  Dark Mode
-                  <Switch defaultChecked onChange={onChange} />
+                <Menu.Item>
+                  {cookieTemp[1] === 'true' ? (
+                    <Link href={`/admin/${cookieTemp[0]}`}>
+                      <a href={`/admin/${cookieTemp[0]}`}>
+                        <Text strong style={{ color: '#ffffff' }}>
+                          Profile
+                        </Text>
+                      </a>
+                    </Link>
+                  ) : (
+                    <Link href={`/user/${cookieTemp[0]}`}>
+                      <a href={`/user/${cookieTemp[0]}`}>
+                        <Text strong style={{ color: '#ffffff' }}>
+                          Profile
+                        </Text>
+                      </a>
+                    </Link>
+                  )}
                 </Menu.Item>
-                <Menu.Item style={{ float: 'right', color: '#ffffff' }}>
+                <Menu.Item style={{ float: 'left', color: '#ffffff' }}>
                   <a onClick={logout}>
                     <Text strong style={{ color: '#ffffff' }}>
                       Logout
