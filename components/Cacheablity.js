@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import {
   // Card,
   // Table,
@@ -11,8 +12,24 @@ import { PolarArea } from 'react-chartjs-2';
 const { Option } = Select;
 export default function Cacheability({ data }) {
   const {
-    cacheability, setCacheabilityFilter, averageTiming, distinctIsps, cacheabilityFilter,
+    cacheability,
+    setCacheabilityFilter,
+    averageTiming,
+    distinctIsps,
+    cacheabilityFilter,
+    setCacheability,
   } = data;
+  useEffect(async () => {
+    await axios
+      .post('http://localhost:3000/api/getCacheability', { cacheabilityFilter })
+      .then((response) => {
+        if (response.status === 200) {
+          // console.log(response.data);
+          setCacheability(response.data);
+          return response.data;
+        }
+      });
+  }, [cacheabilityFilter]);
   // const columnsCacheability = [
   //   {
   //     title: 'Cacheability',

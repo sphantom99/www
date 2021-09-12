@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Typography, Carousel } from 'antd';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 const content = {
   marginTop: '100px',
   width: '80%',

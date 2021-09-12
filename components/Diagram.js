@@ -2,13 +2,15 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
 import { Select, Card } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
 
 const { Option } = Select;
 export default function Diagram({ data }) {
-  const { diagram } = data;
-  const { filter, setFilter } = data;
+  const {
+    filter, setFilter, diagram, setDiagram,
+  } = data;
   const diagramData = [];
   const labelData = [];
   diagram.map((item) => {
@@ -74,6 +76,22 @@ export default function Diagram({ data }) {
   function onFocus() {
     console.log('focus');
   }
+  useEffect(async () => {
+    await axios
+      .post('../api/getAdminStatisticsDiagram', {
+        filter,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          // console.log(response.data);
+          setDiagram(response.data);
+          return response.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }, [filter]);
   return (
     <div>
       <Card title="Diagram" extra={<a href="/reportProblem">Report a problem</a>}>
