@@ -106,8 +106,8 @@ export default function CustomLayout({ children }) {
                     </a>
                   </Link>
                 </Menu.Item>
-                <Menu.Item>
-                  {cookieTemp[1] === 'true' ? (
+                {cookieTemp[1] === 'true' ? (
+                  <Menu.Item>
                     <Link href={`/admin/${cookieTemp[0]}`}>
                       <a href={`/admin/${cookieTemp[0]}`}>
                         <Text strong style={{ color: '#ffffff' }}>
@@ -115,8 +115,8 @@ export default function CustomLayout({ children }) {
                         </Text>
                       </a>
                     </Link>
-                  ) : null}
-                </Menu.Item>
+                  </Menu.Item>
+                ) : null}
                 <Menu.Item style={{ float: 'left', color: '#ffffff' }}>
                   <a onClick={logout}>
                     <Text strong style={{ color: '#ffffff' }}>
