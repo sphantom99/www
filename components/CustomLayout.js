@@ -10,7 +10,7 @@ import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined } from '@ant-design/icons';
 import { MyContext } from '../pages/_app';
 
 const { Text } = Typography;
@@ -106,8 +106,8 @@ export default function CustomLayout({ children }) {
                     </a>
                   </Link>
                 </Menu.Item>
-                <Menu.Item>
-                  {cookieTemp[1] === 'true' ? (
+                {cookieTemp[1] === 'true' ? (
+                  <Menu.Item>
                     <Link href={`/admin/${cookieTemp[0]}`}>
                       <a href={`/admin/${cookieTemp[0]}`}>
                         <Text strong style={{ color: '#ffffff' }}>
@@ -115,8 +115,8 @@ export default function CustomLayout({ children }) {
                         </Text>
                       </a>
                     </Link>
-                  ) : null}
-                </Menu.Item>
+                  </Menu.Item>
+                ) : null}
                 <Menu.Item style={{ float: 'left', color: '#ffffff' }}>
                   <a onClick={logout}>
                     <Text strong style={{ color: '#ffffff' }}>
@@ -152,6 +152,7 @@ export default function CustomLayout({ children }) {
           padding: '0 50px',
           backgroundColor: mode,
           marginTop: 64,
+          marginBottom: 64,
           height: path ? null : '100vh',
         }}
       >
@@ -188,9 +189,9 @@ export default function CustomLayout({ children }) {
       <Footer
         style={{
           textAlign: 'center',
-          // position: 'fixed',
-          // bottom: '0',
-          // width: '100%',
+          position: 'fixed',
+          bottom: '0',
+          width: '100%',
           backgroundColor: '#363636',
         }}
       >
