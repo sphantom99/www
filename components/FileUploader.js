@@ -119,7 +119,9 @@ export default function FileUploader() {
             showUploadList={false}
             maxCount={1}
             beforeUpload={(file) => {
+              setData(false);
               const reader = new FileReader();
+              setLoadingFlag(true);
               reader.onload = async (e) => {
                 try {
                   const tempInfo = await cleanFile(
@@ -130,6 +132,7 @@ export default function FileUploader() {
                     setClient,
                     setIsp,
                   );
+                  setUploadedFlag(false);
                   setInfo({ ...info, ref: tempInfo.ref, name: tempInfo.name });
                   setData(tempInfo.cleanJSON);
                   setFileInfo({ ...fileInfo, name: file.name, size: file.size });
