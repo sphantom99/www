@@ -24,9 +24,7 @@ import {
   UploadOutlined,
   ClearOutlined,
 } from '@ant-design/icons';
-import { Router } from 'next/dist/client/router';
 import cookie from 'js-cookie';
-import Image from 'next/image';
 import cleanFile from '../lib/cleanFile';
 
 const { Dragger } = Upload;
@@ -89,24 +87,19 @@ export default function FileUploader() {
   const [server, setServer] = useState({ lat: '', long: '' });
   const [client, setClient] = useState({ lat: '', long: '' });
   const [fileInfo, setFileInfo] = useState({ name: null, size: null });
-  // eslint-disable-next-line no-unused-vars
   const [isp, setIsp] = useState();
 
   async function lastUploadDate() {
-    // console.log('sending');
     axios
       .post('./api/addUploadToDB', { username: cook[0], data })
       .then((response) => {
-        // console.log(response);
         if (response.status === 200) {
           setUploadedFlag(true);
-          // console.log('date asdasd');
         }
       })
       .catch((error) => {
         console.log(error.response);
       });
-    // router.refresh();
   }
 
   return (
@@ -159,16 +152,6 @@ export default function FileUploader() {
               other band files
             </p>
           </Dragger>
-          {/* {fileInfo.name && (
-            <Card size="small" title="File" style={{ width: 150 }}>
-              <Statistic title="Name" value={fileInfo.name} precision={2} />
-              <Statistic
-                title="size"
-                value={`${(fileInfo.size / 1024 / 1024).toFixed(2)} mb`}
-                precision={2}
-              />
-            </Card>
-          )} */}
           {LoadingFlag && !data && <Spin indicator={antIcon} />}
           {data && (
             <>

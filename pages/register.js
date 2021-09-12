@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
@@ -82,14 +83,9 @@ export default function register(props) {
 
   return (
     <>
-      {/* <Row type="flex" justify="center" align="middle">
-        <Col>
-          <h2>Register here</h2>
-        </Col>
-      </Row> */}
       <Row type="flex" justify="center" align="middle">
         <Col>
-          <div className="login-box">
+          <div className="login-box" style={{ marginTop: 73 }}>
             <h2>Register</h2>
             <Form
               {...formItemLayout}
@@ -219,9 +215,15 @@ export default function register(props) {
                   <input placeholder=" Confirm Password" type="password" />
                 </div>
               </Form.Item>
-              <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit">
-                  Register
+              <Form.Item wrapperCol={{ offset: 7, span: 16 }}>
+                <Button type="link " htmlType="submit" className="reset-this">
+                  <a>
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                    register
+                  </a>
                 </Button>
               </Form.Item>
             </Form>
