@@ -8,7 +8,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import MapGL, { Source, Layer } from 'react-map-gl';
 import { uniq } from 'lodash';
-import { getUniqueIps } from '../lib/dao';
+import { getUniqueIps } from '../../../lib/dao';
 
 function filterFeaturesByDay(featureCollection, time) {
   const date = new Date(time);
@@ -25,7 +25,7 @@ function filterFeaturesByDay(featureCollection, time) {
   });
   return { type: 'FeatureCollection', features };
 }
-const mapBoxToken = 'pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ';
+
 const heatmapLayer = {
   maxzoom: 9,
   type: 'heatmap',
@@ -61,8 +61,9 @@ const heatmapLayer = {
     'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0],
   },
 };
-export async function getServerSideProps() {
-  const uniqueIps = await getUniqueIps();
+export async function getServerSideProps(context) {
+  console.log(context.query.id);
+  const uniqueIps = await getUniqueIps(context.query.id);
   return {
     props: { uniqueIps },
   };
@@ -161,7 +162,7 @@ export default function heatmap(props) {
           height="1000px"
           mapStyle="mapbox://styles/mapbox/dark-v9"
           onViewportChange={setViewport}
-          mapboxApiAccessToken={mapBoxToken}
+          mapboxApiAccessToken={process.env.NEXT_PUBLIC_REACT_MAP_GL}
         >
           {format && (
             <Source type="geojson" data={format}>

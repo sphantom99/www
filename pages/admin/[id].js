@@ -4,7 +4,7 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
 import {
-  Row, Col, Space, Button, Divider, Typography,
+  Row, Col, Space, Divider, Typography,
 } from 'antd';
 import axios from 'axios';
 import Image from 'next/image';

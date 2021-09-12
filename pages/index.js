@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Typography } from 'antd';
+import { Typography, Carousel } from 'antd';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const content = {
   marginTop: '100px',
   width: '80%',
@@ -15,20 +15,61 @@ export default function Home() {
   return (
     <div style={content}>
       <div className="text-center mb-5">
-        <Title>Welcome to</Title>
+        <h1>
+          Welcome to
+          <br />
+          HARHUB
+        </h1>
         <Link href="/login">
-          <h1>
-            <a href="/login">Press Here to procced</a>
-          </h1>
+          <h2>
+            <a href="/login">
+              <Text strong style={{ color: '#2596be' }}>
+                {' '}
+                Press me to procced
+                {' '}
+              </Text>
+            </a>
+          </h2>
         </Link>
       </div>
-      <Image
-        src="/HarHub-logos2.jpeg"
-        className="logo"
-        height="1000"
-        width="1000"
-        alt="Picture of the author"
-      />
+      <Carousel autoplay dotPosition="top">
+        <div>
+          <Image
+            src="/HarHub-logos2.jpeg"
+            className="logo"
+            height="900"
+            width="900"
+            alt="Picture of the author"
+          />
+        </div>
+        <div>
+          <Image
+            src="/carousel2.jpg"
+            className="logo"
+            height="600"
+            width="900"
+            alt="Picture of the author"
+          />
+        </div>
+        <div>
+          <Image
+            src="/carousel3.jpg"
+            className="logo"
+            height="600"
+            width="900"
+            alt="Picture of the author"
+          />
+        </div>
+        <div>
+          <Image
+            src="/carousel4.jpg"
+            className="logo"
+            height="600"
+            width="900"
+            alt="Picture of the author"
+          />
+        </div>
+      </Carousel>
     </div>
   );
 }

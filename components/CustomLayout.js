@@ -1,19 +1,23 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
-  Layout, Menu, Breadcrumb, Button, Typography, Drawer, Space,
+  Layout, Menu, Breadcrumb, Button, Typography, Drawer, Space, Switch,
 } from 'antd';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
+import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { MyContext } from '../pages/_app';
 
 const { Text } = Typography;
 const { Header, Content, Footer } = Layout;
-
+const { SubMenu } = Menu;
 export default function CustomLayout({ children }) {
+  const context = useContext(MyContext);
   const router = useRouter();
   const cook = cookie.get('secret');
   const [visible, setVisible] = useState(false);
@@ -30,13 +34,23 @@ export default function CustomLayout({ children }) {
   }
   const cookieTemp = cook?.split(',');
   const path = router.asPath.split('/')[1] === 'admin';
-
+  const [mode, setMode] = useState('#111');
   async function deleteEntries() {
     await axios.get('http://localhost:3000/api/deleteEntries').then((response) => {
       if (response.status === 200) {
         return response.data;
       }
     });
+  }
+
+  function onChange(checked) {
+    if (checked) {
+      context.setDarkMode(true);
+      setMode('#111');
+    } else {
+      context.setDarkMode(false);
+      setMode('#fff');
+    }
   }
   return (
     <Layout className="layout">
@@ -48,7 +62,20 @@ export default function CustomLayout({ children }) {
           width: '100%',
         }}
       >
-        {cook && (
+        <div
+          style={{
+            height: '20px',
+            position: 'absolute',
+            zIndex: 2,
+            left: '500px',
+          }}
+        >
+          {/* <h1>
+            <span>H</span>
+            <span>H</span>
+          </h1> */}
+        </div>
+        {cook ? (
           <>
             <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
               <Menu.Item>
@@ -60,16 +87,17 @@ export default function CustomLayout({ children }) {
                   </a>
                 </Link>
               </Menu.Item>
-              <Menu.Item>
-                {cookieTemp[1] === 'true' ? (
-                  <Link href={`/admin/${cookieTemp[0]}`}>
-                    <a href={`/admin/${cookieTemp[0]}`}>
-                      <Text strong style={{ color: '#ffffff' }}>
-                        Profile
-                      </Text>
-                    </a>
-                  </Link>
-                ) : (
+              <SubMenu
+                key="SubMenu"
+                style={{ float: 'right', backgroundColor: '#363636' }}
+                icon={<SettingOutlined />}
+                title={(
+                  <Text strong style={{ color: '#ffffff' }}>
+                    {cookieTemp[0]}
+                  </Text>
+                )}
+              >
+                <Menu.Item>
                   <Link href={`/user/${cookieTemp[0]}`}>
                     <a href={`/user/${cookieTemp[0]}`}>
                       <Text strong style={{ color: '#ffffff' }}>
@@ -77,21 +105,26 @@ export default function CustomLayout({ children }) {
                       </Text>
                     </a>
                   </Link>
-                )}
-              </Menu.Item>
-              <Menu.Item style={{ float: 'right' }} disabled>
-                <Text strong style={{ color: '#ffffff' }} copyable>
-                  {cookieTemp[0]}
-                </Text>
-              </Menu.Item>
-              <Menu.Item style={{ float: 'right', color: '#ffffff' }}>
-                <a onClick={logout}>
-                  <Text strong style={{ color: '#ffffff' }}>
-                    Logout
-                  </Text>
-                </a>
-              </Menu.Item>
-
+                </Menu.Item>
+                <Menu.Item>
+                  {cookieTemp[1] === 'true' ? (
+                    <Link href={`/admin/${cookieTemp[0]}`}>
+                      <a href={`/admin/${cookieTemp[0]}`}>
+                        <Text strong style={{ color: '#ffffff' }}>
+                          Statistics
+                        </Text>
+                      </a>
+                    </Link>
+                  ) : null}
+                </Menu.Item>
+                <Menu.Item style={{ float: 'left', color: '#ffffff' }}>
+                  <a onClick={logout}>
+                    <Text strong style={{ color: '#ffffff' }}>
+                      Logout
+                    </Text>
+                  </a>
+                </Menu.Item>
+              </SubMenu>
               <Menu.Item style={{ float: 'right' }} className="customclass">
                 <a onClick={showDrawer}>
                   <Text strong style={{ color: '#ffffff' }}>
@@ -101,13 +134,23 @@ export default function CustomLayout({ children }) {
               </Menu.Item>
             </Menu>
           </>
+        ) : (
+          <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
+            <Menu.Item style={{ float: 'right' }} className="customclass">
+              <a onClick={showDrawer}>
+                <Text strong style={{ color: '#ffffff' }}>
+                  Special Actions
+                </Text>
+              </a>
+            </Menu.Item>
+          </Menu>
         )}
       </Header>
       <Content
         className="site-layout"
         style={{
           padding: '0 50px',
-          // backgroundColor: '#CC527A',
+          backgroundColor: mode,
           marginTop: 64,
           height: path ? null : '100vh',
         }}
@@ -123,9 +166,20 @@ export default function CustomLayout({ children }) {
               visible={visible}
             >
               <Space direction="vertical">
-                <Button type="primary" danger onClick={deleteEntries}>
-                  Delete all entries
-                </Button>
+                {cook ? (
+                  <>
+                    <Button type="primary" danger onClick={deleteEntries}>
+                      Delete all entries
+                    </Button>
+                    Dark Mode
+                    <Switch defaultChecked onChange={onChange} />
+                  </>
+                ) : (
+                  <>
+                    Dark Mode
+                    <Switch defaultChecked onChange={onChange} />
+                  </>
+                )}
               </Space>
             </Drawer>
           </div>

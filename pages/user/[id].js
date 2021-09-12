@@ -69,7 +69,7 @@ export default function User(props) {
     });
   };
   const onFinish = async (values) => {
-    if (values.passwordOld === info.passwordHash) {
+    if (values.passwordOld === info.encryptedPassword) {
       console.log('Success:', values);
       axios
         .post('http://localhost:3000/api/changeUsernamePassword', {
@@ -84,7 +84,7 @@ export default function User(props) {
         .catch((error) => {
           console.log(error.response);
         });
-    } else if (values.passwordOld !== info.passwordHash) {
+    } else if (values.passwordOld !== info.encryptedPassword) {
       openNotification('ERROR', 'Old password doesnt match.');
     }
   };
@@ -177,9 +177,9 @@ export default function User(props) {
           </Card>
           <Card title="Heatmap" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 500 }}>
             <div style={content}>
-              <Link href="/heatmap">
+              <Link href={`/user/${username}/heatmap`}>
                 Press here to visualize your data.
-                <a href="/heatmap">
+                <a href={`/user/${username}/heatmap`}>
                   <Image
                     src="/mapHeatmap.jpg"
                     className="logo"

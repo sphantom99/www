@@ -9,6 +9,6 @@ export default async function getAdminStatisticsDiagram(req, res) {
     filter?.httpMethod,
     filter?.provider,
   );
-//   console.log('stats', stats);
+  //   console.log('stats', stats);
   res.json(stats);
 }
