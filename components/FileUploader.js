@@ -133,8 +133,8 @@ export default function FileUploader() {
                     setIsp,
                   );
                   setUploadedFlag(false);
-                  setInfo({ ...info, ref: tempInfo.ref, name: tempInfo.name });
-                  setData(tempInfo.cleanJSON);
+                  setInfo({ ...info, ref: tempInfo.url, name: tempInfo.name });
+                  setData(tempInfo.cleanHarAfterFormat);
                   setFileInfo({ ...fileInfo, name: file.name, size: file.size });
                   openNotification('Success', 'Your file has been uploaded to our servers');
                 } catch (e) {
