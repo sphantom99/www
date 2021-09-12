@@ -120,7 +120,7 @@ export default function register(props) {
                   <input className="reset-this" placeholder="Username" />
                 </div>
               </Form.Item>
-              {/* <Form.Item
+              <Form.Item
                 labelCol={{ span: 24 }}
                 name="firstName"
                 tooltip="What do you want others to call you?"
@@ -129,7 +129,7 @@ export default function register(props) {
                 ]}
               >
                 <div className="user-box">
-                  <Input placeholder="First Name" />
+                  <input placeholder="First Name" />
                 </div>
               </Form.Item>
               <Form.Item
@@ -141,9 +141,9 @@ export default function register(props) {
                 ]}
               >
                 <div className="user-box">
-                  <Input placeholder="Last Name" />
+                  <input placeholder="Last Name" />
                 </div>
-              </Form.Item> */}
+              </Form.Item>
               <Form.Item
                 labelCol={{ span: 24 }}
                 name="email"
