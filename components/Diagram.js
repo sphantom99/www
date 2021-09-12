@@ -9,7 +9,6 @@ const { Option } = Select;
 export default function Diagram({ data }) {
   const { diagram } = data;
   const { filter, setFilter } = data;
-  //   const [diagram, setDiagram] = useState(data.diagram);
   const diagramData = [];
   const labelData = [];
   diagram.map((item) => {

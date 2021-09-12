@@ -224,19 +224,12 @@ export default function admin(props) {
           <Col span={12}>
             <Histogram data={histogramStats} />
           </Col>
-          <Col span={1}>
-            {/* <Divider
-              type="vertical"
-              style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }}
-            /> */}
-          </Col>
+          <Col span={1} />
           <Col span={11}>
             <div
               style={{
                 background: '#fff',
                 height: '100%',
-                // display: 'flex',
-                // 'vertical-align': 'middle',
               }}
             >
               <Title level={3}>Histogram Information</Title>
@@ -287,8 +280,6 @@ export default function admin(props) {
               style={{
                 background: '#fff',
                 height: '100%',
-                // display: 'flex',
-                // 'vertical-align': 'middle',
               }}
             >
               <Title level={3}>Diagram Information</Title>
@@ -352,9 +343,6 @@ export default function admin(props) {
               </Link>
             </div>
           </Col>
-          {/* <Button type="primary" block>
-            <a href="/map">Map</a>
-          </Button> */}
         </Row>
       </Space>
     </div>
