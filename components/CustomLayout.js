@@ -10,7 +10,7 @@ import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined } from '@ant-design/icons';
 import { MyContext } from '../pages/_app';
 
 const { Text } = Typography;
@@ -152,6 +152,7 @@ export default function CustomLayout({ children }) {
           padding: '0 50px',
           backgroundColor: mode,
           marginTop: 64,
+          marginBottom: 64,
           height: path ? null : '100vh',
         }}
       >
@@ -188,9 +189,9 @@ export default function CustomLayout({ children }) {
       <Footer
         style={{
           textAlign: 'center',
-          // position: 'fixed',
-          // bottom: '0',
-          // width: '100%',
+          position: 'fixed',
+          bottom: '0',
+          width: '100%',
           backgroundColor: '#363636',
         }}
       >
