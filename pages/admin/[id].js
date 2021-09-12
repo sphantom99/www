@@ -170,11 +170,10 @@ export default function admin(props) {
     <div>
       <Space direction="vertical">
         <Row>
-          <Col span={24}>
-            <AdminStatistics data={adminStats} />
-          </Col>
+          <AdminStatistics data={adminStats} />
+
           <Divider style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }} />
-          <Col span={12}>
+          <Col xs={12}>
             <Histogram data={histogramStats} />
           </Col>
           <Col span={1} />
@@ -274,13 +273,13 @@ export default function admin(props) {
         <Divider style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }} />
 
         <Row>
-          <Col span={8}>
+          <Col xs={24} lg={8}>
             <MinMax data={minMaxStats} />
           </Col>
-          <Col span={8}>
+          <Col xs={24} lg={8}>
             <Cacheability data={cacheabilityStats} />
           </Col>
-          <Col span={8}>
+          <Col xs={24} lg={8}>
             <div style={content}>
               <Link href="/map">
                 Press here to visualize your data.

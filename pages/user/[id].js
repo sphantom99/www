@@ -92,7 +92,8 @@ export default function User(props) {
   return (
     <div>
       <Row>
-        <Col xs={10}>
+        <Col xs={0} sm={2} lg={4} />
+        <Col xs={24} sm={9}>
           <Card
             title="Change Username/Password"
             extra={<a href="/user">Report a problem</a>}
@@ -158,8 +159,8 @@ export default function User(props) {
             </Form>
           </Card>
         </Col>
-        <Col xs={2} />
-        <Col xs={10}>
+        <Col xs={0} sm={3} lg={2} />
+        <Col xs={24} sm={8}>
           <Card
             title="Statistics"
             extra={<a href="/user">Report a problem</a>}
@@ -175,7 +176,11 @@ export default function User(props) {
               </Col>
             </Row>
           </Card>
-          <Card title="Heatmap" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 500 }}>
+          <Card
+            title="Heatmap"
+            extra={<a href="/reportProblem">Report a problem</a>}
+            style={{ width: 500 }}
+          >
             <div style={content}>
               <Link href={`/user/${username}/heatmap`}>
                 Press here to visualize your data.
