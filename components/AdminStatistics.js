@@ -77,9 +77,9 @@ export default function AdminStatistics({ data }) {
     },
   ];
   return (
-    <Card title="Basic Admin Statistics" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 1321 }}>
+    <Card title="Basic Admin Statistics" extra={<a href="/reportProblem">Report a problem</a>}>
       <Row>
-        <Col span={5}>
+        <Col xs={11} lg={5}>
           <Table
             columns={columnsMethod}
             dataSource={method}
@@ -88,8 +88,8 @@ export default function AdminStatistics({ data }) {
             }}
           />
         </Col>
-        <Col span={1} />
-        <Col span={5}>
+        <Col xs={2} lg={1} />
+        <Col xs={11} lg={5}>
           <Table
             columns={columnsStatus}
             dataSource={status}
@@ -98,8 +98,8 @@ export default function AdminStatistics({ data }) {
             }}
           />
         </Col>
-        <Col span={1} />
-        <Col span={6}>
+        <Col xs={0} lg={1} />
+        <Col xs={11} lg={5}>
           <Table
             columns={columnsTimingsPerContentType}
             dataSource={averageTiming}
@@ -108,12 +108,9 @@ export default function AdminStatistics({ data }) {
             }}
           />
         </Col>
-        <Col span={1} />
-        <Col span={5}>
-          <Table
-            columns={columnsStats}
-            dataSource={stats}
-          />
+        <Col xs={2} lg={1} />
+        <Col xs={11} lg={5}>
+          <Table columns={columnsStats} dataSource={stats} />
         </Col>
       </Row>
     </Card>

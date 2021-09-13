@@ -2,7 +2,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 /* eslint-disable radix */
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import {
   Card,
   Select,
@@ -13,7 +14,12 @@ import { Bar } from 'react-chartjs-2';
 const { Option } = Select;
 export default function Histogram({ data }) {
   const {
-    histogram, averageTiming, setHistogramFilter, histogramFilter, distinctIsps,
+    histogram,
+    averageTiming,
+    setHistogramFilter,
+    histogramFilter,
+    distinctIsps,
+    setHistogram,
   } = data;
   let bucketSize = 0;
   let bucketRange = [];
@@ -72,6 +78,18 @@ export default function Histogram({ data }) {
   function onFocus() {
     console.log('focus');
   }
+  useEffect(async () => {
+    console.log('client', histogramFilter);
+    await axios
+      .post('http://localhost:3000/api/getHistogram', { histogramFilter })
+      .then((response) => {
+        if (response.status === 200) {
+          // console.log(response.data);
+          setHistogram(response.data);
+          return response.data;
+        }
+      });
+  }, [histogramFilter]);
   return (
     <div>
       <Card title="Histogram" extra={<a href="/reportProblem">Report a problem</a>}>

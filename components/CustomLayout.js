@@ -62,23 +62,10 @@ export default function CustomLayout({ children }) {
           width: '100%',
         }}
       >
-        <div
-          style={{
-            height: '20px',
-            position: 'absolute',
-            zIndex: 2,
-            left: '500px',
-          }}
-        >
-          {/* <h1>
-            <span>H</span>
-            <span>H</span>
-          </h1> */}
-        </div>
         {cook ? (
           <>
             <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
-              <Menu.Item>
+              <Menu.Item style={{ float: 'left' }}>
                 <Link href="/uploadFile">
                   <a href="/uploadFile">
                     <Text strong style={{ color: '#ffffff' }}>
@@ -106,8 +93,8 @@ export default function CustomLayout({ children }) {
                     </a>
                   </Link>
                 </Menu.Item>
-                <Menu.Item>
-                  {cookieTemp[1] === 'true' ? (
+                {cookieTemp[1] === 'true' ? (
+                  <Menu.Item>
                     <Link href={`/admin/${cookieTemp[0]}`}>
                       <a href={`/admin/${cookieTemp[0]}`}>
                         <Text strong style={{ color: '#ffffff' }}>
@@ -115,8 +102,8 @@ export default function CustomLayout({ children }) {
                         </Text>
                       </a>
                     </Link>
-                  ) : null}
-                </Menu.Item>
+                  </Menu.Item>
+                ) : null}
                 <Menu.Item style={{ float: 'left', color: '#ffffff' }}>
                   <a onClick={logout}>
                     <Text strong style={{ color: '#ffffff' }}>
@@ -136,7 +123,7 @@ export default function CustomLayout({ children }) {
           </>
         ) : (
           <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
-            <Menu.Item style={{ float: 'right' }} className="customclass">
+            <Menu.Item className="customclass">
               <a onClick={showDrawer}>
                 <Text strong style={{ color: '#ffffff' }}>
                   Special Actions
@@ -152,6 +139,7 @@ export default function CustomLayout({ children }) {
           padding: '0 50px',
           backgroundColor: mode,
           marginTop: 64,
+          marginBottom: 64,
           height: path ? null : '100vh',
         }}
       >
@@ -188,14 +176,14 @@ export default function CustomLayout({ children }) {
       <Footer
         style={{
           textAlign: 'center',
-          // position: 'fixed',
-          // bottom: '0',
-          // width: '100%',
+          position: 'fixed',
+          bottom: '0',
+          width: '100%',
           backgroundColor: '#363636',
         }}
       >
         <Text strong style={{ color: '#ffffff' }}>
-          WEB ©2021 Created by CEID students
+          HARHUB ©2021 Created by programmers
         </Text>
       </Footer>
     </Layout>

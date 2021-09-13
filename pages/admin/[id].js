@@ -2,7 +2,7 @@
 /* eslint-disable radix */
 /* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Row, Col, Space, Divider, Typography,
 } from 'antd';
@@ -118,7 +118,6 @@ export default function admin(props) {
     distinctIsps,
   };
   const [diagram, setDiagram] = useState(props.diagram);
-  const [histogram, setHistogram] = useState(props.histogram);
   const [filter, setFilter] = useState({
     contentType: null,
     weekDay: null,
@@ -129,15 +128,18 @@ export default function admin(props) {
     diagram,
     filter,
     setFilter,
+    setDiagram,
     distinctIsps,
     averageTiming,
     method,
   };
+  const [histogram, setHistogram] = useState(props.histogram);
   const [histogramFilter, setHistogramFilter] = useState({ contentType: [], isp: [] });
   const histogramStats = {
     histogram,
     averageTiming,
     histogramFilter,
+    setHistogram,
     distinctIsps,
     setHistogramFilter,
   };
@@ -147,6 +149,7 @@ export default function admin(props) {
   const minMaxStats = {
     minMaxFilter,
     setMinMaxFilter,
+    setMinMax,
     minMax,
     averageTiming,
     distinctIsps,
@@ -157,86 +160,28 @@ export default function admin(props) {
   const cacheabilityStats = {
     cacheabilityFilter,
     setCacheabilityFilter,
+    setCacheability,
     cacheability,
     averageTiming,
     distinctIsps,
   };
 
-  useEffect(async () => {
-    await axios
-      .post('http://localhost:3000/api/getCacheability', { cacheabilityFilter })
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log(response.data);
-          setCacheability(response.data);
-          return response.data;
-        }
-      });
-  }, [cacheabilityFilter]);
-
-  useEffect(async () => {
-    console.log('client', histogramFilter);
-    await axios
-      .post('http://localhost:3000/api/getHistogram', { histogramFilter })
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log(response.data);
-          setHistogram(response.data);
-          return response.data;
-        }
-      });
-  }, [histogramFilter]);
-
-  useEffect(async () => {
-    await axios
-      .post('../api/getAdminStatisticsDiagram', {
-        filter,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          // console.log(response.data);
-          setDiagram(response.data);
-          return response.data;
-        }
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  }, [filter]);
-
-  useEffect(async () => {
-    await axios.post('http://localhost:3000/api/getMinMax', { minMaxFilter }).then((response) => {
-      if (response.status === 200) {
-        // console.log(response.data);
-        setMinMax(response.data);
-        return response.data;
-      }
-    });
-  }, [minMaxFilter]);
   return (
     <div>
       <Space direction="vertical">
         <Row>
-          <Col span={24}>
-            <AdminStatistics data={adminStats} />
-          </Col>
+          <AdminStatistics data={adminStats} />
+
           <Divider style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }} />
-          <Col span={12}>
+          <Col xs={12}>
             <Histogram data={histogramStats} />
           </Col>
-          <Col span={1}>
-            {/* <Divider
-              type="vertical"
-              style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }}
-            /> */}
-          </Col>
+          <Col span={1} />
           <Col span={11}>
             <div
               style={{
                 background: '#fff',
                 height: '100%',
-                // display: 'flex',
-                // 'vertical-align': 'middle',
               }}
             >
               <Title level={3}>Histogram Information</Title>
@@ -287,8 +232,6 @@ export default function admin(props) {
               style={{
                 background: '#fff',
                 height: '100%',
-                // display: 'flex',
-                // 'vertical-align': 'middle',
               }}
             >
               <Title level={3}>Diagram Information</Title>
@@ -330,13 +273,13 @@ export default function admin(props) {
         <Divider style={{ height: '100%', borderWidth: 2, borderColor: '#363636' }} />
 
         <Row>
-          <Col span={8}>
+          <Col xs={24} lg={8}>
             <MinMax data={minMaxStats} />
           </Col>
-          <Col span={8}>
+          <Col xs={24} lg={8}>
             <Cacheability data={cacheabilityStats} />
           </Col>
-          <Col span={8}>
+          <Col xs={24} lg={8}>
             <div style={content}>
               <Link href="/map">
                 Press here to visualize your data.
@@ -352,9 +295,6 @@ export default function admin(props) {
               </Link>
             </div>
           </Col>
-          {/* <Button type="primary" block>
-            <a href="/map">Map</a>
-          </Button> */}
         </Row>
       </Space>
     </div>

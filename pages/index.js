@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Typography, Carousel } from 'antd';
+import {
+  Typography, Carousel, Row, Col,
+} from 'antd';
 
-// eslint-disable-next-line no-unused-vars
-const { title, Text } = Typography;
+const { Text } = Typography;
 const content = {
   marginTop: '100px',
   width: '80%',
@@ -33,44 +34,50 @@ export default function Home() {
           </h2>
         </Link>
       </div>
-      <Carousel autoplay dotPosition="top">
-        <div>
-          <Image
-            src="/HarHub-logos2.jpeg"
-            className="logo"
-            height="900"
-            width="900"
-            alt="Picture of the author"
-          />
-        </div>
-        <div>
-          <Image
-            src="/carousel2.jpg"
-            className="logo"
-            height="600"
-            width="900"
-            alt="Picture of the author"
-          />
-        </div>
-        <div>
-          <Image
-            src="/carousel3.jpg"
-            className="logo"
-            height="600"
-            width="900"
-            alt="Picture of the author"
-          />
-        </div>
-        <div>
-          <Image
-            src="/carousel4.jpg"
-            className="logo"
-            height="600"
-            width="900"
-            alt="Picture of the author"
-          />
-        </div>
-      </Carousel>
+      <Row>
+        <Col xs={5} sm={6.5} xl={7} xxl={7.8} />
+        <Col xs={12}>
+          <Carousel autoplay dotPosition="top">
+            <div>
+              <Image
+                src="/HarHub-logos2.jpeg"
+                className="logo"
+                height="900"
+                width="900"
+                alt="Picture of the author"
+              />
+            </div>
+            <div>
+              <Image
+                src="/carousel2.jpg"
+                className="logo"
+                height="600"
+                width="900"
+                alt="Picture of the author"
+              />
+            </div>
+            <div>
+              <Image
+                src="/carousel3.jpg"
+                className="logo"
+                height="600"
+                width="900"
+                alt="Picture of the author"
+              />
+            </div>
+            <div>
+              <Image
+                src="/carousel4.jpg"
+                className="logo"
+                height="600"
+                width="900"
+                alt="Picture of the author"
+              />
+            </div>
+          </Carousel>
+        </Col>
+        <Col xs={4}> </Col>
+      </Row>
     </div>
   );
 }

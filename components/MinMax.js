@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import { Card, Table, Select } from 'antd';
 
 const { Option } = Select;
 export default function MinMax({ data }) {
   const {
-    minMax, setMinMaxFilter, averageTiming, distinctIsps,
+    minMax, setMinMaxFilter, averageTiming, distinctIsps, setMinMax, minMaxFilter,
   } = data;
   const columnsDirective = [
     {
@@ -46,8 +47,21 @@ export default function MinMax({ data }) {
   function onFocus() {
     console.log('focus');
   }
+  useEffect(async () => {
+    await axios.post('http://localhost:3000/api/getMinMax', { minMaxFilter }).then((response) => {
+      if (response.status === 200) {
+        // console.log(response.data);
+        setMinMax(response.data);
+        return response.data;
+      }
+    });
+  }, [minMaxFilter]);
   return (
-    <Card title="Statistics" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 400 }}>
+    <Card
+      title="Statistics"
+      extra={<a href="/reportProblem">Report a problem</a>}
+      style={{ width: 400 }}
+    >
       <Table columns={columnsDirective} dataSource={stats} />
       <Select
         style={{ width: 200 }}
