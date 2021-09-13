@@ -10,7 +10,7 @@ import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import Link from 'next/link';
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined } from '@ant-design/icons';
 import { MyContext } from '../pages/_app';
 
 const { Text } = Typography;

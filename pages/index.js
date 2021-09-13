@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Typography, Carousel } from 'antd';
 
-const { Title, Text } = Typography;
+// eslint-disable-next-line no-unused-vars
+const { title, Text } = Typography;
 const content = {
   marginTop: '100px',
   width: '80%',

@@ -74,7 +74,8 @@ export default function User(props) {
       axios
         .post('http://localhost:3000/api/changeUsernamePassword', {
           password: values.passwordNew,
-          username: values.username,
+          newUsername: values.username,
+          username,
         })
         .then((response) => {
           if (response.status === 200) {
