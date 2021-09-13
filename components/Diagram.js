@@ -1,3 +1,5 @@
+/* eslint-disable no-const-assign */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 /* eslint-disable array-callback-return */
@@ -13,6 +15,7 @@ export default function Diagram({ data }) {
   } = data;
   const diagramData = [];
   const labelData = [];
+  setDiagram(diagram.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0)));
   diagram.map((item) => {
     labelData.push(`${item.id}:00`);
     diagramData.push(item.averageTime);

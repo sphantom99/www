@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 
@@ -76,13 +78,17 @@ export default function AdminStatistics({ data }) {
       count: distinctIsps?.count,
     },
   ];
+  console.log('contentType::', averageTiming);
+  const methodSorted = method.sort((a, b) => (a.method > b.method ? -1 : b.method > a.method ? 1 : 0));
+  const statusSorted = status.sort((a, b) => (a.status > b.status ? -1 : b.status > a.status ? 1 : 0));
+  const contentTypeSorted = averageTiming.sort((a, b) => (a.contentType > b.contentType ? 1 : b.contentType > a.contentType ? -1 : 0));
   return (
     <Card title="Basic Admin Statistics" extra={<a href="/reportProblem">Report a problem</a>}>
       <Row>
         <Col xs={11} lg={5}>
           <Table
             columns={columnsMethod}
-            dataSource={method}
+            dataSource={methodSorted}
             pagination={{
               defaultPageSize: 3,
             }}
@@ -92,7 +98,7 @@ export default function AdminStatistics({ data }) {
         <Col xs={11} lg={5}>
           <Table
             columns={columnsStatus}
-            dataSource={status}
+            dataSource={statusSorted}
             pagination={{
               defaultPageSize: 3,
             }}
@@ -102,7 +108,7 @@ export default function AdminStatistics({ data }) {
         <Col xs={11} lg={5}>
           <Table
             columns={columnsTimingsPerContentType}
-            dataSource={averageTiming}
+            dataSource={contentTypeSorted}
             pagination={{
               defaultPageSize: 3,
             }}
