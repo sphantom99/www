@@ -95,6 +95,7 @@ export default function FileUploader() {
       .then((response) => {
         if (response.status === 200) {
           setUploadedFlag(true);
+          openNotification('Success', 'Your file has been uploaded to our servers');
         }
       })
       .catch((error) => {
@@ -129,7 +130,7 @@ export default function FileUploader() {
                   setInfo({ ...info, ref: tempInfo.url, name: tempInfo.name });
                   setData(tempInfo.cleanHarAfterFormat);
                   setFileInfo({ ...fileInfo, name: file.name, size: file.size });
-                  openNotification('Success', 'Your file has been uploaded to our servers');
+                  openNotification('Success', 'Your file is cleaned and ready.');
                 } catch (e) {
                   openNotification(
                     'Error',
