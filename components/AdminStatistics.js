@@ -83,7 +83,11 @@ export default function AdminStatistics({ data }) {
   const statusSorted = status.sort((a, b) => (a.status > b.status ? -1 : b.status > a.status ? 1 : 0));
   const contentTypeSorted = averageTiming.sort((a, b) => (a.contentType > b.contentType ? 1 : b.contentType > a.contentType ? -1 : 0));
   return (
-    <Card title="Basic Admin Statistics" extra={<a href="/reportProblem">Report a problem</a>}>
+    <Card
+      title="Basic Admin Statistics"
+      extra={<a href="/reportProblem">Report a problem</a>}
+      style={{ width: '1300px' }}
+    >
       <Row>
         <Col xs={11} lg={5}>
           <Table
@@ -105,7 +109,7 @@ export default function AdminStatistics({ data }) {
           />
         </Col>
         <Col xs={0} lg={1} />
-        <Col xs={11} lg={5}>
+        <Col xs={11} lg={6}>
           <Table
             columns={columnsTimingsPerContentType}
             dataSource={contentTypeSorted}
