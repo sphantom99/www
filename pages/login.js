@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import {
-  Form, Input, Button, Row, Col,
+  Form, Input, Button, Row, Col, notification,
 } from 'antd';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -9,6 +9,32 @@ import cookie from 'js-cookie';
 
 export default function Login() {
   const router = useRouter();
+
+  const close = () => {
+    console.log(
+      'Notification was closed. Either the close button was clicked or duration time elapsed.',
+    );
+  };
+  const openNotification = (errorTitle, errorMessage) => {
+    const key = `open${Date.now()}`;
+    const btn = (
+      <Button
+        type="primary"
+        size="small"
+        onClick={() => notification.close(key)}
+        style={{ backgroundColor: errorTitle === 'Success' ? '#43c333' : '#ee3737' }}
+      >
+        Confirm
+      </Button>
+    );
+    notification.open({
+      message: errorTitle,
+      description: errorMessage,
+      btn,
+      key,
+      onClose: close,
+    });
+  };
 
   async function onFinish(values) {
     axios
@@ -22,6 +48,11 @@ export default function Login() {
           cookie.set('secret', `${response.data.username},${response.data.is_admin}`, {
             expires: 1,
           });
+        } else {
+          openNotification(
+            'Wrong Credentials',
+            'Your username or your password may be wrong. Please try again.',
+          );
         }
       })
       .catch((error) => {
@@ -31,6 +62,10 @@ export default function Login() {
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
+    openNotification(
+      'Wrong Credentials',
+      'Your username or your password may be wrong. Please try again.',
+    );
   };
 
   return (
