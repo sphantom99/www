@@ -1,27 +1,12 @@
-# Ant Design example
+# HARHUB
 
-This example shows how to use Next.js along with [Ant Design of React](https://ant.design). This is intended to show the integration of this UI toolkit with the Framework.
-
-## Preview
-
-Preview the example live on [StackBlitz](http://stackblitz.com/):
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-ant-design)
-
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-ant-design&project-name=with-ant-design&repository-name=with-ant-design)
+This was a project assigned in the "Programming and Systems in the WWW" subject of the Computer Engineering and Informatics Department in the University Of Patras. The purpose of the project is to use new technologies to create a har file analyzer. It includes custom statistics as well as geolocation for the users requests. 
 
 ## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+To run this project, you need NodeJS installed. After that, you can clone this repository and run the following commands: 
 
 ```bash
-npx create-next-app --example with-ant-design with-ant-design-app
-# or
-yarn create next-app --example with-ant-design with-ant-design-app
+npm install
+npm run build
+npm run start
 ```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
