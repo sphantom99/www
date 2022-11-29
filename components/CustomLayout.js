@@ -65,7 +65,7 @@ export default function CustomLayout({ children }) {
         {cook ? (
           <>
             <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
-              <Menu.Item>
+              <Menu.Item style={{ float: 'left' }}>
                 <Link href="/uploadFile">
                   <a href="/uploadFile">
                     <Text strong style={{ color: '#ffffff' }}>
@@ -123,7 +123,7 @@ export default function CustomLayout({ children }) {
           </>
         ) : (
           <Menu style={{ backgroundColor: '#363636' }} theme="dark" mode="horizontal">
-            <Menu.Item style={{ float: 'right' }} className="customclass">
+            <Menu.Item className="customclass">
               <a onClick={showDrawer}>
                 <Text strong style={{ color: '#ffffff' }}>
                   Special Actions

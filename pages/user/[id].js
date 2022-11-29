@@ -68,13 +68,35 @@ export default function User(props) {
       },
     });
   };
+  const changeUsername = async (values) => {
+    console.log(values);
+    if (values.newUsername) {
+      console.log('Success:', values);
+      axios
+        .post('http://localhost:3000/api/changeUsername', {
+          newUsername: values.newUsername,
+          oldUsername: username,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data === false) {
+            openNotification('ERROR', 'Username Already Exists');
+          } else if (response.status === 200) {
+            openNotification('SUCCESS', 'Username changed.');
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    }
+  };
   const onFinish = async (values) => {
     if (values.passwordOld === info.encryptedPassword) {
       console.log('Success:', values);
       axios
-        .post('http://localhost:3000/api/changeUsernamePassword', {
+        .post('http://localhost:3000/api/changePassword', {
           password: values.passwordNew,
-          username: values.username,
+          username,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -92,9 +114,10 @@ export default function User(props) {
   return (
     <div>
       <Row>
-        <Col xs={10}>
+        <Col xs={0} sm={2} lg={4} />
+        <Col xs={24} sm={10}>
           <Card
-            title="Change Username/Password"
+            title="Change Password"
             extra={<a href="/user">Report a problem</a>}
             style={{ width: 500 }}
           >
@@ -102,18 +125,10 @@ export default function User(props) {
               name="basic"
               labelCol={{ span: 8 }}
               wrapperCol={{ span: 16 }}
-              initialValues={{ username }}
+              initialValues={{ oldUsername: username }}
               onFinish={onFinish}
               onFinishFailed={() => openNotification('error accured')}
             >
-              <Form.Item
-                label="Username"
-                name="username"
-                rules={[{ required: true, message: 'Please input your username!' }]}
-              >
-                <Input autoComplete="off" />
-              </Form.Item>
-
               <Form.Item
                 label=" Old Password"
                 name="passwordOld"
@@ -157,9 +172,43 @@ export default function User(props) {
               </Form.Item>
             </Form>
           </Card>
+          <Card
+            title="Change Username"
+            extra={<a href="/user">Report a problem</a>}
+            style={{ width: 500 }}
+          >
+            <Form
+              name="basic"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+              initialValues={{ username }}
+              onFinish={changeUsername}
+              onFinishFailed={() => openNotification('error accured')}
+            >
+              <Form.Item
+                label="Old Username"
+                name="username"
+                rules={[{ required: true, message: 'Please input your username!' }]}
+              >
+                <Input disabled autoComplete="off" />
+              </Form.Item>
+
+              <Form.Item
+                label="New Username"
+                name="newUsername"
+                rules={[{ required: true, message: 'Please input your new Username!' }]}
+              >
+                <Input autoComplete="off" />
+              </Form.Item>
+              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Button type="primary" htmlType="submit">
+                  Change
+                </Button>
+              </Form.Item>
+            </Form>
+          </Card>
         </Col>
-        <Col xs={2} />
-        <Col xs={10}>
+        <Col xs={24} sm={10}>
           <Card
             title="Statistics"
             extra={<a href="/user">Report a problem</a>}
@@ -175,7 +224,11 @@ export default function User(props) {
               </Col>
             </Row>
           </Card>
-          <Card title="Heatmap" extra={<a href="/reportProblem">Report a problem</a>} style={{ width: 500 }}>
+          <Card
+            title="Heatmap"
+            extra={<a href="/reportProblem">Report a problem</a>}
+            style={{ width: 500 }}
+          >
             <div style={content}>
               <Link href={`/user/${username}/heatmap`}>
                 Press here to visualize your data.
